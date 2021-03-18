@@ -7,8 +7,10 @@ En su lugar meter el archivo en la rama correspondiente para una mayor organizac
 
 1º Mirar en que rama estais (lo pone arriba a la izquierda, si lo desplegais os salen todas las ramas que existen en el proyecto), 
    confirmar que es en la que debeis ponerlo y entonces ir a la pestaña de upload.
+
 2º Arrastrais el archivo donde os dice que lo arrastreis y abajo os vuelve a poner el sitio donde lo vais a subir,
    confirmar nuevamente que es ahi donde lo teneis que subir y aceptar. 
+
 3º No hay mas pasos, fasilito.
 
 Y algo muy importante por favor... No borreis las ramas porque se va todo a la mierda y no se puede deshacer (Atento Albertillo haznos el favor).
