@@ -1,7 +1,6 @@
 # SW
-Protectora Animales
 
-Info importante!!!!!!!!!!!!!!!!!!
+INFO IMPORTANTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Gente, no metais nada en esta rama principal (salvo casos excepcionales).
 En su lugar meter el archivo en la rama correspondiente para una mayor organizacion, pasos:
@@ -18,4 +17,6 @@ Para hacer cambios de un archivo aqui en el github os vais al archivo de la rama
 cambiais lo que necesiteis o si lo que quereis es resubir todo porque habeis hecho muchos cambios en un editor aparte entonces seleccionais todo lo vuestro, lo copiais,
 os vais al archivo del github, dais al lapiz y pegais todo (sobreescribiendo todo lo que habia antes en el archivo, para evitar confusiones).
 
-Ale, a trabajar todo el mundo. Un saludo y ánimo cracks
+Ale, a trabajar todo el mundo. Un saludo y ánimo cracks.
+
+P.D: Aqui subid sobretodo archivos de codigo (.html, .php, .css), las imagenes mejor subidlas al drive en la carpeta que tenemos compartida de la asignatura.
