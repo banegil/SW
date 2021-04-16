@@ -15,14 +15,120 @@ class Animal
            $animal = new Animal($fila['ID'], $fila['nombre'], 
                                 $fila['nacimiento'], $fila['tipo'], $fila['raza'],
                                 $fila['sexo'], $fila['peso'], 
-                                $fila['fecha_ingreso'], $fila['protectora'], 
-                                $fila['historia_feliz'], $fila['dni_propietario']);
+                                $fila['ingreso'], $fila['protectora'], 
+                                $fila['historia'], $fila['DNI']);
         $rs->free();
         return $animal;
        }
        return false;
     }
 
+   public static function getAdoptados($dni){
+      $conn = getConexionBD();
+         $query = sprintf("SELECT * FROM Animales WHERE DNI='%s' ",$dni); 
+         $rs = $conn->query($query);
+         if($rs && ($rs->num_rows >0)){
+            $resultado = [];
+            while($fila=$rs->fetch_assoc()){
+               $animal = new Animal($fila['ID'], $fila['nombre'], 
+               $fila['nacimiento'], $fila['tipo'], $fila['raza'],
+               $fila['sexo'], $fila['peso'], 
+               $fila['ingreso'], $fila['protectora'], 
+               $fila['historia'], $fila['DNI']);
+               array_push($resultado, $animal);
+               
+            }
+            return $resultado;
+             $rs->free();
+             $conn->close();
+            
+         }
+  
+         return false;     
+  }
+
+  public static function getApadrinados($dni){
+   $conn = getConexionBD();
+   $query = sprintf("SELECT anim.id, anim.nombre, anim.nacimiento, anim.tipo,anim.raza, anim.sexo, anim.peso, anim.ingreso, anim.protectora,anim.historia, anim.DNI
+    FROM Animales anim JOIN Apadrinados apa ON anim.id = apa.id JOIN Usuarios usu on apa.dni = usu.dni   WHERE usu.dni='%s' ",$dni); 
+   $rs = $conn->query($query);
+   if($rs && ($rs->num_rows >0)){
+      $resultado = [];
+      while($fila=$rs->fetch_assoc()){
+         $animal = new Animal($fila['id'], $fila['nombre'], 
+         $fila['nacimiento'], $fila['tipo'], $fila['raza'],
+         $fila['sexo'], $fila['peso'], 
+         $fila['ingreso'], $fila['protectora'], 
+         $fila['historia'], $fila['DNI']);
+         array_push($resultado, $animal);
+         
+      }
+      return $resultado;
+       $rs->free();
+       $conn->close();
+      
+   }
+
+   return false;     
+
+  }
+/**
+ * return an array of animals' ID or Name
+ */ 
+ 
+ /*public static function getAnimalsID()
+{
+	 
+	 $animalesID = array();
+	 
+	 $conn = getConexionBD();
+	 $query = sprintf("SELECT ID FROM animales WHERE DNI IS NULL"); 
+	 $rs = $conn->query($query);
+	 
+	 for($i = 0; $i < $rs->num_rows; $i++){
+           $fila = $rs->fetch_assoc();
+		   $animalesID[$i] = $fila['ID'];
+	 }
+     $rs->free();
+	 
+	 return $animalesID;
+ }
+ 
+ public static function getAnimalsName()
+{
+	 
+	 $animalesName = array();
+	 
+	 $conn = getConexionBD();
+	 $query = sprintf("SELECT nombre FROM animales WHERE DNI IS NULL"); 
+	 $rs = $conn->query($query);
+	 
+	 for($i = 0; $i < $rs->num_rows; $i++){
+           $fila = $rs->fetch_assoc();
+		   $animalesName[$i] = $fila['nombre'];
+	 }
+     $rs->free();
+	 
+	 return $animalesName;
+ }*/
+ 
+ public static function getAnimalsNameAndID()
+ {
+	 $animales = array();
+	 $conn = getConexionBD();
+	 $query = sprintf("SELECT ID, nombre FROM animales WHERE DNI IS NULL");
+	 $rs = $conn->query($query);
+	 
+	 for($i = 0; $i < $rs->num_rows*2; $i+=2){
+           $fila = $rs->fetch_assoc();
+		   $animales[$i] = $fila['ID'];
+		   $animales[$i+1] = $fila['nombre'];
+	 }
+	 $rs->free();
+	 
+	 return $animales;
+ }
+    
 
 
 private $id;
@@ -36,6 +142,7 @@ private $fecha_ingreso;
 private $protectora;
 private $historia_feliz;
 private $dni_propietario;
+private $imagen;
 
 private function __construct($id, $nombre, $nacimiento,
                              $tipo, $raza, $sexo, $peso,
@@ -279,60 +386,4 @@ $this->dni_propietario = $dni_propietario;
 return $this;
 }
 
-/**
- * return an array of animals' ID or Name
- */ 
- 
- /*public static function getAnimalsID()
-{
-	 
-	 $animalesID = array();
-	 
-	 $conn = getConexionBD();
-	 $query = sprintf("SELECT ID FROM animales"); 
-	 $rs = $conn->query($query);
-	 
-	 for($i = 0; $i < $rs->num_rows; $i++){
-           $fila = $rs->fetch_assoc();
-		   $animalesID[$i] = $fila['ID'];
-	 }
-     $rs->free();
-	 
-	 return $animalesID;
- }
- 
- public static function getAnimalsName()
-{
-	 
-	 $animalesName = array();
-	 
-	 $conn = getConexionBD();
-	 $query = sprintf("SELECT nombre FROM animales"); 
-	 $rs = $conn->query($query);
-	 
-	 for($i = 0; $i < $rs->num_rows; $i++){
-           $fila = $rs->fetch_assoc();
-		   $animalesName[$i] = $fila['nombre'];
-	 }
-     $rs->free();
-	 
-	 return $animalesName;
- }*/
- 
- public static function getAnimalsNameAndID()
- {
-	 $animales = array();
-	 $conn = getConexionBD();
-	 $query = sprintf("SELECT ID, nombre FROM animales"); 
-	 $rs = $conn->query($query);
-	 
-	 for($i = 0; $i < $rs->num_rows*2; $i+=2){
-           $fila = $rs->fetch_assoc();
-		   $animales[$i] = $fila['ID'];
-		   $animales[$i+1] = $fila['nombre'];
-	 }
-	 $rs->free();
-	 
-	 return $animales;
- }
 }
