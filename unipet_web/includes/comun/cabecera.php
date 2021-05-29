@@ -3,8 +3,8 @@
 	
 		<a href="index.php" id="header"><img src="img/Logo.jpg" alt="Foto Logo"></a>
 		<?php
-		require_once __DIR__.'/includes/AnimalDB.php';
-		require_once __DIR__.'/includes/config.php';
+		require_once ("includes/AnimalDB.php");
+		require_once ("includes/config.php");
 		
 		$gatosEnAdopcion = Animal:: getGatosEnAdopcion();
 		$numGatos = count($gatosEnAdopcion);

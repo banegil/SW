@@ -1,5 +1,5 @@
 <?php
-require_once "includes\Form.php";
+require_once "includes/Form.php";
 
 class FormularioRegistro extends Form
 {

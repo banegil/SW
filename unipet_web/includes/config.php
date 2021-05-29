@@ -1,7 +1,7 @@
 <?php
 // Varios defines para los parámetros de configuración de acceso a la BD y la URL desde la que se sirve la aplicación
 define('BD_HOST', 'localhost');
-define('BD_NAME', 'unipetDB');
+define('BD_NAME', 'unipetdb');
 define('BD_USER', 'root');
 define('BD_PASS', '');
 define('RUTA_APP', '/unipet_web');

@@ -11,7 +11,7 @@
 	<div id="contenedor">
 
 	<?php
-		require("cabecera.php");
+		require_once("includes/comun/cabecera.php");
 	?>
 	
 	<main>
@@ -23,7 +23,7 @@
 	</main>
 	
 	<?php
-		require("pie.php");
+		require_once("includes/comun/pie.php");
 	?>
 
 	</div>
