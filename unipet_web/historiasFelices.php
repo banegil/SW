@@ -1,8 +1,8 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once("includes\comun\animalesEnAdopcion.php");
-require_once("includes\AnimalDB.php");
+require_once("includes/comun/animalesEnAdopcion.php");
+require_once("includes/AnimalDB.php");
 
 $tituloPagina = 'Historias';
 $adoptados = listaAnimales(Animal::getAnimalesAdoptados());

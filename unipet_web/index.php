@@ -1,10 +1,10 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once("includes\comun\animalesEnAdopcion.php");
-require_once("includes\AnimalDB.php");
-require_once("includes\hilosForo.php");
-require_once("includes\ForoDB.php");
+require_once("includes/comun/animalesEnAdopcion.php");
+require_once("includes/AnimalDB.php");
+require_once("includes/hilosForo.php");
+require_once("includes/ForoDB.php");
 
 
 $tituloPagina = 'Portada';
