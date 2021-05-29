@@ -1,0 +1,294 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.4
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 13-05-2021 a las 20:18:55
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 7.4.15
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `unipetdb`
+--
+CREATE DATABASE IF NOT EXISTS `unipetdb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `unipetdb`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `animales`
+--
+
+DROP TABLE IF EXISTS `animales`;
+CREATE TABLE `animales` (
+  `ID` int(9) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `nacimiento` date DEFAULT NULL,
+  `tipo` enum('perro','gato') NOT NULL,
+  `raza` varchar(20) DEFAULT NULL,
+  `sexo` enum('macho','hembra') NOT NULL,
+  `peso` decimal(3,1) DEFAULT NULL,
+  `ingreso` date NOT NULL,
+  `protectora` int(9) NOT NULL,
+  `historia` text DEFAULT NULL,
+  `DNI` varchar(9) DEFAULT NULL,
+  `urgente` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `apadrinados`
+--
+
+DROP TABLE IF EXISTS `apadrinados`;
+CREATE TABLE `apadrinados` (
+  `ID` int(9) NOT NULL,
+  `DNI` varchar(9) NOT NULL,
+  `cantidad` decimal(3,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contrato_adopcion`
+--
+
+DROP TABLE IF EXISTS `contrato_adopcion`;
+CREATE TABLE `contrato_adopcion` (
+  `DNI` varchar(9) NOT NULL,
+  `ID` int(9) NOT NULL,
+  `formulario` mediumtext NOT NULL,
+  `estado` enum('EnTramite','PendCita','Rechazado','Aprobado','FaltDatos','EsperaRes') NOT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `entradas`
+--
+
+DROP TABLE IF EXISTS `entradas`;
+CREATE TABLE `entradas` (
+  `DNI` varchar(9) NOT NULL,
+  `numero` int(10) NOT NULL,
+  `hilo` int(10) NOT NULL,
+  `comentario` text NOT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `fichas`
+--
+
+DROP TABLE IF EXISTS `fichas`;
+CREATE TABLE `fichas` (
+  `ID` int(9) NOT NULL,
+  `vacunas` text NOT NULL,
+  `observaciones` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `hilos`
+--
+
+DROP TABLE IF EXISTS `hilos`;
+CREATE TABLE `hilos` (
+  `NUMERO` int(10) NOT NULL,
+  `titulo` varchar(30) NOT NULL,
+  `fecha` date NOT NULL,
+  `DNI` varchar(9) NOT NULL,
+  `comentario` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `protectoras`
+--
+
+DROP TABLE IF EXISTS `protectoras`;
+CREATE TABLE `protectoras` (
+  `ID` int(9) NOT NULL,
+  `nombre` varchar(40) NOT NULL,
+  `direccion` varchar(50) NOT NULL,
+  `telefono` int(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE `usuarios` (
+  `ID` int(9) UNSIGNED NOT NULL,
+  `DNI` varchar(9) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `apellido` varchar(40) NOT NULL,
+  `telefono` int(9) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `contraseña` varchar(70) NOT NULL,
+  `nacimiento` date NOT NULL,
+  `direccion` varchar(50) NOT NULL,
+  `tipo` enum('normal','veterinario','administrador','voluntario') NOT NULL,
+  `creacion` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `animales`
+--
+ALTER TABLE `animales`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `protectora` (`protectora`),
+  ADD KEY `DNI` (`DNI`);
+
+--
+-- Indices de la tabla `apadrinados`
+--
+ALTER TABLE `apadrinados`
+  ADD KEY `ID` (`ID`,`DNI`),
+  ADD KEY `DNI` (`DNI`);
+
+--
+-- Indices de la tabla `contrato_adopcion`
+--
+ALTER TABLE `contrato_adopcion`
+  ADD KEY `DNI` (`DNI`,`ID`),
+  ADD KEY `ID` (`ID`);
+
+--
+-- Indices de la tabla `entradas`
+--
+ALTER TABLE `entradas`
+  ADD PRIMARY KEY (`numero`),
+  ADD KEY `DNI` (`DNI`),
+  ADD KEY `hilo` (`hilo`);
+
+--
+-- Indices de la tabla `fichas`
+--
+ALTER TABLE `fichas`
+  ADD KEY `ID` (`ID`);
+
+--
+-- Indices de la tabla `hilos`
+--
+ALTER TABLE `hilos`
+  ADD PRIMARY KEY (`NUMERO`),
+  ADD KEY `DNI` (`DNI`);
+
+--
+-- Indices de la tabla `protectoras`
+--
+ALTER TABLE `protectoras`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `animales`
+--
+ALTER TABLE `animales`
+  MODIFY `ID` int(9) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `entradas`
+--
+ALTER TABLE `entradas`
+  MODIFY `numero` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `hilos`
+--
+ALTER TABLE `hilos`
+  MODIFY `NUMERO` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `protectoras`
+--
+ALTER TABLE `protectoras`
+  MODIFY `ID` int(9) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `animales`
+--
+ALTER TABLE `animales`
+  ADD CONSTRAINT `animales_ibfk_1` FOREIGN KEY (`DNI`) REFERENCES `usuarios` (`DNI`),
+  ADD CONSTRAINT `animales_ibfk_2` FOREIGN KEY (`protectora`) REFERENCES `protectoras` (`ID`);
+
+--
+-- Filtros para la tabla `apadrinados`
+--
+ALTER TABLE `apadrinados`
+  ADD CONSTRAINT `apadrinados_ibfk_1` FOREIGN KEY (`DNI`) REFERENCES `usuarios` (`DNI`),
+  ADD CONSTRAINT `apadrinados_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `animales` (`ID`);
+
+--
+-- Filtros para la tabla `contrato_adopcion`
+--
+ALTER TABLE `contrato_adopcion`
+  ADD CONSTRAINT `contrato_adopcion_ibfk_1` FOREIGN KEY (`DNI`) REFERENCES `usuarios` (`DNI`),
+  ADD CONSTRAINT `contrato_adopcion_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `animales` (`ID`);
+
+--
+-- Filtros para la tabla `entradas`
+--
+ALTER TABLE `entradas`
+  ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`DNI`) REFERENCES `usuarios` (`DNI`),
+  ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`hilo`) REFERENCES `hilos` (`NUMERO`);
+
+--
+-- Filtros para la tabla `fichas`
+--
+ALTER TABLE `fichas`
+  ADD CONSTRAINT `fichas_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `animales` (`ID`);
+
+--
+-- Filtros para la tabla `hilos`
+--
+ALTER TABLE `hilos`
+  ADD CONSTRAINT `hilos_ibfk_1` FOREIGN KEY (`DNI`) REFERENCES `usuarios` (`DNI`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
