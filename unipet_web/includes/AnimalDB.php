@@ -21,7 +21,7 @@ class Animal
     {
        $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-       $query = sprintf("SELECT * FROM Animales WHERE ID='%s' ", $idAnimal); 
+       $query = sprintf("SELECT * FROM animales WHERE ID='%s' ", $idAnimal); 
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
@@ -39,7 +39,7 @@ class Animal
    public static function getAdoptados($dni){
       $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-         $query = sprintf("SELECT * FROM Animales WHERE DNI='%s' ",$dni); 
+         $query = sprintf("SELECT * FROM animales WHERE DNI='%s' ",$dni); 
          $rs = $conn->query($query);
          if($rs && ($rs->num_rows >0)){
             $resultado = [];
@@ -63,7 +63,7 @@ class Animal
    $app = Aplicacion::getSingleton();
    $conn = $app->conexionBd();
    $query = sprintf("SELECT anim.id, anim.nombre, anim.nacimiento, anim.tipo,anim.raza, anim.sexo, anim.peso, anim.ingreso, anim.protectora,anim.historia, anim.DNI
-    FROM Animales anim JOIN Apadrinados apa ON anim.id = apa.id JOIN Usuarios usu on apa.dni = usu.dni   WHERE usu.dni='%s' ",$dni); 
+    FROM animales anim JOIN Apadrinados apa ON anim.id = apa.id JOIN Usuarios usu on apa.dni = usu.dni   WHERE usu.dni='%s' ",$dni); 
    $rs = $conn->query($query);
    if($rs && ($rs->num_rows >0)){
       $resultado = [];
@@ -167,7 +167,7 @@ class Animal
 	 $app = Aplicacion::getSingleton();
      $conn = $app->conexionBd();
 	 $result = [];
-	 $query = sprintf("SELECT ID, nombre FROM animales WHERE DNI IS NOT NULL ORDER BY fecha_adopcion DESC");
+	 $query = sprintf("SELECT ID, nombre FROM animales WHERE DNI IS NOT NULL ORDER BY ingreso DESC");
 	 //$query .= "DNI IS NULL ORDER BY nombre ASC";
 	 $rs = $conn->query($query);
 	 if ($rs) {
@@ -202,7 +202,7 @@ public static function insertaAnimal($animal)
 	  , $animal->historia_feliz
 	  , $animal->dni_propietario);
 	  */
-	$query = "INSERT INTO Animales (ID, nombre, nacimiento, tipo, raza, sexo, peso,ingreso, protectora, historia, dni)
+	$query = "INSERT INTO animales (ID, nombre, nacimiento, tipo, raza, sexo, peso,ingreso, protectora, historia, dni)
 	VALUES ($animal->id, '$animal->nombre', $animal->nacimiento, '$animal->tipo', '$animal->raza', '$animal->sexo', '$animal->peso', $animal->fecha_ingreso, '$animal->protectora', NULL, NULL )";
 	$result = $conn->query($query);
 	
@@ -226,7 +226,7 @@ public static function actualizaAnimal($animal)
 
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	$query = sprintf("UPDATE Animales SET  nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = %d, ingreso = '%s', protectora = '%d', historia = '%s', dni = '%s' WHERE ID = %d"
+	$query = sprintf("UPDATE animales SET  nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = %d, ingreso = '%s', protectora = '%d', historia = '%s', dni = '%s' WHERE ID = %d"
 	
 	  , $animal->nombre
 	  , $animal->nacimiento
