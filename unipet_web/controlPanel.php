@@ -2,9 +2,10 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/listaSolicitudes.php';
+require_once __DIR__.'/includes/comun/listaSolicitudes.php';
+require_once __DIR__.'/includes/ContratoDB.php';
 
-$solicitudes = listaSolicitudes();
+$solicitudes = listaSolicitudes(Contrato:: getSolicitudes());
 
 $tituloPagina = 'Colabora';
 
