@@ -1,7 +1,7 @@
 <?php
 require 'Form.php';
 require_once 'AnimalDB.php';
-require_once 'comun/animalesEnAdopcion.php';
+require_once 'comun/listaAnimales.php';
 class FormularioBusquedaAnimales extends Form
 {
 	private $enviado = false;

@@ -1,9 +1,5 @@
 <?php
-	require_once __DIR__.'/config.php';
-	require_once __DIR__.'/ProtectoraDB.php';
-	
-	function listaProtectoras(){
-		$protectoras = Protectora::getProtectoras();
+	function listaProtectoras($protectoras){
 		$cantidad = count($protectoras);
 		$html = "";
 		if($protectoras == false){

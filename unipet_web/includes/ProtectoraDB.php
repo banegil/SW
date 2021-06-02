@@ -13,7 +13,7 @@ class Protectora
         public static function buscaProtectoraPorId($id){
 			$app = Aplicacion::getSingleton();
 			$conn = $app->conexionBd();
-            $query = sprintf("SELECT * FROM Protectoras WHERE id='%s' ", $id); 
+            $query = sprintf("SELECT * FROM protectoras WHERE id='%s' ", $id); 
             $rs = $conn->query($query);
             if($rs && $rs->num_rows == 1){
                 $fila = $rs->fetch_assoc();
@@ -31,7 +31,7 @@ class Protectora
 		{
 			$app = Aplicacion::getSingleton();
 			$conn = $app->conexionBd();
-			$query = sprintf("SELECT * FROM Protectoras ORDER BY ID ASC"); 
+			$query = sprintf("SELECT * FROM protectoras ORDER BY ID ASC"); 
 			$rs = $conn->query($query);
 			if($rs && ($rs->num_rows >0)){
 				$resultado = [];
@@ -43,7 +43,7 @@ class Protectora
 				$rs->free();
 				return $resultado;
 			}
-			$rs->free();
+			//$rs->free();
 			return false; 
 		}
     

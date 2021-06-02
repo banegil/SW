@@ -34,7 +34,7 @@
 			echo(htmlspecialchars(trim(strip_tags($_SESSION["nombre"]))));
 		}
 		?>		
-		<a href=listaAnimalesAdopcion.php>Animales en adopción |</a>
+		<a href=animalesAdopcion.php>Animales en adopción |</a>
 		<a href=protectoras.php>Protectoras |</a>
 		<a href=historiasFelices.php>Historias felices |</a>
 		<a href=colabora.php>Colabora con nosotros |</a>
