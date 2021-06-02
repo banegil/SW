@@ -11,9 +11,10 @@ class Animal
 	   $animal = new Animal($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $ingreso, $protectora, NULL, NULL,NULL);   
 	   return $animal;
 	}
-	public static function actualizar($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $ingreso, $protectora,$historia_feliz, $urgente)
+		public static function actualizar($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $protectora,$historia_feliz, $urgente)
 	{	
-	   $animal = new Animal($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $ingreso, $protectora, $historia_feliz, NULL, $urgente);   
+	   $animal = new Animal($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, NULL, $protectora, $historia_feliz, NULL, $urgente); 
+	   return self::actualizaAnimal($animal);  
 	   return $animal;
 	}
 	
@@ -220,33 +221,7 @@ public static function insertaAnimal($animal)
  * update animal
  */ 
   
-public static function actualizaAnimal($animal)
-{
-	$result = false;
-
-	$app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-	$query = sprintf("UPDATE animales SET  nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = %d, ingreso = '%s', protectora = '%d', historia = '%s', dni = '%s' WHERE ID = %d"
-	
-	  , $animal->nombre
-	  , $animal->nacimiento
-	  , $animal->tipo
-	  , $animal->raza
-	  , $animal->sexo
-	  , $animal->peso
-	  , $animal->fecha_ingreso
-	  , $animal->protectora
-	  , $animal->historia_feliz
-	  , $animal->dni_propietario
-	  , $animal->id);
-	$result = $conn->query($query);
-	if (!$result) {
-	  error_log($conn->error);  
-	} else if ($conn->affected_rows != 1) {
-	  error_log("Se han actualizado los datos '$conn->affected_rows' !");
-	}
-	return $result;
-}    
+  
 
 
 private $id;
@@ -284,7 +259,33 @@ private function __construct($id, $nombre, $nacimiento,
 }
 
 
+public static function actualizaAnimal($animal)
+{
+	$result = false;
 
+	$app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+	$query = sprintf("UPDATE Animales SET  nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = %d, protectora =%d, historia = '%s', dni = '%s', urgente=%d WHERE ID = %d"
+	
+	  , $animal->nombre
+	  , $animal->nacimiento
+	  , $animal->tipo
+	  , $animal->raza
+	  , $animal->sexo
+	  , $animal->peso
+	  , $animal->protectora
+	  , $animal->historia_feliz
+	  , $animal->dni_propietario
+	  , $animal->urgente
+	  , $animal->id);
+	$result = $conn->query($query);
+	if (!$result) {
+	  error_log($conn->error);  
+	} else if ($conn->affected_rows != 1) {
+	  error_log("Se han actualizado los datos '$conn->affected_rows' !");
+	}
+	return $result;
+} 
 
 
 public function getUrgente(){
