@@ -226,7 +226,7 @@ public static function actualizaAnimal($animal)
 
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	$query = sprintf("UPDATE Animales SET  nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = %d, ingreso = '%s', protectora = '%d', historia = '%s', dni = '%s' WHERE ID = %d"
+	$query = sprintf("UPDATE animales SET  nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = %d, ingreso = '%s', protectora = '%d', historia = '%s', dni = '%s' WHERE ID = %d"
 	
 	  , $animal->nombre
 	  , $animal->nacimiento
