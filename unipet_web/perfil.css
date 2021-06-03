@@ -1,0 +1,51 @@
+main{
+    background: #D7DDDE;
+    background: linear-gradient(180deg, #D7DDDE 10%, rgba(0,174,239,1) 100%);
+}
+#perfilcontenedor{
+    display:flex;
+    overflow: auto;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: space-around;
+}
+
+#contenedorNombre{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#contenedorDatos{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#contenedorDatos *{
+    outline: 2px solid hotpink;
+}
+#botonesContenedor{
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+    padding-bottom: 1em;
+}
+
+#botonesContenedor .boton{
+   text-decoration: none;
+   background-color: rgba(70, 63, 63, 0.507);
+   color: white;
+   font-size: 1.25rem;
+   padding: 1rem 1.25rem;
+   border-radius: 3px;
+   margin-right: 0.75em;
+   flex-shrink: 0;
+   transition: 0.3s ease-in;
+}
+
+#botonesContenedor .boton:hover{
+    box-shadow: 7px 7px #232323;
+    transform: scale(1.1);
+}
