@@ -151,6 +151,10 @@ public function getTipo()
 {
 return $this->tipo;
 }
+	
+public function getContraseña(){
+  return $this->contraseña;
+}
 /**
  * Get the value of ID
  */ 
