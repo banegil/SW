@@ -25,10 +25,10 @@ header a:hover {
 } 
 
 main {
-	padding: 100px;
+	padding:100px;
+	box-sizing: border-box;
 	float: left;
-	min-height: 1000px;
-	width: 1687px;
+	width: 100%;
 	background-color: white;
 }
 
