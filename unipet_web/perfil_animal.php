@@ -47,7 +47,7 @@ else {
         <button class='boton' type="button">Apadrinar</button>
 EOS;
             if ($_SESSION["tipo"] == "voluntario" || $_SESSION["tipo"] == "veterinario") {
-                $contenidoPrincipal .= "<button type='button' class='boton'>Ficha medica</button>";
+                $contenidoPrincipal .= " <a class='boton' href=fichaVista.php?id={$idSes}> Ficha Medica</a>";
             }
             if ($_SESSION["tipo"] == "voluntario") { // modificar
                 $contenidoPrincipal .= <<<EOS
