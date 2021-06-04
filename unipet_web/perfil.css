@@ -23,9 +23,6 @@ main{
     justify-content: space-around;
 }
 
-#contenedorDatos *{
-    outline: 2px solid hotpink;
-}
 #botonesContenedor{
     display: flex;
     justify-content: flex-end;
