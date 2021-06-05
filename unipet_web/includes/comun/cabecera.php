@@ -3,17 +3,16 @@
 	
 		<a href="index.php" id="header"><img src="img/Logo.jpg" alt="Foto Logo"></a>
 		<?php
-		require_once ("includes/AnimalDB.php");
 		require_once ("includes/config.php");
 		require_once ("includes/Usuario.php");
 		
-		$gatosEnAdopcion = Animal:: getGatosEnAdopcion();
+		$gatosEnAdopcion = es\ucm\fdi\aw\Animal:: getGatosEnAdopcion();
 		$numGatos = count($gatosEnAdopcion);
-		$gatosAdop = Animal:: getGatosAdoptados();
+		$gatosAdop = es\ucm\fdi\aw\Animal:: getGatosAdoptados();
 		$numGatosAdop = count($gatosAdop);
-		$perrosEnAdopcion = Animal:: getPerrosEnAdopcion();
+		$perrosEnAdopcion = es\ucm\fdi\aw\Animal:: getPerrosEnAdopcion();
 		$numPerros = count($perrosEnAdopcion);
-		$perrosAdoptados = Animal:: getPerrosAdopdatos();
+		$perrosAdoptados = es\ucm\fdi\aw\Animal:: getPerrosAdopdatos();
 		$numPerrosAdop = count($perrosAdoptados);
 		
 		?>
