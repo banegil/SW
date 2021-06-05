@@ -1,17 +1,14 @@
 <?php 
 	require_once __DIR__.'/includes/config.php';
-	require_once __DIR__.'/includes/AnimalDB.php';
-	require_once __DIR__.'/includes/UsuarioDB.php';
 	require_once __DIR__.'/includes/ContratoDB.php';
-	require_once ("includes/Usuario.php");
 	
 	
-	$id_usuario = $_GET['dni'];
+	$dni = $_GET['dni'];
 	$id = $_GET['id'];
 	 
-	$contract = Contrato::buscaPorDNIeID($id_usuario, $id);
-	$animal = Animal::buscaPorID($id);
-	$usuario = Usuario::buscaPorID($id_usuario);
+	$contract = Contrato::buscaPorDNIeID($dni, $id);
+	$animal = es\ucm\fdi\aw\Animal::buscaPorID($id);
+	$usuario = es\ucm\fdi\aw\Usuario::buscaPorID($dni);
 
 	$contenidoPrincipal = '<h3>Estado de la solicitud: '.$contract->getEstado().'</h3>';
 	$contenidoPrincipal .= '<h3>Nombre del usuario: '.$usuario->getNombre().' '.$usuario->getApellido().'</h3>';
@@ -19,10 +16,10 @@
 	$contenidoPrincipal .= '<h3>Formulario enviado: '.$contract->getFormulario().'</h3>';
 	$contenidoPrincipal .= '<h3>Fecha de la solicitud: '.$contract->getFecha().'</h3>';
 	
-	if(permisosVoluntario()){
+	if($_SESSION['tipo'] == "voluntario" || $_SESSION['tipo'] == "administrador"){
 		$contenidoPrincipal .= '<form id="modEstado" action="./procesarCambio.php" method="POST">';
 			$_SESSION['idContrato'] = $id;
-			$_SESSION['dniContrato'] = $id_usuario;
+			$_SESSION['dniContrato'] = $dni;
 			//echo '<input type="hidden" id="dni" name="dni" value='.$dni .'/>';
 			//echo '<input type="hidden" id="id" name="id" value='.$id.'/>';
 			$contenidoPrincipal .= <<<EOS
