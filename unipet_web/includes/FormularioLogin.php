@@ -38,7 +38,7 @@ EOS;
 				$usuario = Usuario::login($DNI,$pass);
 				if($usuario){
 					$_SESSION['login'] = true;
-					$_SESSION['DNI'] = $DNI;
+					//$_SESSION['DNI'] = $DNI;
 					$_SESSION['tipo'] = $usuario->getTipo();
 					$_SESSION['nombre'] = $usuario->getNombre();
 					$_SESSION['id'] = $usuario->getID();
