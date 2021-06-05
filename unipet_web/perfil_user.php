@@ -1,7 +1,6 @@
 
 <?php
 require_once __DIR__."/includes/Usuario.php";
-require_once __DIR__."/includes/UsuarioDB.php";
 require_once __DIR__."/includes/AnimalDB.php";
 
 $tituloPagina = 'PerfilUsuario';
@@ -12,12 +11,12 @@ $usuario = null;
 $esMiPerfil = false;
 if(isset($_GET['id']) && $_GET['id']!=null){
 	$idUsu = $_GET['id'];
-	$usuario = USUARIO::buscaPorID($idUsu);
+	$usuario = es\ucm\fdi\aw\Usuario::buscaPorID($idUsu);
 }
 else if(estaLogado()){
     $idUser = idUsuarioLogado();
     if($idUser != false){ // comprobamos si hemos recibido un id de usuario
-        $usuario = USUARIO::buscaPorID($idUser); // funcion estática para buscar en la base de datos al usuario por el dni
+        $usuario = es\ucm\fdi\aw\Usuario::buscaPorID($idUser); // funcion estática para buscar en la base de datos al usuario por el dni
 	}
 }	
        
