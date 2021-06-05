@@ -13,7 +13,7 @@ class Ficha
 
         public static function getFichas(){
 
-            $app = Aplicacion::getSingleton();
+            $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
 			$conn = $app->conexionBd();
 			$query = sprintf("SELECT * FROM fichas ORDER BY ID ASC"); 
 			$rs = $conn->query($query);
@@ -34,7 +34,7 @@ class Ficha
 
 
         public static function buscaFichaPorId($id){
-			$app = Aplicacion::getSingleton();
+			$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
 			$conn = $app->conexionBd();
             $query = sprintf("SELECT * FROM fichas WHERE id='%s' ", $id); 
             $rs = $conn->query($query);
