@@ -34,11 +34,11 @@
 			echo(htmlspecialchars(trim(strip_tags($_SESSION["nombre"]))));
 		}
 		?>		
-		<a href=animalesAdopcion.php>Animales en adopción |</a>
-		<a href=protectoras.php>Protectoras |</a>
-		<a href=historiasFelices.php>Historias felices |</a>
-		<a href=colabora.php>Colabora con nosotros |</a>
-		<a href=foro.php>Foro </a>
+		<a href=animalesAdopcion.php>Animales en adopción</a> |
+		<a href=protectoras.php>Protectoras</a> |
+		<a href=historiasFelices.php>Historias felices</a> |
+		<a href=colabora.php>Colabora con nosotros</a> |
+		<a href=foro.php>Foro</a>
 
 		
 		
@@ -48,11 +48,11 @@
 
 		<?php
 			if (isset($_SESSION["DNI"])){
-				echo '<a href="perfil_user.php">Perfil | </a>';
+				echo '<a href="perfil_user.php">Perfil</a> | ';
 				echo '<a href="logout.php">Cerrar sesión</a>';
 			}
 			else{
-				echo '<a href="login.php">Iniciar sesión | </a>';
+				echo '<a href="login.php">Iniciar sesión</a> | ';
 				echo '<a href="register.php">Registrarse</a>';
 			}
 		?>
