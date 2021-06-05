@@ -20,7 +20,7 @@ class Usuario
   
     public static function buscaPorDNI($dniUsuario)
     {
-	   $app = Aplicacion::getSingleton();
+	   $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
        $conn = $app->conexionBd();
        $query = sprintf("SELECT * FROM usuarios WHERE DNI='%s' ", $dniUsuario); 
        $rs = $conn->query($query);
@@ -55,7 +55,7 @@ class Usuario
     
     private static function inserta($usuario)
     {
-        $app = Aplicacion::getSingleton();
+        $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $query=sprintf("INSERT INTO usuarios (DNI, nombre, apellido, telefono, email, contraseña, nacimiento, direccion, tipo, creacion)
 			VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"
@@ -83,7 +83,7 @@ class Usuario
 {
 	$result = false;
 
-	$app = Aplicacion::getSingleton();
+	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $contraseña = password_hash($usuario->contraseña, PASSWORD_DEFAULT);
       $query = sprintf("UPDATE usuarios SET  dni = '%s', nombre = '%s', apellido = '%s', telefono = %d, email = '%s', contraseña = '%s', nacimiento = '%s', direccion = '%s' WHERE dni = %d"
