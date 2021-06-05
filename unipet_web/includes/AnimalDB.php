@@ -221,7 +221,7 @@ public static function insertaAnimal($animal)
  * update animal
  */ 
   
-<<<<<<< HEAD
+
 public static function actualizaAnimal($animal)
 {
 	$result = false;
@@ -249,9 +249,7 @@ public static function actualizaAnimal($animal)
 	}
 	return $result;
 }    
-=======
-  
->>>>>>> main
+
 
 
 private $id;
