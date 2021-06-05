@@ -1,8 +1,7 @@
 <?php
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/usuarioDB.php';
 
-Usuario::register($_POST['DNI'], $_POST['nombre'], $_POST['apellido'], $_POST['telefono'], $_POST['email'], $_POST['contraseña'], $_POST['nacimiento'], $_POST['direccion'], getdate());
+es\ucm\fdi\aw\Usuario::register($_POST['DNI'], $_POST['nombre'], $_POST['apellido'], $_POST['telefono'], $_POST['email'], $_POST['contraseña'], $_POST['nacimiento'], $_POST['direccion'], getdate());
 ?>
 
 <!DOCTYPE html>
