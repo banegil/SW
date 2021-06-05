@@ -2,17 +2,16 @@
 
 require_once __DIR__.'/includes/config.php';
 require_once("includes/comun/listaAnimales.php");
-require_once("includes/AnimalDB.php");
 require_once("includes/comun/listaHilos.php");
 require_once("includes/ForoDB.php");
 
 
 $tituloPagina = 'Portada';
 
-$muestraUrgentes = listaAnimalesMuestra(Animal::getUrgentes(),5);
-$muestraAcogPerros = listaAnimalesMuestra(Animal::getUltimosAcogidos("perro"),5);
-$muestraAcogGatos = listaAnimalesMuestra(Animal::getUltimosAcogidos("gato"),5);
-$muestraAdopcion = listaAnimalesMuestra(Animal::getEnAdopcion(),5);
+$muestraUrgentes = listaAnimalesMuestra(es\ucm\fdi\aw\Animal::getUrgentes(),5);
+$muestraAcogPerros = listaAnimalesMuestra(es\ucm\fdi\aw\Animal::getUltimosAcogidos("perro"),5);
+$muestraAcogGatos = listaAnimalesMuestra(es\ucm\fdi\aw\Animal::getUltimosAcogidos("gato"),5);
+$muestraAdopcion = listaAnimalesMuestra(es\ucm\fdi\aw\Animal::getEnAdopcion(),5);
 $muestraHilos = listaHilosMuestra(Hilo::getHilos(), 5);
 
 $contenidoPrincipal = <<<EOS
