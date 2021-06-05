@@ -1,5 +1,6 @@
 <?php
-//namespace es\ucm\fdi\aw;
+
+namespace es\ucm\fdi\aw;
 
 /**
  * Clase que mantiene el estado global de la aplicación.
