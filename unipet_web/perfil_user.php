@@ -1,8 +1,6 @@
 
 <?php
 require_once __DIR__."/includes/Usuario.php";
-require_once __DIR__."/includes/UsuarioDB.php";
-require_once __DIR__."/includes/AnimalDB.php";
 
 $tituloPagina = 'PerfilUsuario';
 $contenidoPrincipal = '<link rel="stylesheet" type="text/css" href="perfil.css" />';
@@ -12,12 +10,12 @@ $usuario = null;
 $esMiPerfil = false;
 if(isset($_GET['id']) && $_GET['id']!=null){
 	$idUsu = $_GET['id'];
-	$usuario = USUARIO::buscaPorID($idUsu);
+	$usuario = es\ucm\fdi\aw\Usuario::buscaPorID($idUsu);
 }
 else if(estaLogado()){
     $idUser = idUsuarioLogado();
     if($idUser != false){ // comprobamos si hemos recibido un id de usuario
-        $usuario = USUARIO::buscaPorID($idUser); // funcion estática para buscar en la base de datos al usuario por el dni
+        $usuario = es\ucm\fdi\aw\Usuario::buscaPorID($idUser); // funcion estática para buscar en la base de datos al usuario por el dni
 	}
 }	
        
@@ -43,14 +41,14 @@ if($usuario != null){ // comprobamos si el usuario esta en la base de datos
     //animales adoptados y apadrinados
 	if ($esMiPerfil){
     $contenidoPrincipal .= "<div id='contenedorDatosDerecha'>";
-    $adoptado = Animal::getAdoptados($usuario->getDni());
+    $adoptado = es\ucm\fdi\aw\Animal::getAdoptados($usuario->getDni());
     $contenidoPrincipal .= "<p> ANIMALES ADOPTADOS:" ."</p>";
     if($adoptado != false){
         foreach($adoptado as $i){ 
         $contenidoPrincipal .= "<p>" .$i->getNombre()."</p>";
         }
     } else $contenidoPrincipal .= "<p> Ninguno </p>";			
-    $apadrinado = Animal::getApadrinados($usuario->getDni());
+    $apadrinado = es\ucm\fdi\aw\Animal::getApadrinados($usuario->getDni());
     $contenidoPrincipal .="<p> ANIMALES APADRINADOS:" ."</p>";
     if($apadrinado != false){
         foreach($apadrinado as $i){ 
