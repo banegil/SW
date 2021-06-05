@@ -1,16 +1,14 @@
 <?php
-require_once __DIR__.'/includes/AnimalDB.php';
-require_once __DIR__.'/includes/UsuarioDB.php';
-require_once __DIR__.'/includes/Usuario.php';
-require_once __DIR__.'/includes/ProtectoraDB.php';
-require_once __DIR__.'/includes/config.php';
+require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/Usuario.php';
+require_once __DIR__ . '/includes/ProtectoraDB.php';
 
 
 $tituloPagina = 'Perfil Animal';
 $contenidoPrincipal = '<link rel="stylesheet" type="text/css" href="perfil.css" />';
 $idSes = $_GET['id'];
 $contenidoPrincipal.= "<div id='perfilcontenedor'>";
-$animal = Animal::buscaPorID($idSes);
+$animal = es\ucm\fdi\aw\Animal::buscaPorID($idSes);
 if ($animal == null) $contenidoPrincipal .= "<h2> No se ha encontrado con ningún animal  </h2>";
 else {
     $tituloPagina = $animal->getNombre();
@@ -18,7 +16,7 @@ else {
     //echo '<img src="data:imagenes;base64,' . base64_encode($animal->getImagen()) . ' "width=15%";>';
     $contenidoPrincipal .= "<div id='contenedorNombre'>";
     $contenidoPrincipal .=  "<p id='nombreAnimal'> NOMBRE: " . $animal->getNombre() . "</p>";
-    if ($animal->getUrgente() && $animal->getID_propietario() == null) {
+    if ($animal->getUrgente() && $animal->getId_propietario() == null) {
         $contenidoPrincipal .= "<h1>¡URGENTE!</h1>";
     }
     $contenidoPrincipal .= "</div>";
@@ -32,8 +30,8 @@ else {
     else $contenidoPrincipal .=    '<a href = "protectora.php?id=' . $protectora->getID() . '">' . $protectora->getNombre() . '</a>';
     $contenidoPrincipal .="</div>";
     $contenidoPrincipal .= "<div id='botonesContenedor'>";
-    if ($animal->getID_propietario() != null) {
-        $usuario = Usuario::buscaPorID($animal->getID_propietario());
+    if ($animal->getId_propietario() != null) {
+        $usuario = es\ucm\fdi\aw\Usuario::buscaPorDNI($animal->getId_propietario());
         $contenidoPrincipal .= "<p> Historia feliz: " . $animal->getHistoria_feliz() . "</p>";
         $contenidoPrincipal .= "<p> Adoptado por  " . $usuario->getNombre() . "</p>";
         $contenidoPrincipal .= "<button type='button' class='boton' disabled>Adoptar</button>";
@@ -41,7 +39,7 @@ else {
 
         $contenidoPrincipal .= "<p> El animal está adoptado</p>";
     } else {
-        if (estaLogado() && $animal->getID_propietario() == null) {
+        if (estaLogado() && $animal->getId_propietario() == null) {
             $contenidoPrincipal .= <<<EOS
         <form action="formularioAdopcion.php">
             <input type="submit" class='boton' value="Adoptar" />
@@ -68,4 +66,4 @@ EOS;
         }
     }
 }
-require __DIR__.'/includes/plantillas/plantilla.php';
+require __DIR__ . '/includes/plantillas/plantilla.php';
