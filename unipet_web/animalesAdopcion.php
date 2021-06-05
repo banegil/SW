@@ -2,7 +2,6 @@
 
 require_once __DIR__."/includes/config.php";
 require_once __DIR__."/includes/FormularioBusquedaAnimales.php";
-require_once 'includes/AnimalDB.php';
 require_once 'includes/comun/listaAnimales.php';
 
 $tituloPagina = 'Animales en Adopcion';
