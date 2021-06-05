@@ -1,22 +1,24 @@
 <?php
 
+require_once __DIR__.'/config.php';
+
 class Contrato
 {
-	public static function crea($dni, $id, $formulario)
+	public static function crea($id_usuario, $id, $formulario)
 	{
-	   $contract = new Contrato($dni, $id, $formulario,"EnTramite", date('Y-m-d H:i:s'));
+	   $contract = new Contrato($id_usuario, $id, $formulario,"EnTramite", date('Y-m-d H:i:s'));
 	   return $contract;
 	}
 	  
-    public static function buscaPorDNIeID($dniUsuario,$idAnimal)
+    public static function buscaPorDNIeID($idUsuario,$idAnimal)
     {
-       $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+       $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-       $query = sprintf("SELECT * FROM contrato_adopcion WHERE DNI='%s' AND ID='%s' ", $dniUsuario, $idAnimal); 
+       $query = sprintf("SELECT * FROM contrato_adopcion WHERE ID_usuario=%d AND ID=%d ", $idUsuario, $idAnimal); 
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
-           $contract = new Contrato($fila['DNI'], $fila['ID'], 
+           $contract = new Contrato($fila['ID_usuario'], $fila['ID'], 
                                 $fila['formulario'], $fila['estado'], $fila['fecha']);
         $rs->free();
         return $contract;
@@ -24,15 +26,17 @@ class Contrato
        return false;
     }
 
-private $dni;
+private $id_usuario;
 private $id;
 private $formulario;
 private $estado;
 private $fecha;
+private $nombreUsuario;
+private $nombreAnimal;
 
-private function __construct($dni, $id, $formulario, $estado, $fecha)
+private function __construct($id_usuario, $id, $formulario, $estado, $fecha)
 {
-    $this->dni = $dni;
+    $this->id_usuario = $id_usuario;
     $this->id = $id;
     $this->formulario = $formulario;
     $this->estado = $estado;
@@ -42,9 +46,9 @@ private function __construct($dni, $id, $formulario, $estado, $fecha)
 /**
  * Get the value of dni
  */ 
-public function getDni()
+public function getID_usuario()
 {
-return $this->dni;
+return $this->id_usuario;
 }
 
 /**
@@ -105,10 +109,10 @@ public static function insertaContrato($contract)
 {
 	$result = false;
 
-	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	$query = sprintf("INSERT INTO contrato_adopcion (DNI, ID, formulario, estado, fecha) VALUES ('%s', %d, '%s', '%s', '%s')"
-	  , $contract->dni
+	$query = sprintf("INSERT INTO contrato_adopcion (ID_usuario, ID, formulario, estado, fecha) VALUES (%d, %d, '%s', '%s', '%s')"
+	  , $contract->id_usuario
 	  , $contract->id
 	  , $contract->formulario
 	  , $contract->estado
@@ -131,13 +135,13 @@ public static function actualizaContrato($contract)
 {
 	$result = false;
 
-	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	$query = sprintf("UPDATE contrato_adopcion SET formulario = '%s', estado = '%s', fecha = '%s' WHERE DNI = '%s' AND ID = %d"
+	$query = sprintf("UPDATE contrato_adopcion SET formulario = '%s', estado = '%s', fecha = '%s' WHERE ID_usuario = %d AND ID = %d"
 	  , $contract->formulario
 	  , $contract->estado
 	  , $contract->fecha
-	  , $contract->dni
+	  , $contract->id_usuario
 	  , $contract->id);
 	$result = $conn->query($query);
 	if (!$result) {
@@ -153,13 +157,13 @@ public static function actualizaContrato($contract)
  * remove a contract
  */ 
  
-public static function borraContratoPorDNIeID($dniUsuario,$idAnimal)
+public static function borraContratoPorDNIeID($idUsuario,$idAnimal)
 {
     $result = false;
 
-    $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+    $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-    $query = sprintf("DELETE FROM contrato_adopcion WHERE DNI = '%s' AND ID = '%s'", $dniUsuario, $idAnimal);
+    $query = sprintf("DELETE FROM contrato_adopcion WHERE ID_usuario = %d AND ID = %d", $idUsuario, $idAnimal);
     $result = $conn->query($query);
     if (!$result) {
       error_log($conn->error);
@@ -176,7 +180,7 @@ public static function borraContratoPorDNIeID($dniUsuario,$idAnimal)
  
 public function guarda()
   {
-    if (!self::buscaPorDNIeID($this->dni,$this->id)) {
+    if (!self::buscaPorDNIeID($this->id_usuario,$this->id)) {
       self::insertaContrato($this);
     } else {
       self::actualizaContrato($this);
@@ -206,16 +210,17 @@ public static function getSolicitudes()
 	 return $solicitudes;
  }
 */
+/*
 public static function getSolicitudes()
  {
-       $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+       $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
          $query = sprintf("SELECT * FROM contrato_adopcion ORDER BY fecha DESC"); 
          $rs = $conn->query($query);
          if($rs && ($rs->num_rows >0)){
             $resultado = [];
             while($fila=$rs->fetch_assoc()){
-               $contrato = new Contrato($fila['DNI'], $fila['ID'], 
+               $contrato = new Contrato($fila['ID_usuario'], $fila['ID'], 
                $fila['formulario'], $fila['estado'], $fila['fecha']);
                array_push($resultado, $contrato);              
             }
@@ -225,4 +230,36 @@ public static function getSolicitudes()
 		 $rs->free();
         return false; 
  }
+*/
+public static function getSolicitudes()
+ {
+       $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+         $query = sprintf('SELECT C.ID_usuario, C.ID, C.formulario, C.estado, C.fecha , U.nombre as "usuario", A.nombre as "animal" FROM contrato_adopcion C JOIN usuarios U ON C.ID_usuario=U.ID JOIN animales A ON A.ID=C.ID ORDER BY fecha DESC'); 
+         $rs = $conn->query($query);
+         if($rs && ($rs->num_rows >0)){
+            $resultado = [];
+            while($fila=$rs->fetch_assoc()){
+               $contrato = new Contrato($fila['ID_usuario'], $fila['ID'], 
+               $fila['formulario'], $fila['estado'], $fila['fecha']);
+			   $contrato->nombreAnimal = $fila['animal'];
+			   $contrato->nombreUsuario = $fila['usuario'];
+               array_push($resultado, $contrato);              
+            }
+			 $rs->free();
+            return $resultado;
+         }
+		 $rs->free();
+        return false; 
+ }
+public function getNombreUsuario()
+{
+return $this->nombreUsuario;
 }
+public function getNombreAnimal()
+{
+return $this->nombreAnimal;
+}
+}
+
+
