@@ -4,7 +4,7 @@ class Foro
 {
 
    public static function getHilos(){
-		$app = Aplicacion::getSingleton();
+		$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 		$query = sprintf("SELECT titulo, comentario, NUMERO FROM hilos"); 
 		$rs = $conn->query($query);
