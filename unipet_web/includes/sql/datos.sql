@@ -32,7 +32,7 @@ INSERT INTO `animales` (`ID`, `nombre`, `nacimiento`, `tipo`, `raza`, `sexo`, `p
 (4, 'Max', '2021-04-15', 'gato', NULL, 'macho', NULL, '2021-04-15', 2, NULL, NULL, 0),
 (5, 'Rocky', '2021-04-15', 'gato', NULL, 'macho', NULL, '2021-04-15', 1, NULL, NULL, 0),
 (6, 'Acua', '2021-04-15', 'gato', NULL, 'hembra', NULL, '2021-04-15', 2, NULL, NULL, 0),
-(7, 'Hannah', NULL, 'perro', NULL, 'hembra', NULL, '2021-04-16', 2, NULL, NULL, 0);
+(7, 'Hannah', NULL, 'perro', NULL, 'hembra', NULL, '2021-04-16', 2, NULL, NULL, 0),
 (8, 'Bianca', '2021-04-15', 'perro', 'Samoyedo', 'hembra', NULL, '2021-04-15', 3, NULL, NULL, 1),
 (9, 'Leo', '2021-04-15', 'gato', NULL, 'macho', NULL, '2021-04-15', 1, NULL, NULL, 0),
 (10, 'Ava', '2021-04-15', 'gato', 'Scottish Fold', 'hembra', '2.9', '2021-04-15', 2, 'En el momento que Rares entró a la protectora, él y Ava se miraron y su conexión fue instantáneo, forjando una unión que nada los separará.', 4, 0),
@@ -41,7 +41,7 @@ INSERT INTO `animales` (`ID`, `nombre`, `nacimiento`, `tipo`, `raza`, `sexo`, `p
 (13, 'Lucas', '2021-04-15', 'gato', NULL, 'macho', NULL, '2021-04-15', 1, NULL, NULL, 0),
 (14, 'Frida', '2021-04-15', 'gato', 'Persa', 'hembra', '3.8', '2021-04-15', 1, 'Desde que conoció a Enrique, se volvió el gato más feliz de toda España.', 1, 0),
 (15, 'Zeus', '2021-04-15', 'perro', NULL, 'macho', NULL, '2021-04-15', 3, NULL, NULL, 0),
-(16, 'Iris', '2021-04-15', 'perro', NULL, 'hembra', NULL, '2021-04-15', 2, NULL, NULL, 1),
+(16, 'Iris', '2021-04-15', 'perro', NULL, 'hembra', NULL, '2021-04-15', 2, NULL, NULL, 1);
 
 
 --
