@@ -1,6 +1,5 @@
 <?php
 require_once "includes\Form.php";
-require_once "AnimalDB.php";
 require_once "ProtectoraDB.php";
 
 
@@ -13,7 +12,7 @@ class FormularioEditarAnimal extends Form
     protected function generaCamposFormulario($datos, $errores = array())
     {
         
-        $animal = Animal::buscaPorID($_GET['id']);
+        $animal = es\ucm\fdi\aw\Animal::buscaPorID($_GET['id']);
 
         $id =  $animal->getId() ?? '';
 		$nombre =  $animal->getNombre() ?? '';
@@ -77,7 +76,7 @@ EOF;
 		
 	
         if (count($result) === 0) {
-            $animal = Animal::actualizar($id, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $protectora, $historia, $urgente);
+            $animal = es\ucm\fdi\aw\Animal::actualizar($id, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $protectora, $historia, $urgente);
             if ( ! $animal ) {
                 $result[] = "El animal ya existe";
             } else {
