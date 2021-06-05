@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__.'/config.php';
-
 class Contrato
 {
 	public static function crea($id_usuario, $id, $formulario)
@@ -12,7 +10,7 @@ class Contrato
 	  
     public static function buscaPorDNIeID($idUsuario,$idAnimal)
     {
-       $app = Aplicacion::getSingleton();
+       $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
        $query = sprintf("SELECT * FROM contrato_adopcion WHERE ID_usuario=%d AND ID=%d ", $idUsuario, $idAnimal); 
        $rs = $conn->query($query);
@@ -109,7 +107,7 @@ public static function insertaContrato($contract)
 {
 	$result = false;
 
-	$app = Aplicacion::getSingleton();
+	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	$query = sprintf("INSERT INTO contrato_adopcion (ID_usuario, ID, formulario, estado, fecha) VALUES (%d, %d, '%s', '%s', '%s')"
 	  , $contract->id_usuario
@@ -135,7 +133,7 @@ public static function actualizaContrato($contract)
 {
 	$result = false;
 
-	$app = Aplicacion::getSingleton();
+	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	$query = sprintf("UPDATE contrato_adopcion SET formulario = '%s', estado = '%s', fecha = '%s' WHERE ID_usuario = %d AND ID = %d"
 	  , $contract->formulario
@@ -161,7 +159,7 @@ public static function borraContratoPorDNIeID($idUsuario,$idAnimal)
 {
     $result = false;
 
-    $app = Aplicacion::getSingleton();
+    $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
     $query = sprintf("DELETE FROM contrato_adopcion WHERE ID_usuario = %d AND ID = %d", $idUsuario, $idAnimal);
     $result = $conn->query($query);
@@ -213,7 +211,7 @@ public static function getSolicitudes()
 /*
 public static function getSolicitudes()
  {
-       $app = Aplicacion::getSingleton();
+       $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
          $query = sprintf("SELECT * FROM contrato_adopcion ORDER BY fecha DESC"); 
          $rs = $conn->query($query);
@@ -233,7 +231,7 @@ public static function getSolicitudes()
 */
 public static function getSolicitudes()
  {
-       $app = Aplicacion::getSingleton();
+       $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
          $query = sprintf('SELECT C.ID_usuario, C.ID, C.formulario, C.estado, C.fecha , U.nombre as "usuario", A.nombre as "animal" FROM contrato_adopcion C JOIN usuarios U ON C.ID_usuario=U.ID JOIN animales A ON A.ID=C.ID ORDER BY fecha DESC'); 
          $rs = $conn->query($query);
@@ -261,5 +259,3 @@ public function getNombreAnimal()
 return $this->nombreAnimal;
 }
 }
-
-
