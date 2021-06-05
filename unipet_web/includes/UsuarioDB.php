@@ -81,7 +81,7 @@ class Usuario
         $conn = $app->conexionBd();
         $query=sprintf("INSERT INTO usuarios (DNI, nombre, apellido, telefono, email, contraseña, nacimiento, direccion, tipo, creacion)
 			VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"
-            , $conn->real_escape_string($usuario->DNI)
+            , $conn->real_escape_string($usuario->dni)
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->apellido)
             , $conn->real_escape_string($usuario->telefono)
