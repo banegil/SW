@@ -1,4 +1,5 @@
 <?php  
+	require 'UsuarioDB.php';
 	require 'Form.php';
 	class FormularioLogin extends Form {
 
@@ -34,7 +35,7 @@ EOS;
 			}
 
 			if (count($errores) === 0) {
-				$usuario = es\ucm\fdi\aw\Usuario::login($DNI,$pass);
+				$usuario = Usuario::login($DNI,$pass);
 				if($usuario){
 					$_SESSION['login'] = true;
 					//$_SESSION['DNI'] = $DNI;
