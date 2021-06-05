@@ -1,4 +1,5 @@
 <?php
+	//include_once ("../ContratoDB.php");
 	function listaSolicitudes($solicitudes){
 		//$solicitudes = Contrato:: getSolicitudes();
 		if ($solicitudes == null) {
@@ -8,7 +9,7 @@
 		$cantidad = count($solicitudes);
 		$html = '';
 		 foreach($solicitudes as $i){ 
-			$html .= '<h3><a href = "solicitud.php?id='.$i->getID().'&dni='.$i->getDNI().'">'.$i->getID().' - '.$i->getDNI().' ('.$i -> getEstado().')</a></h3>';
+			$html .= '<h3><a href = "solicitud.php?id='.$i->getID().'&dni='.$i->getID_usuario().'">'.$i->getNombreAnimal().' - '.$i->getNombreUsuario().' ('.$i -> getEstado().')</a></h3>';
 		  }
 		 return $html;
 	}

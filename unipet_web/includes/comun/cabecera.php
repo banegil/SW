@@ -5,6 +5,7 @@
 		<?php
 		require_once ("includes/AnimalDB.php");
 		require_once ("includes/config.php");
+		require_once ("includes/Usuario.php");
 		
 		$gatosEnAdopcion = Animal:: getGatosEnAdopcion();
 		$numGatos = count($gatosEnAdopcion);
@@ -24,21 +25,21 @@
 		</p>
 		
 		<?php
-		if (isset($_SESSION["login"])&& (($_SESSION["tipo"])=='voluntario' || ($_SESSION["tipo"])=='administrador')){
+		if (permisosVoluntario()){
 			echo "<h4><a href=controlPanel.php> Panel de control </a></h4>";
 		}
 		?>
 		
 		<?php 
-		if(isset($_SESSION["login"]) && $_SESSION ["login"] == true){
+		if(estaLogado()){
 			echo(htmlspecialchars(trim(strip_tags($_SESSION["nombre"]))));
 		}
 		?>		
-		<a href=animalesAdopcion.php>Animales en adopción</a> |
-		<a href=protectoras.php>Protectoras</a> |
-		<a href=historiasFelices.php>Historias felices</a> |
-		<a href=colabora.php>Colabora con nosotros</a> |
-		<a href=foro.php>Foro</a>
+		<a href=animalesAdopcion.php>Animales en adopción |</a>
+		<a href=protectoras.php>Protectoras |</a>
+		<a href=historiasFelices.php>Historias felices |</a>
+		<a href=colabora.php>Colabora con nosotros |</a>
+		<a href=foro.php>Foro </a>
 
 		
 		
@@ -47,12 +48,12 @@
 	<div class="saludo">
 
 		<?php
-			if (isset($_SESSION["DNI"])){
-				echo '<a href="perfil_user.php">Perfil</a> | ';
+			if (estaLogado()){
+				echo '<a href="perfil_user.php">Perfil | </a>';
 				echo '<a href="logout.php">Cerrar sesión</a>';
 			}
 			else{
-				echo '<a href="login.php">Iniciar sesión</a> | ';
+				echo '<a href="login.php">Iniciar sesión | </a>';
 				echo '<a href="register.php">Registrarse</a>';
 			}
 		?>
