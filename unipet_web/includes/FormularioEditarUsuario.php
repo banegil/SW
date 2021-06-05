@@ -1,6 +1,5 @@
 <?php
 require_once "includes\Form.php";
-require_once "UsuarioDB.php";
 require_once "Usuario.php";
 
 
@@ -13,7 +12,7 @@ class FormularioEditarUsuario extends Form
     protected function generaCamposFormulario($datos, $errores = array())
     {
         
-        $user = Usuario::buscaPorDNI( idUsuarioLogado());
+        $user = es\ucm\fdi\aw\Usuario::buscaPorDNI( idUsuarioLogado());
         $DNI = $user->getDni() ?? '';
 		$nombre = $user->getnombre() ?? '';
 		$apellido = $user->getApellido() ?? '';
@@ -102,7 +101,7 @@ EOF;
         }
         
         if (count($result) === 0) {
-            $user = Usuario::actualiza($DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion);
+            $user = es\ucm\fdi\aw\Usuario::actualiza($DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion);
             if ( ! $user ) {
                 $result[] = "El usuario ya existe";
             } else {
