@@ -11,7 +11,7 @@ class Protectora
 		}
 		
         public static function buscaProtectoraPorId($id){
-			$app = Aplicacion::getSingleton();
+			$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
 			$conn = $app->conexionBd();
             $query = sprintf("SELECT * FROM protectoras WHERE id='%s' ", $id); 
             $rs = $conn->query($query);
@@ -29,7 +29,7 @@ class Protectora
 
 		public static function getProtectoras()
 		{
-			$app = Aplicacion::getSingleton();
+			$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
 			$conn = $app->conexionBd();
 			$query = sprintf("SELECT * FROM protectoras ORDER BY ID ASC"); 
 			$rs = $conn->query($query);
@@ -65,7 +65,7 @@ class Protectora
 {
 	$result = false;
 
-	$app = Aplicacion::getSingleton();
+	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 		
 	$query = "INSERT INTO protectoras (ID, nombre, direccion, telefono)
@@ -90,7 +90,7 @@ public static function actualizaProtectora($protectora)
 {
 	$result = false;
 
-	$app = Aplicacion::getSingleton();
+	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	$query = sprintf("UPDATE protectoras SET  nombre = %s, direccion = '%s', telefono = '%s' WHERE ID = %d"
 
