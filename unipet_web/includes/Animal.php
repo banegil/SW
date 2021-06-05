@@ -1,5 +1,7 @@
 <?php
 
+namespace es\ucm\fdi\aw;
+
 class Animal
 {
 	
@@ -18,7 +20,7 @@ class Animal
 	
     public static function buscaPorID($idAnimal)
     {
-       $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+       $app = Aplicacion::getSingleton();
        $conn = $app->conexionBd();
        $query = sprintf("SELECT * FROM animales WHERE ID='%s' ", $idAnimal); 
        $rs = $conn->query($query);
@@ -36,7 +38,7 @@ class Animal
     }
 
    public static function getAdoptados($idUsuario){
-      $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+      $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
          $query = sprintf("SELECT * FROM animales WHERE ID_usuario='%s' ",$idUsuario); 
          $rs = $conn->query($query);
@@ -59,7 +61,7 @@ class Animal
   }
 
   public static function getApadrinados($idUsuario){
-   $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+   $app = Aplicacion::getSingleton();
    $conn = $app->conexionBd();
    $query = sprintf("SELECT anim.ID, anim.nombre, anim.nacimiento, anim.tipo,anim.raza, anim.sexo, anim.peso, anim.ingreso, anim.protectora,anim.historia, anim.ID_usuario, anim.urgente
     FROM animales anim JOIN apadrinados apa ON anim.ID = apa.ID JOIN usuarios usu ON apa.ID_usuario = usu.ID   WHERE usu.ID='%s' ",$idUsuario); 
@@ -87,7 +89,7 @@ class Animal
  public static function getEnAdopcion()
  {
 	 $animales = array();
-	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	 $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	 $query = sprintf("SELECT ID, nombre FROM animales WHERE ID_usuario IS NULL");
 	 $rs = $conn->query($query);
@@ -103,7 +105,7 @@ class Animal
  public static function getUrgentes()
  {
 	 $animales = array();
-	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	 $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	 $query = sprintf("SELECT ID, nombre FROM animales WHERE ID_usuario IS NULL AND urgente != '0' ");
 	 $rs = $conn->query($query);
@@ -119,7 +121,7 @@ class Animal
  public static function getUltimosAcogidos($tipoAnimal)
  {
 	 $animales = array();
-	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	 $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	 $query = sprintf("SELECT ID, nombre FROM animales WHERE ID_usuario IS NULL AND tipo = '%s' ORDER BY ingreso DESC", $tipoAnimal);
 	 $rs = $conn->query($query);
@@ -135,7 +137,7 @@ class Animal
  public static function buscaAnimales($nombreAnimal,$tipoAnimal)
  {
 	 $animales = array();
-	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	 $app = Aplicacion::getSingleton();
      $conn = $app->conexionBd();
 	 $result = [];
 	 /*
@@ -163,7 +165,7 @@ class Animal
    public static function getAnimalesAdoptados()
  {
 	 $animales = array();
-	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	 $app = Aplicacion::getSingleton();
      $conn = $app->conexionBd();
 	 $result = [];
 	 $query = sprintf("SELECT ID, nombre FROM animales WHERE ID_usuario IS NOT NULL ORDER BY ingreso DESC");
@@ -185,7 +187,7 @@ public static function insertaAnimal($animal)
 {
 	$result = false;
 
-	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	/*
 	$query = sprintf("INSERT INTO Animales (ID, nombre, nacimiento, tipo, raza, sexo, peso, fecha_ingreso, protectora, historia_feliz, dni_propietario) VALUES (%d, %s, '%s', '%s', '%s', '%s', '%f', '%s', %d, '%s', '%s')"
@@ -222,7 +224,7 @@ public static function actualizaAnimal($animal)
 {
 	$result = false;
 
-	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	$query = sprintf("UPDATE animales SET nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = %d, protectora =%d, historia = '%s', ID_usuario = '%s', urgente=%d WHERE ID = %d"
 	
@@ -508,7 +510,7 @@ return $this;
 public static function getPerrosEnAdopcion()
  {
 	 $animales = array();
-	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	 $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	 $query = sprintf("SELECT ID, nombre FROM animales WHERE tipo = 'perro' AND ID_usuario IS NULL"); 
 	 $rs = $conn->query($query);
@@ -524,7 +526,7 @@ public static function getPerrosEnAdopcion()
   public static function getPerrosAdopdatos()
  {
 	 $animales = array();
-	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	 $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	 $query = sprintf("SELECT ID, nombre FROM animales WHERE tipo = 'perro' AND ID_usuario IS NOT NULL"); 
 	 $rs = $conn->query($query);
@@ -540,7 +542,7 @@ public static function getPerrosEnAdopcion()
   public static function getGatosEnAdopcion()
  {
 	 $animales = array();
-	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	 $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	 $query = sprintf("SELECT ID, nombre FROM animales WHERE tipo = 'gato' AND ID_usuario IS NULL"); 
 	 $rs = $conn->query($query);
@@ -557,7 +559,7 @@ public static function getPerrosEnAdopcion()
   public static function getGatosAdoptados()
  {
 	 $animales = array();
-	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+	 $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	 $query = sprintf("SELECT ID, nombre FROM animales WHERE tipo = 'gato' AND ID_usuario IS NOT NULL"); 
 	 $rs = $conn->query($query);
