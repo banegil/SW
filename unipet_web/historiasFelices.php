@@ -2,10 +2,9 @@
 
 require_once __DIR__.'/includes/config.php';
 require_once("includes/comun/listaAnimales.php");
-require_once("includes/AnimalDB.php");
 
 $tituloPagina = 'Historias';
-$adoptados = listaAnimales(Animal::getAnimalesAdoptados());
+$adoptados = listaAnimales(es\ucm\fdi\aw\Animal::getAnimalesAdoptados());
 
 $contenidoPrincipal = <<<EOS
 <h1>Nuestros animales adoptados</h1>
