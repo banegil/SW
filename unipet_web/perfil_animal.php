@@ -17,7 +17,7 @@ else {
     //echo '<img src="data:imagenes;base64,' . base64_encode($animal->getImagen()) . ' "width=15%";>';
     $contenidoPrincipal .= "<div id='contenedorNombre'>";
     $contenidoPrincipal .=  "<p id='nombreAnimal'> NOMBRE: " . $animal->getNombre() . "</p>";
-    if ($animal->getUrgente() && $animal->getDni_propietario() == null) {
+    if ($animal->getUrgente() && $animal->getID_propietario() == null) {
         $contenidoPrincipal .= "<h1>¡URGENTE!</h1>";
     }
     $contenidoPrincipal .= "</div>";
@@ -31,8 +31,8 @@ else {
     else $contenidoPrincipal .=    '<a href = "protectora.php?id=' . $protectora->getID() . '">' . $protectora->getNombre() . '</a>';
     $contenidoPrincipal .="</div>";
     $contenidoPrincipal .= "<div id='botonesContenedor'>";
-    if ($animal->getDni_propietario() != null) {
-        $usuario = Usuario::buscaPorDNI($animal->getDni_propietario());
+    if ($animal->getID_propietario() != null) {
+        $usuario = Usuario::buscaPorID($animal->getID_propietario());
         $contenidoPrincipal .= "<p> Historia feliz: " . $animal->getHistoria_feliz() . "</p>";
         $contenidoPrincipal .= "<p> Adoptado por  " . $usuario->getNombre() . "</p>";
         $contenidoPrincipal .= "<button type='button' class='boton' disabled>Adoptar</button>";
@@ -40,7 +40,7 @@ else {
 
         $contenidoPrincipal .= "<p> El animal está adoptado</p>";
     } else {
-        if (estaLogado() && $animal->getDni_propietario() == null) {
+        if (estaLogado() && $animal->getID_propietario() == null) {
             $contenidoPrincipal .= <<<EOS
         <form action="formularioAdopcion.php">
             <input type="submit" class='boton' value="Adoptar" />
