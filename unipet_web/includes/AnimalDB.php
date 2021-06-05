@@ -11,7 +11,8 @@ class Animal
 	   $animal = new Animal($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $ingreso, $protectora, NULL, NULL,NULL);   
 	   return $animal;
 	}
-		public static function actualizar($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $protectora,$historia_feliz, $urgente)
+	
+	public static function actualizar($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $protectora,$historia_feliz, $urgente)
 	{	
 	   $animal = new Animal($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, NULL, $protectora, $historia_feliz, NULL, $urgente); 
 	   return self::actualizaAnimal($animal);  
@@ -20,8 +21,8 @@ class Animal
 	
     public static function buscaPorID($idAnimal)
     {
-       $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
+       $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+       $conn = $app->conexionBd();
        $query = sprintf("SELECT * FROM animales WHERE ID='%s' ", $idAnimal); 
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
@@ -30,17 +31,17 @@ class Animal
                                 $fila['nacimiento'], $fila['tipo'], $fila['raza'],
                                 $fila['sexo'], $fila['peso'], 
                                 $fila['ingreso'], $fila['protectora'], 
-                                $fila['historia'], $fila['DNI'], $fila['urgente']);
+                                $fila['historia'], $fila['ID_usuario'], $fila['urgente']);
         $rs->free();
         return $animal;
        }
        return false;
     }
 
-   public static function getAdoptados($dni){
-      $app = Aplicacion::getSingleton();
+   public static function getAdoptados($idUsuario){
+      $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-         $query = sprintf("SELECT * FROM animales WHERE DNI='%s' ",$dni); 
+         $query = sprintf("SELECT * FROM animales WHERE ID_usuario='%s' ",$idUsuario); 
          $rs = $conn->query($query);
          if($rs && ($rs->num_rows >0)){
             $resultado = [];
@@ -49,7 +50,7 @@ class Animal
                $fila['nacimiento'], $fila['tipo'], $fila['raza'],
                $fila['sexo'], $fila['peso'], 
                $fila['ingreso'], $fila['protectora'], 
-               $fila['historia'], $fila['DNI'], $fila['urgente']);
+               $fila['historia'], $fila['ID_usuario'], $fila['urgente']);
                array_push($resultado, $animal);
                
             }
@@ -60,20 +61,20 @@ class Animal
          return false;     
   }
 
-  public static function getApadrinados($dni){
-   $app = Aplicacion::getSingleton();
+  public static function getApadrinados($idUsuario){
+   $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
    $conn = $app->conexionBd();
-   $query = sprintf("SELECT anim.id, anim.nombre, anim.nacimiento, anim.tipo,anim.raza, anim.sexo, anim.peso, anim.ingreso, anim.protectora,anim.historia, anim.DNI
-    FROM animales anim JOIN Apadrinados apa ON anim.id = apa.id JOIN Usuarios usu on apa.dni = usu.dni   WHERE usu.dni='%s' ",$dni); 
+   $query = sprintf("SELECT anim.ID, anim.nombre, anim.nacimiento, anim.tipo,anim.raza, anim.sexo, anim.peso, anim.ingreso, anim.protectora,anim.historia, anim.ID_usuario, anim.urgente
+    FROM animales anim JOIN apadrinados apa ON anim.ID = apa.ID JOIN usuarios usu ON apa.ID_usuario = usu.ID   WHERE usu.ID='%s' ",$idUsuario); 
    $rs = $conn->query($query);
    if($rs && ($rs->num_rows >0)){
       $resultado = [];
       while($fila=$rs->fetch_assoc()){
-         $animal = new Animal($fila['id'], $fila['nombre'], 
+         $animal = new Animal($fila['ID'], $fila['nombre'], 
          $fila['nacimiento'], $fila['tipo'], $fila['raza'],
          $fila['sexo'], $fila['peso'], 
          $fila['ingreso'], $fila['protectora'], 
-         $fila['historia'], $fila['DNI'], $fila['urgente']);
+         $fila['historia'], $fila['ID_usuario'], $fila['urgente']);
          array_push($resultado, $animal);
          
       }
@@ -89,9 +90,9 @@ class Animal
  public static function getEnAdopcion()
  {
 	 $animales = array();
-	 $app = Aplicacion::getSingleton();
+	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	 $query = sprintf("SELECT ID, nombre FROM animales WHERE DNI IS NULL");
+	 $query = sprintf("SELECT ID, nombre FROM animales WHERE ID_usuario IS NULL");
 	 $rs = $conn->query($query);
 	 for($i = 0; $i < $rs->num_rows*2; $i+=2){
            $fila = $rs->fetch_assoc();
@@ -105,9 +106,9 @@ class Animal
  public static function getUrgentes()
  {
 	 $animales = array();
-	 $app = Aplicacion::getSingleton();
+	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	 $query = sprintf("SELECT ID, nombre FROM animales WHERE DNI IS NULL AND urgente != '0' ");
+	 $query = sprintf("SELECT ID, nombre FROM animales WHERE ID_usuario IS NULL AND urgente != '0' ");
 	 $rs = $conn->query($query);
 	 for($i = 0; $i < $rs->num_rows*2; $i+=2){
            $fila = $rs->fetch_assoc();
@@ -121,9 +122,9 @@ class Animal
  public static function getUltimosAcogidos($tipoAnimal)
  {
 	 $animales = array();
-	 $app = Aplicacion::getSingleton();
+	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	 $query = sprintf("SELECT ID, nombre FROM animales WHERE DNI IS NULL AND tipo = '%s' ORDER BY ingreso DESC", $tipoAnimal);
+	 $query = sprintf("SELECT ID, nombre FROM animales WHERE ID_usuario IS NULL AND tipo = '%s' ORDER BY ingreso DESC", $tipoAnimal);
 	 $rs = $conn->query($query);
 	 for($i = 0; $i < $rs->num_rows*2; $i+=2){
            $fila = $rs->fetch_assoc();
@@ -137,7 +138,7 @@ class Animal
  public static function buscaAnimales($nombreAnimal,$tipoAnimal)
  {
 	 $animales = array();
-	 $app = Aplicacion::getSingleton();
+	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
      $conn = $app->conexionBd();
 	 $result = [];
 	 /*
@@ -146,7 +147,7 @@ class Animal
 	   $query = sprintf("SELECT ID, nombre FROM animales WHERE ");
 	   if ($nombreAnimal != null) $query .= "nombre LIKE '%".$nombreAnimal."%' AND ";
 	   if ($tipoAnimal != "Todos") $query .= "tipo = '".$tipoAnimal."' AND ";
-	   $query .= "DNI IS NULL ORDER BY nombre ASC";
+	   $query .= "ID_usuario IS NULL ORDER BY nombre ASC";
 	   $rs = $conn->query($query);
 		 if ($rs) {
 		  $i = 0;
@@ -165,10 +166,10 @@ class Animal
    public static function getAnimalesAdoptados()
  {
 	 $animales = array();
-	 $app = Aplicacion::getSingleton();
+	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
      $conn = $app->conexionBd();
 	 $result = [];
-	 $query = sprintf("SELECT ID, nombre FROM animales WHERE DNI IS NOT NULL ORDER BY ingreso DESC");
+	 $query = sprintf("SELECT ID, nombre FROM animales WHERE ID_usuario IS NOT NULL ORDER BY ingreso DESC");
 	 //$query .= "DNI IS NULL ORDER BY nombre ASC";
 	 $rs = $conn->query($query);
 	 if ($rs) {
@@ -187,7 +188,7 @@ public static function insertaAnimal($animal)
 {
 	$result = false;
 
-	$app = Aplicacion::getSingleton();
+	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	/*
 	$query = sprintf("INSERT INTO Animales (ID, nombre, nacimiento, tipo, raza, sexo, peso, fecha_ingreso, protectora, historia_feliz, dni_propietario) VALUES (%d, %s, '%s', '%s', '%s', '%s', '%f', '%s', %d, '%s', '%s')"
@@ -203,14 +204,13 @@ public static function insertaAnimal($animal)
 	  , $animal->historia_feliz
 	  , $animal->dni_propietario);
 	  */
-	$query = "INSERT INTO animales (ID, nombre, nacimiento, tipo, raza, sexo, peso,ingreso, protectora, historia, dni)
-	VALUES ($animal->id, '$animal->nombre', $animal->nacimiento, '$animal->tipo', '$animal->raza', '$animal->sexo', '$animal->peso', $animal->fecha_ingreso, '$animal->protectora', NULL, NULL )";
+	$query = "INSERT INTO animales (ID, nombre, nacimiento, tipo, raza, sexo, peso,ingreso, protectora, historia, ID_usuario, urgente)
+	VALUES ($animal->id, '$animal->nombre', $animal->nacimiento, '$animal->tipo', '$animal->raza', '$animal->sexo', '$animal->peso', $animal->fecha_ingreso, '$animal->protectora', '$animal->historia_feliz', '$animal->id_propietario', '$animal->urgente')";
 	$result = $conn->query($query);
 	
 	if ($result) {
 	  $result = $animal;
 	} else {
-
 	  error_log($conn->error); 
 	}
 	
@@ -220,15 +220,14 @@ public static function insertaAnimal($animal)
 /**
  * update animal
  */ 
-  
 
 public static function actualizaAnimal($animal)
 {
 	$result = false;
 
-	$app = Aplicacion::getSingleton();
+	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	$query = sprintf("UPDATE animales SET  nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = %d, ingreso = '%s', protectora = '%d', historia = '%s', dni = '%s' WHERE ID = %d"
+	$query = sprintf("UPDATE animales SET nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = %d, protectora =%d, historia = '%s', ID_usuario = '%s', urgente=%d WHERE ID = %d"
 	
 	  , $animal->nombre
 	  , $animal->nacimiento
@@ -236,10 +235,10 @@ public static function actualizaAnimal($animal)
 	  , $animal->raza
 	  , $animal->sexo
 	  , $animal->peso
-	  , $animal->fecha_ingreso
 	  , $animal->protectora
 	  , $animal->historia_feliz
-	  , $animal->dni_propietario
+	  , $animal->id_propietario
+	  , $animal->urgente
 	  , $animal->id);
 	$result = $conn->query($query);
 	if (!$result) {
@@ -248,9 +247,7 @@ public static function actualizaAnimal($animal)
 	  error_log("Se han actualizado los datos '$conn->affected_rows' !");
 	}
 	return $result;
-}    
-
-
+} 
 
 private $id;
 private $nombre;
@@ -262,58 +259,30 @@ private $peso;
 private $fecha_ingreso;
 private $protectora;
 private $historia_feliz;
-private $dni_propietario;
-private $imagen;
+private $id_propietario;
 private $urgente;
+private $imagen;
 
 private function __construct($id, $nombre, $nacimiento,
                              $tipo, $raza, $sexo, $peso,
                              $fecha_ingreso, $protectora,
-                              $historia_feliz, $dni_propietario, $urgente)
+                              $historia_feliz, $id_propietario, $urgente)
                             
 {
    $this->id = $id;
    $this->nombre = $nombre;
    $this->nacimiento = $nacimiento;
-   $this->raza = $raza;
    $this->tipo = $tipo;
+   $this->raza = $raza;
    $this->sexo = $sexo;
    $this->peso = $peso;
    $this->fecha_ingreso = $fecha_ingreso;
    $this->protectora = $protectora;
    $this->historia_feliz = $historia_feliz;
-   $this->dni_propietario = $dni_propietario;
+   $this->id_propietario = $id_propietario;
    $this->urgente = $urgente;
+   $this->imagen = NULL;
 }
-
-
-public static function actualizaAnimal($animal)
-{
-	$result = false;
-
-	$app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-	$query = sprintf("UPDATE animales SET  nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = %d, protectora =%d, historia = '%s', dni = '%s', urgente=%d WHERE ID = %d"
-	
-	  , $animal->nombre
-	  , $animal->nacimiento
-	  , $animal->tipo
-	  , $animal->raza
-	  , $animal->sexo
-	  , $animal->peso
-	  , $animal->protectora
-	  , $animal->historia_feliz
-	  , $animal->dni_propietario
-	  , $animal->urgente
-	  , $animal->id);
-	$result = $conn->query($query);
-	if (!$result) {
-	  error_log($conn->error);  
-	} else if ($conn->affected_rows != 1) {
-	  error_log("Se han actualizado los datos '$conn->affected_rows' !");
-	}
-	return $result;
-} 
 
 
 public function getUrgente(){
@@ -522,9 +491,9 @@ return $this;
 /**
  * Get the value of dni_propietario
  */ 
-public function getDni_propietario()
+public function getId_propietario()
 {
-return $this->dni_propietario;
+return $this->id_propietario;
 }
 
 /**
@@ -532,9 +501,9 @@ return $this->dni_propietario;
  *
  * @return  self
  */ 
-public function setDni_propietario($dni_propietario)
+public function setId_propietario($id_propietario)
 {
-$this->dni_propietario = $dni_propietario;
+$this->id_propietario = $id_propietario;
 
 return $this;
 }
@@ -542,9 +511,9 @@ return $this;
 public static function getPerrosEnAdopcion()
  {
 	 $animales = array();
-	 $app = Aplicacion::getSingleton();
+	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	 $query = sprintf("SELECT ID, nombre FROM animales WHERE tipo = 'perro' AND dni IS NULL"); 
+	 $query = sprintf("SELECT ID, nombre FROM animales WHERE tipo = 'perro' AND ID_usuario IS NULL"); 
 	 $rs = $conn->query($query);
 	 
 	 for($i = 0; $i < $rs->num_rows; $i+=1){
@@ -558,9 +527,9 @@ public static function getPerrosEnAdopcion()
   public static function getPerrosAdopdatos()
  {
 	 $animales = array();
-	 $app = Aplicacion::getSingleton();
+	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	 $query = sprintf("SELECT ID, nombre FROM animales WHERE tipo = 'perro' AND dni IS NOT NULL"); 
+	 $query = sprintf("SELECT ID, nombre FROM animales WHERE tipo = 'perro' AND ID_usuario IS NOT NULL"); 
 	 $rs = $conn->query($query);
 	 
 	 for($i = 0; $i < $rs->num_rows; $i+=1){
@@ -574,9 +543,9 @@ public static function getPerrosEnAdopcion()
   public static function getGatosEnAdopcion()
  {
 	 $animales = array();
-	 $app = Aplicacion::getSingleton();
+	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	 $query = sprintf("SELECT ID, nombre FROM animales WHERE tipo = 'gato' AND dni IS NULL"); 
+	 $query = sprintf("SELECT ID, nombre FROM animales WHERE tipo = 'gato' AND ID_usuario IS NULL"); 
 	 $rs = $conn->query($query);
 	 
 	 for($i = 0; $i < $rs->num_rows; $i+=1){
@@ -591,9 +560,9 @@ public static function getPerrosEnAdopcion()
   public static function getGatosAdoptados()
  {
 	 $animales = array();
-	 $app = Aplicacion::getSingleton();
+	 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	 $query = sprintf("SELECT ID, nombre FROM animales WHERE tipo = 'gato' AND dni IS NOT NULL"); 
+	 $query = sprintf("SELECT ID, nombre FROM animales WHERE tipo = 'gato' AND ID_usuario IS NOT NULL"); 
 	 $rs = $conn->query($query);
 	 
 	 for($i = 0; $i < $rs->num_rows; $i+=1){
