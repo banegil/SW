@@ -9,9 +9,21 @@ function idUsuarioLogado()
 {
   $result = false;
   if (estaLogado()) {
-    $result = $_SESSION["DNI"];
+    $result = $_SESSION['id'];
   }
   return $result;
+}
+
+function permisosAdministrador(){
+	return isset($_SESSION['tipo']) && ($_SESSION["tipo"])=='administrador';
+}
+
+function permisosVoluntario(){
+	return isset($_SESSION['tipo']) && (($_SESSION["tipo"])=='voluntario' || permisosAdministrador());
+}
+
+function permisosVeterinario(){
+	return isset($_SESSION['tipo']) && (($_SESSION["tipo"])=='veterinario' || permisosVoluntario());
 }
 
 function calculaEdad($birthDate){
