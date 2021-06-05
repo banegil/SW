@@ -1,8 +1,5 @@
 <?php
 
-require_once __DIR__.'/config.php';
-
-
 class Ficha
     {
         public static function add($id, $vacunas, $observaciones)
