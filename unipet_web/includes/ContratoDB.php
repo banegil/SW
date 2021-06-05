@@ -12,7 +12,7 @@ class Contrato
 	  
     public static function buscaPorDNIeID($dniUsuario,$idAnimal)
     {
-       $app = Aplicacion::getSingleton();
+       $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
        $query = sprintf("SELECT * FROM contrato_adopcion WHERE DNI='%s' AND ID='%s' ", $dniUsuario, $idAnimal); 
        $rs = $conn->query($query);
@@ -107,7 +107,7 @@ public static function insertaContrato($contract)
 {
 	$result = false;
 
-	$app = Aplicacion::getSingleton();
+	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	$query = sprintf("INSERT INTO contrato_adopcion (DNI, ID, formulario, estado, fecha) VALUES ('%s', %d, '%s', '%s', '%s')"
 	  , $contract->dni
@@ -133,7 +133,7 @@ public static function actualizaContrato($contract)
 {
 	$result = false;
 
-	$app = Aplicacion::getSingleton();
+	$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	$query = sprintf("UPDATE contrato_adopcion SET formulario = '%s', estado = '%s', fecha = '%s' WHERE DNI = '%s' AND ID = %d"
 	  , $contract->formulario
@@ -159,7 +159,7 @@ public static function borraContratoPorDNIeID($dniUsuario,$idAnimal)
 {
     $result = false;
 
-    $app = Aplicacion::getSingleton();
+    $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
     $query = sprintf("DELETE FROM contrato_adopcion WHERE DNI = '%s' AND ID = '%s'", $dniUsuario, $idAnimal);
     $result = $conn->query($query);
@@ -210,7 +210,7 @@ public static function getSolicitudes()
 */
 public static function getSolicitudes()
  {
-       $app = Aplicacion::getSingleton();
+       $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
         $conn = $app->conexionBd();
          $query = sprintf("SELECT * FROM contrato_adopcion ORDER BY fecha DESC"); 
          $rs = $conn->query($query);
