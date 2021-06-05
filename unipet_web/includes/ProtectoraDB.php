@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__.'/config.php';
-
 class Protectora
     {
 		public static function add($id, $nombre, $direccion, $telefono)
