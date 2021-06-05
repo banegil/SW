@@ -22,7 +22,7 @@
 if(idSession()){
     $sesion = idSession();
     $animal = Animal::buscaPorID($sesion);
-    $usuario = Usuario::buscaPorDNI($animal->getDni_propietario());
+    $usuario = es\ucm\fdi\aw\Usuario::buscaPorDNI($animal->getId_propietario());
     //echo '<img src="data:imagenes;base64,' . base64_encode($animal->getImagen()) . ' "width=15%";>';
     echo "<p> NOMBRE: ".$animal->getNombre(). "</p>";
     //echo "<p> ID: ".$animal->getID(). "</p>";
