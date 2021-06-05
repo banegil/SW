@@ -1,7 +1,6 @@
 <?php 
 	require_once __DIR__.'/includes/config.php';
 	require_once __DIR__.'/includes/AnimalDB.php';
-	require_once __DIR__.'/includes/UsuarioDB.php';
 	require_once __DIR__.'/includes/ContratoDB.php';
 	
 	
@@ -10,7 +9,7 @@
 	 
 	$contract = Contrato::buscaPorDNIeID($dni, $id);
 	$animal = Animal::buscaPorID($id);
-	$usuario = Usuario::buscaPorDNI($dni);
+	$usuario = es\ucm\fdi\aw\Usuario::buscaPorDNI($dni);
 
 	$contenidoPrincipal = '<h3>Estado de la solicitud: '.$contract->getEstado().'</h3>';
 	$contenidoPrincipal .= '<h3>Nombre del usuario: '.$usuario->getNombre().' '.$usuario->getApellido().'</h3>';
