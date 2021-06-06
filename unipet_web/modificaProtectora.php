@@ -1,10 +1,9 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/ProtectoraDB.php'; 
 
 $tituloPagina = 'EditarProtectora';
-$protectora = Protectora::buscaProtectoraPorId($id));
+$protectora = es\ucm\fdi\aw\Protectora::buscaProtectoraPorId($id));
 
 if()
 $contenidoPrincipal = <<<EOS
@@ -17,7 +16,7 @@ $contenidoPrincipal = <<<EOS
 		<input type="number" name="idProtectora" value="<?=$id?>" size="25"/>
 	</div>
 	<?php                
-		$protectora = Protectora::buscaProtectoraPorId($id));   
+		$protectora = es\ucm\fdi\aw\Protectora::buscaProtectoraPorId($id));   
 	?>
 
 	
