@@ -11,18 +11,9 @@
 	$respuesta7 = filter_input(INPUT_POST, 'fechaIngreso', FILTER_SANITIZE_STRING);
 	$respuesta8 = filter_input(INPUT_POST, 'protectora', FILTER_SANITIZE_NUMBER_INT);
 	
-
-	
 	$animal = es\ucm\fdi\aw\Animal::add($respuesta0,$respuesta1, $respuesta2, $respuesta3, $respuesta4, $respuesta5, $respuesta6, $respuesta7, $respuesta8);
 	$animal->guarda();
 	//Animal::insertaAnimal($animal);
 	
-	if (!es\ucm\fdi\aw\Animal::buscaPorID($respuesta0)) {
-      echo '<h2>Error al enviar formulario...</h2>';
-    } else {
-      echo '<h2>Formulario enviado!</h2>';
-    }
-	
-	echo '<p>Serás redirigido al panel de control en 5 segundos</p>';
-	header( 'Location: index.php' );
+	header( 'Location: controlPanel.php' );
 ?>
