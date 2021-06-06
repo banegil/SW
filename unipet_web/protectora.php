@@ -1,10 +1,9 @@
 <?php 
 	require_once __DIR__.'/includes/config.php';
-	require_once __DIR__.'/includes/ProtectoraDB.php';
 	
 	$id = $_GET['id'];
 	$tituloPagina = "Protectora";
-	$protectora = Protectora::buscaProtectoraPorId($id);
+	$protectora = es\ucm\fdi\aw\Protectora::buscaProtectoraPorId($id);
 	if($protectora == null) $contenidoPrincipal = "<h1> PROTECTORA NO EXISTENTE </h1>";
 	else {
 		$tituloPagina = $protectora->getNombre() ;
