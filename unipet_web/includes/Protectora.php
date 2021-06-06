@@ -67,19 +67,28 @@ class Protectora
 
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-		
-	$query = "INSERT INTO protectoras (ID, nombre, direccion, telefono)
-		VALUES ($protectora->id, '$protectora->nombre', $protectora->direccion, '$protectora->telefono')";
-		$result = $conn->query($query);
-		
-		if ($result) {
-		  $result = $protectora;
-		} else {
+	
+	$query = sprintf("INSERT INTO protectoras (ID, nombre, direccion, telefono) VALUES (%d, '%s', '%s', %d)"
 
-		  error_log($conn->error); 
-		}
+		  , $conn->real_escape_string($protectora->id)
+		  , $conn->real_escape_string($protectora->nombre)
+		  , $conn->real_escape_string($protectora->direccion)
+		  , $conn->real_escape_string($protectora->telefono));
+	
+	
+	/*$query = "INSERT INTO protectoras (ID, nombre, direccion, telefono)
+		VALUES ($protectora->id, '$protectora->nombre', $protectora->direccion, '$protectora->telefono')";*/
 		
-		return $result;
+	$result = $conn->query($query);
+		
+	if ($result) {
+	  $result = $protectora;
+	} else {
+
+	  error_log($conn->error); 
+	}
+	
+	return $result;
 }
 
 /**
@@ -92,11 +101,13 @@ public static function actualizaProtectora($protectora)
 
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	$query = sprintf("UPDATE protectoras SET  nombre = %s, direccion = '%s', telefono = '%s' WHERE ID = %d"
+		
+	$query = sprintf("UPDATE protectoras SET  nombre = '%s', direccion = '%s', telefono = %d WHERE ID = %d"
 
-		  , $protectora->nombre
-		  , $protectora->direccion
-		  , $protectora->telefono);
+		  , $conn->real_escape_string($protectora->nombre)
+		  , $conn->real_escape_string($protectora->direccion)
+		  , $conn->real_escape_string($protectora->telefono)
+		  , $conn->real_escape_string($protectora->id));
 
 		$result = $conn->query($query);
 		if (!$result) {
