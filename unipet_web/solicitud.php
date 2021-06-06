@@ -1,12 +1,10 @@
 <?php 
 	require_once __DIR__.'/includes/config.php';
-	require_once __DIR__.'/includes/ContratoDB.php';
-	
 	
 	$dni = $_GET['dni'];
 	$id = $_GET['id'];
 	 
-	$contract = Contrato::buscaPorDNIeID($dni, $id);
+	$contract = es\ucm\fdi\aw\Contrato::buscaPorDNIeID($dni, $id);
 	$animal = es\ucm\fdi\aw\Animal::buscaPorID($id);
 	$usuario = es\ucm\fdi\aw\Usuario::buscaPorID($dni);
 
