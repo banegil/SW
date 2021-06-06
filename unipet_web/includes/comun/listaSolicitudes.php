@@ -1,7 +1,5 @@
 <?php
-	//include_once ("../ContratoDB.php");
 	function listaSolicitudes($solicitudes){
-		//$solicitudes = Contrato:: getSolicitudes();
 		if ($solicitudes == null) {
 			$html = "<p> No se han encontrado solicitudes </p>";
 			return $html;
