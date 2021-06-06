@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/Usuario.php';
-require_once __DIR__ . '/includes/ProtectoraDB.php';
 
 
 $tituloPagina = 'Perfil Animal';
@@ -12,7 +11,7 @@ $animal = es\ucm\fdi\aw\Animal::buscaPorID($idSes);
 if ($animal == null) $contenidoPrincipal .= "<h2> No se ha encontrado con ningún animal  </h2>";
 else {
     $tituloPagina = $animal->getNombre();
-    $protectora = Protectora::buscaProtectoraPorId($animal->getProtectora());
+    $protectora = es\ucm\fdi\aw\Protectora::buscaProtectoraPorId($animal->getProtectora());
     //echo '<img src="data:imagenes;base64,' . base64_encode($animal->getImagen()) . ' "width=15%";>';
     $contenidoPrincipal .= "<div id='contenedorNombre'>";
     $contenidoPrincipal .=  "<p id='nombreAnimal'> NOMBRE: " . $animal->getNombre() . "</p>";
