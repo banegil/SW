@@ -1,5 +1,7 @@
 <?php
 
+namespace es\ucm\fdi\aw;
+
 class Ficha
     {
         public static function add($id, $vacunas, $observaciones)
@@ -10,7 +12,7 @@ class Ficha
 
         public static function getFichas(){
 
-            $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+            $app = Aplicacion::getSingleton();
 			$conn = $app->conexionBd();
 			$query = sprintf("SELECT * FROM fichas ORDER BY ID ASC"); 
 			$rs = $conn->query($query);
@@ -31,7 +33,7 @@ class Ficha
 
 
         public static function buscaFichaPorId($id){
-			$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+			$app = Aplicacion::getSingleton();
 			$conn = $app->conexionBd();
             $query = sprintf("SELECT * FROM fichas WHERE id='%s' ", $id); 
             $rs = $conn->query($query);
