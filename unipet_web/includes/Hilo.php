@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__.'/config.php';
+
+namespace es\ucm\fdi\aw;
+
 class Hilo
 {
 	private $id;
@@ -18,7 +20,7 @@ class Hilo
 	}
 	
 	public static function getHilos(){
-		$app = es\ucm\fdi\aw\Aplicacion::getSingleton();
+		$app = Aplicacion::getSingleton();
 		$conn = $app->conexionBd();
 		$query = sprintf("SELECT * FROM hilos"); 
 		$rs = $conn->query($query);
