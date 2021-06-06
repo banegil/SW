@@ -1,12 +1,10 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__. '/includes/FichaClase.php';
-
 
 $tituloPagina = 'Ficha';
 $idAnimal = $_GET['id'];
-$ficha = Ficha::buscaFichaPorId($idAnimal);
+$ficha = es\ucm\fdi\aw\Ficha::buscaFichaPorId($idAnimal);
 $vacunas = $ficha->getVacunas();
 $observaciones = $ficha->getObservaciones();
 
