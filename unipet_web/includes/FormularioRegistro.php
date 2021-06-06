@@ -1,5 +1,6 @@
 <?php
-require_once "includes/Form.php";
+
+namespace es\ucm\fdi\aw;
 
 class FormularioRegistro extends Form
 {
@@ -96,7 +97,7 @@ EOF;
         }
         
         if (count($result) === 0) {
-            $user = es\ucm\fdi\aw\Usuario::register($DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion, date('d-m-y'));
+            $user = Usuario::register($DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion, date('d-m-y'));
             if ( ! $user ) {
                 $result[] = "El usuario ya existe";
             } else {
