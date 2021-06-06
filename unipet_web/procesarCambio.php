@@ -1,12 +1,11 @@
 <?php
 	require_once __DIR__.'/includes/config.php';
-	require_once __DIR__.'/includes/ContratoDB.php';
 
 	$dni = $_SESSION['dniContrato'];
 	$id = $_SESSION['idContrato'];
 	$estado = $_POST['estado'];
 	
-	$contract = Contrato::buscaPorDNIeID($dni,$id);
+	$contract = es\ucm\fdi\aw\Contrato::buscaPorDNIeID($dni,$id);
 	
 	 if($contract != NULL){
 		$contract->setEstado($estado);
