@@ -31,7 +31,7 @@ else {
     $contenidoPrincipal .="</div>";
     $contenidoPrincipal .= "<div id='botonesContenedor'>";
     if ($animal->getId_propietario() != null) {
-        $usuario = es\ucm\fdi\aw\Usuario::buscaPorDNI($animal->getId_propietario());
+        $usuario = es\ucm\fdi\aw\Usuario::buscaPorID($animal->getId_propietario());
         $contenidoPrincipal .= "<p> Historia feliz: " . $animal->getHistoria_feliz() . "</p>";
         $contenidoPrincipal .= "<p> Adoptado por  " . $usuario->getNombre() . "</p>";
         $contenidoPrincipal .= "<button type='button' class='boton' disabled>Adoptar</button>";
