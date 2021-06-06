@@ -1,9 +1,8 @@
 <?php
 
 require_once __DIR__.'\includes\config.php';
-require_once __DIR__.'\includes\FormularioEditarAnimal.php';
 
-$form = new FormularioEditarAnimal("1");
+$form = new es\ucm\fdi\aw\FormularioEditarAnimal("1");
 $htmlFormRegistro = $form->gestiona();
 
 $tituloPagina = 'Actualizar Animal';
