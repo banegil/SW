@@ -1,9 +1,8 @@
 <?php
 
 require_once __DIR__.'\includes\config.php';
-require_once __DIR__.'\includes\FormularioEditarUsuario.php';
 
-$form = new FormularioEditarUsuario("1");
+$form = new es\ucm\fdi\aw\FormularioEditarUsuario("1");
 $htmlFormRegistro = $form->gestiona();
 
 $tituloPagina = 'Actualizar';
