@@ -3,9 +3,8 @@
 
 require_once __DIR__.'/includes/config.php';
 require_once __DIR__.'/includes/comun/listaSolicitudes.php';
-require_once __DIR__.'/includes/ContratoDB.php';
 
-$solicitudes = listaSolicitudes(Contrato:: getSolicitudes());
+$solicitudes = listaSolicitudes(es\ucm\fdi\aw\Contrato:: getSolicitudes());
 
 $tituloPagina = 'Colabora';
 
