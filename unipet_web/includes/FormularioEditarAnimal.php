@@ -1,6 +1,5 @@
 <?php
 require_once "includes\Form.php";
-require_once "ProtectoraDB.php";
 
 
 class FormularioEditarAnimal extends Form
