@@ -1,9 +1,8 @@
 <?php
 
-require_once __DIR__.'/includes/FormularioColabora.php';
 require_once __DIR__.'/includes/config.php';
 
-$form = new FormularioColabora("1");
+$form = new es\ucm\fdi\aw\FormularioColabora("1");
 $htmlFormColabora = $form->gestiona();
 
 $tituloPagina = 'Colabora';
