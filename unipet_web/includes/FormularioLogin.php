@@ -1,5 +1,7 @@
-<?php  
-	require 'Form.php';
+<?php
+  
+	namespace es\ucm\fdi\aw;
+	
 	class FormularioLogin extends Form {
 
 		protected function generaCamposFormulario($datos, $errores = array())
@@ -34,7 +36,7 @@ EOS;
 			}
 
 			if (count($errores) === 0) {
-				$usuario = es\ucm\fdi\aw\Usuario::login($DNI,$pass);
+				$usuario = Usuario::login($DNI,$pass);
 				if($usuario){
 					$_SESSION['login'] = true;
 					//$_SESSION['DNI'] = $DNI;
