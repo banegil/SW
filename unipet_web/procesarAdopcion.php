@@ -1,6 +1,5 @@
 <?php
 	require_once __DIR__.'/includes/config.php';
-	require_once __DIR__.'/includes/ContratoDB.php';
 
 	$respuesta1 = $_POST['animalAnt'];
 	$respuesta2 = $_POST['typeOfHouse'];
@@ -19,11 +18,11 @@
 						  , $respuesta4
 						  , $respuesta5);
 	
-	$contract = Contrato::buscaPorDNIeID($_SESSION["DNI"],$_SESSION["idAnimal"]);
+	$contract = es\ucm\fdi\aw\Contrato::buscaPorDNIeID($_SESSION["DNI"],$_SESSION["idAnimal"]);
 	
 	
 	if (!$contract) {
-		$contract = Contrato::crea($_SESSION["DNI"], $_SESSION["idAnimal"], $textoFormulario);
+		$contract = es\ucm\fdi\aw\Contrato::crea($_SESSION["DNI"], $_SESSION["idAnimal"], $textoFormulario);
 		$contract->guarda();
 	} else {
 		if($contract->ComprobarEnProceso()){
