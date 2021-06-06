@@ -9,12 +9,5 @@
 	$protectora = es\ucm\fdi\aw\Protectora::add($respuesta0,$respuesta1, $respuesta2, $respuesta3);
 	$protectora->guarda();
 	
-	if (!es\ucm\fdi\aw\Protectora::buscaProtectoraPorId($respuesta0)) {
-      echo '<h2>Error al enviar formulario...</h2>';
-    } else {
-      echo '<h2>Se ha añadido la protectora correctamente</h2>';
-    }
-	
-	echo '<p>Serás redirigido al panel de control en 5 segundos</p>';
-	header( "refresh:5; url=./controlPanel.php" );
+	header( 'Location: controlPanel.php' );
 ?>
