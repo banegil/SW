@@ -5,6 +5,8 @@
  *
  * Además de la gestión básica de los formularios.
  */
+
+
 abstract class Form
 {
 
@@ -156,7 +158,7 @@ abstract class Form
         $html='';
         $numErrores = count($errores);
         if (  $numErrores == 1 ) {
-            $html .= "<ul><li>".$errores[0]."</li></ul>";
+            $html .= "<ul><li>".implode("</li><li>", $errores)."</li></ul>";
         } else if ( $numErrores > 1 ) {
             $html .= "<ul><li>";
             $html .= implode("</li><li>", $errores);
