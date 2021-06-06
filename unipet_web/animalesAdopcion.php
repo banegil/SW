@@ -1,11 +1,10 @@
 <?php
 
 require_once __DIR__."/includes/config.php";
-require_once __DIR__."/includes/FormularioBusquedaAnimales.php";
 require_once 'includes/comun/listaAnimales.php';
 
 $tituloPagina = 'Animales en Adopcion';
-$formBuscaAnimales = new FormularioBusquedaAnimales('1');
+$formBuscaAnimales = new es\ucm\fdi\aw\FormularioBusquedaAnimales('1');
 $form = $formBuscaAnimales->gestiona();
 
 $contenidoPrincipal = <<<EOS
