@@ -14,7 +14,7 @@
 		
 		
 		if( isset($_SESSION['tipo']) && ($_SESSION['tipo'] == "voluntario" || $_SESSION['tipo'] == "administrador")){
-			$_SESSION['id'] = $id;
+			$_SESSION['idProtectora'] = $id;
 				
 				$contenidoPrincipal.= <<<EOS
 				<form id="modProtectora" action="./procesarAddProtectora.php" method="POST">
