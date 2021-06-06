@@ -1,5 +1,6 @@
 <?php
-require_once "includes\Form.php";
+
+namespace es\ucm\fdi\aw;
 
 
 class FormularioEditarAnimal extends Form
@@ -11,7 +12,7 @@ class FormularioEditarAnimal extends Form
     protected function generaCamposFormulario($datos, $errores = array())
     {
         
-        $animal = es\ucm\fdi\aw\Animal::buscaPorID($_GET['id']);
+        $animal = Animal::buscaPorID($_GET['id']);
 
         $id =  $animal->getId() ?? '';
 		$nombre =  $animal->getNombre() ?? '';
@@ -75,7 +76,7 @@ EOF;
 		
 	
         if (count($result) === 0) {
-            $animal = es\ucm\fdi\aw\Animal::actualizar($id, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $protectora, $historia, $urgente);
+            $animal = Animal::actualizar($id, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $protectora, $historia, $urgente);
             if ( ! $animal ) {
                 $result[] = "El animal ya existe";
             } else {
