@@ -23,7 +23,7 @@ $solicitudes
 
 <h1>Animales</h1>
 </article>
-<form action="listaAnimalesAdopcion.php">
+<form action="animalesAdopcion.php">
 	<input type="submit" value="Ver Lista" />
 </form>
 
