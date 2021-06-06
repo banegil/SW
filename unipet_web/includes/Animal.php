@@ -189,22 +189,22 @@ public static function insertaAnimal($animal)
 
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	/*
-	$query = sprintf("INSERT INTO Animales (ID, nombre, nacimiento, tipo, raza, sexo, peso, fecha_ingreso, protectora, historia_feliz, dni_propietario) VALUES (%d, %s, '%s', '%s', '%s', '%s', '%f', '%s', %d, '%s', '%s')"
-	  , $animal->id
-	  , $animal->nombre
-	  , $animal->nacimiento
-	  , $animal->tipo
-	  , $animal->raza
-	  , $animal->sexo
-	  , $animal->peso
-	  , $animal->fecha_ingreso
-	  , $animal->protectora
-	  , $animal->historia_feliz
-	  , $animal->dni_propietario);
-	  */
-	$query = "INSERT INTO animales (ID, nombre, nacimiento, tipo, raza, sexo, peso,ingreso, protectora, historia, ID_usuario, urgente)
-	VALUES ($animal->id, '$animal->nombre', $animal->nacimiento, '$animal->tipo', '$animal->raza', '$animal->sexo', '$animal->peso', $animal->fecha_ingreso, '$animal->protectora', '$animal->historia_feliz', '$animal->id_propietario', '$animal->urgente')";
+	
+	$query = sprintf("INSERT INTO animales (ID, nombre, nacimiento, tipo, raza, sexo, peso, ingreso, protectora, urgente) VALUES (%d, '%s', '%s', '%s', '%s', '%s', %f, '%s', %d, 0)"
+	  , $conn->real_escape_string($animal->id)
+	  , $conn->real_escape_string($animal->nombre)
+	  , $conn->real_escape_string($animal->nacimiento)
+	  , $conn->real_escape_string($animal->tipo)
+	  , $conn->real_escape_string($animal->raza)
+	  , $conn->real_escape_string($animal->sexo)
+	  , $conn->real_escape_string($animal->peso)
+	  , $conn->real_escape_string($animal->fecha_ingreso)
+	  , $conn->real_escape_string($animal->protectora));
+	  
+	  
+	/*$query = "INSERT INTO animales (ID, nombre, nacimiento, tipo, raza, sexo, peso,ingreso, protectora, historia, ID_usuario, urgente)
+	VALUES ($animal->id, '$animal->nombre', $animal->nacimiento, '$animal->tipo', '$animal->raza', '$animal->sexo', $animal->peso, $animal->fecha_ingreso, $animal->protectora, '$animal->historia_feliz', $animal->id_propietario, $animal->urgente)";*/
+	
 	$result = $conn->query($query);
 	
 	if ($result) {
@@ -226,22 +226,25 @@ public static function actualizaAnimal($animal)
 
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-	$query = sprintf("UPDATE animales SET nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = %d, protectora =%d, historia = '%s', ID_usuario = '%s', urgente=%d WHERE ID = %d"
+		
+	$query = sprintf("UPDATE animales SET nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = '%s', protectora = '%s', historia = '%s', ID_usuario = '%s', urgente= '%s' WHERE ID = '%s'"
 	
-	  , $animal->nombre
-	  , $animal->nacimiento
-	  , $animal->tipo
-	  , $animal->raza
-	  , $animal->sexo
-	  , $animal->peso
-	  , $animal->protectora
-	  , $animal->historia_feliz
-	  , $animal->id_propietario
-	  , $animal->urgente
-	  , $animal->id);
+	  , $conn->real_escape_string($animal->nombre)
+	  , $conn->real_escape_string($animal->nacimiento)
+	  , $conn->real_escape_string($animal->tipo)
+	  , $conn->real_escape_string($animal->raza)
+	  , $conn->real_escape_string($animal->sexo)
+	  , $conn->real_escape_string($animal->peso)
+	  , $conn->real_escape_string($animal->protectora)
+	  , $conn->real_escape_string($animal->historia_feliz)
+	  , $conn->real_escape_string($animal->id_propietario)
+	  , $conn->real_escape_string($animal->urgente)
+	  , $conn->real_escape_string($animal->id));
+	  
 	$result = $conn->query($query);
+	
 	if (!$result) {
-	  error_log($conn->error);  
+	  error_log($conn->error);
 	} else if ($conn->affected_rows != 1) {
 	  error_log("Se han actualizado los datos '$conn->affected_rows' !");
 	}
@@ -283,10 +286,6 @@ private function __construct($id, $nombre, $nacimiento,
    $this->imagen = NULL;
 }
 
-
-public function getUrgente(){
-	return $this->urgente;
-}
 /**
  * Get the value of id
  */ 
@@ -488,7 +487,7 @@ return $this;
 }
 
 /**
- * Get the value of dni_propietario
+ * Get the value of id_propietario
  */ 
 public function getId_propietario()
 {
@@ -496,13 +495,37 @@ return $this->id_propietario;
 }
 
 /**
- * Set the value of dni_propietario
+ * Set the value of id_propietario
  *
  * @return  self
  */ 
 public function setId_propietario($id_propietario)
 {
 $this->id_propietario = $id_propietario;
+
+return $this;
+}
+
+
+/**
+ * Get the value of urgente
+ *
+ * @return  self
+ */ 
+
+public function getUrgente(){
+	return $this->urgente;
+}
+
+/**
+ * Set the value of urgente
+ *
+ * @return  self
+ */ 
+ 
+ public function setUrgente($urgente)
+{
+$this->urgente = $urgente;
 
 return $this;
 }
