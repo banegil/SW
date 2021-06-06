@@ -6,6 +6,7 @@
  * Además de la gestión básica de los formularios.
  */
 
+namespace es\ucm\fdi\aw;
 
 abstract class Form
 {
