@@ -9,6 +9,13 @@ class Protectora
 		   $protectora = new Protectora($id, $nombre, $direccion, $telefono);   
 		   return $protectora;
 		}
+
+		public static function actualizar($id, $nombre, $direccion, $telefono)
+		{	
+			$protectora = new Protectora($id, $nombre, $direccion, $telefono); 
+			return self::actualizaProtectora($protectora);  
+			return $protectora;
+		}
 		
         public static function buscaProtectoraPorId($id){
 			$app = Aplicacion::getSingleton();
