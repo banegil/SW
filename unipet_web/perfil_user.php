@@ -22,10 +22,25 @@ else if(estaLogado()){
        
 if($usuario != null){ // comprobamos si el usuario esta en la base de datos
 	if ($usuario->getID() == idUsuarioLogado() || permisosVoluntario()) $esMiPerfil = true;
-    if ($esMiPerfil)$contenidoPrincipal .="<p> DNI: ".$usuario->getDni(). "</p>";
     // aqui iria el div para foto nombre y apellido
     $contenidoPrincipal .= "<div id='contenedorNombre'>";
     $contenidoPrincipal .= "<div id='contenedorNameApellido'>";
+	if(file_exists(RUTA_IMGUSU.'/'.$usuario->getID().'.jpg')){
+		$contenidoPrincipal .= "<img src=img/usu/".$usuario->getID().".jpg alt=Foto usuario".$usuario->getID()."/>";
+		if($esMiPerfil || permisosVoluntario()){
+			$contenidoPrincipal .="<p>Cambiar foto:</p>";
+			$form = new es\ucm\fdi\aw\FormularioFotoUsu($usuario->getID());
+			$contenidoPrincipal .= $form->gestiona();
+		}
+	}else{
+		$contenidoPrincipal .= "<img src=img/usu/null.jpg alt=Foto usuario".$usuario->getID()."/>";
+		if($esMiPerfil || permisosVoluntario()){
+			$contenidoPrincipal .="<p>Añadir foto:</p>";
+			$form = new es\ucm\fdi\aw\FormularioFotoUsu($usuario->getID());
+			$contenidoPrincipal .= $form->gestiona();
+		}
+	}
+	if ($esMiPerfil)$contenidoPrincipal .="<p> DNI: ".$usuario->getDni(). "</p>";
     $contenidoPrincipal .="<p> NOMBRE: ".$usuario->getNombre(). "</p>";
 	$contenidoPrincipal .="<p> APELLIDO: ".$usuario->getApellido(). "</p>";
     $contenidoPrincipal .= "</div>";
