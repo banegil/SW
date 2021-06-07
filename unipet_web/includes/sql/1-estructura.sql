@@ -153,8 +153,8 @@ CREATE TABLE `tarjetas` (
 
 DROP TABLE IF EXISTS `transacciones`;
 CREATE TABLE `transacciones` (
-  `ID` int(9) NOT NULL,
-  `ID_usuario` int(24) NOT NULL,
+  `ID` int(24) NOT NULL,
+  `ID_usuario` int(9) NOT NULL,
   `tarjeta` int(12) NOT NULL,
   `cantidad` decimal(3,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
