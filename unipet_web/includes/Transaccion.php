@@ -1,5 +1,7 @@
 <?php
 
+namespace es\ucm\fdi\aw;
+
 class Transaccion
 {	
     public static function buscaPorTarjeta($tarjeta)
