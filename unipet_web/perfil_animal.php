@@ -40,7 +40,7 @@ else {
     } else {
         if (estaLogado() && $animal->getId_propietario() == null) {
             $contenidoPrincipal .= <<<EOS
-        <form action="formularioAdopcion.php">
+        <form action="adoption.php">
             <input type="submit" class='boton' value="Adoptar" />
         <button class='boton' type="button">Apadrinar</button>
 EOS;
