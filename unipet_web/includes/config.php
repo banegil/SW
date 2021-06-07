@@ -63,20 +63,6 @@ spl_autoload_register(function ($class) {
 $app = es\ucm\fdi\aw\Aplicacion::getSingleton();
 $app->init(array('host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS));
 
-/* */
-/* Usuario almacenado en memoria */
-/* */
-
-/* XXX Quita este comentario y comenta UsuarioBD.php para proba SOLO la funcionalidad de login del usuario.
-require_once __DIR__.'/UsuarioArray.php';
-*/
-
-/* */
-/* Usuario almacenado en BD */
-/* */
-
-require_once __DIR__."/UsuarioDB.php";
-
 // Abrimos la sesión por defecto en todas las peticiones
 //session_start();
 register_shutdown_function(array($app, 'shutdown'));
