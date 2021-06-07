@@ -8,7 +8,7 @@ $htmlFormRegistro = $form->gestiona();
 $tituloPagina = 'Editar Ficha';
 
 $contenidoPrincipal = <<<EOS
-<h1>Registro de usuario</h1>
+<h1>Editar Ficha</h1>
 $htmlFormRegistro
 EOS;
 
