@@ -1,9 +1,8 @@
 <?php
 
-require_once __DIR__.'/includes/FormularioApadrina.php';
 require_once __DIR__.'/includes/config.php';
 
-$form = new FormularioApadrina("1");
+$form = new es\ucm\fdi\aw\FormularioApadrina("1");
 $htmlFormApadrina = $form->gestiona();
 
 $tituloPagina = 'Apadrina';
