@@ -4,7 +4,7 @@
 		<a href="index.php" id="header"><img src="img/Logo.jpg" alt="Foto Logo"></a>
 		<?php
 		require_once ("includes/config.php");
-		require_once ("includes/Usuario.php");
+		require_once ("includes/usuarioUtils.php");
 		
 		$gatosEnAdopcion = es\ucm\fdi\aw\Animal:: getGatosEnAdopcion();
 		$numGatos = count($gatosEnAdopcion);
