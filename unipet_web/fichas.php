@@ -1,7 +1,6 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once("includes/Ficha.php");
 require_once __DIR__.'/includes/comun/listaFichas.php';
 
 $tituloPagina = 'Lista Fichas';
