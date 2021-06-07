@@ -12,7 +12,8 @@ class FormularioEditarAnimal extends Form
     protected function generaCamposFormulario($datos, $errores = array())
     {
         
-        $animal = Animal::buscaPorID($_GET['id']);
+        $idAnimal = $_GET['id'];
+        $animal = Animal::buscaPorID($idAnimal);
 
         $id =  $animal->getId() ?? '';
 		$nombre =  $animal->getNombre() ?? '';
