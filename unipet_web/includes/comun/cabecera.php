@@ -28,6 +28,12 @@
 			echo "<h4><a href=controlPanel.php> Panel de control </a></h4>";
 		}
 		?>
+
+		<?php
+		if (permisosVeterinario()){
+			echo "<h4><a href=fichas.php> Fichas </a></h4>";
+		}
+		?>		
 		
 		<?php 
 		if(estaLogado()){
