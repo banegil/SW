@@ -12,7 +12,11 @@
 		for($i = 0; $i < $cantidad; $i+=2){
 			$html.= '<div class="column">';
 			$html .= '<h3 id="'.$animales[$i].'"><a href = "perfil_animal.php?id='.$animales[$i].'">'.$animales[$i+1].'</a></h3>';
-			$html .= '<a href = "perfil_animal.php?id='.$animales[$i].'"><img src="img/'.$animales[$i].'.jpg" alt="Foto animal'.$animales[$i].'"/></a>';
+			if(file_exists(RUTA_IMGANI.'/'.$animales[$i].'.jpg')){
+				$html .= '<a href = "perfil_animal.php?id='.$animales[$i].'"><img src="img/ani/'.$animales[$i].'.jpg" alt="Foto animal'.$animales[$i].'"/></a>';
+			}else{
+				$html .= '<a href = "perfil_animal.php?id='.$animales[$i].'"><img src="img/ani/null.jpg" alt="Foto animal'.$animales[$i].'"/></a>';
+			}
 			$html.= '</div>';
 		}
 		$html.= '</div>';
@@ -34,7 +38,11 @@
 		for($i = 0; $i < $cantidad; $i+=2){ 
 			$html.= '<div class="column">';
 			$html.= '<h3 id="'.$animales[$i].'"><a href = "perfil_animal.php?id='.$animales[$i].'">'.$animales[$i+1].'</a></h3>';
-			$html.= '<a href = "perfil_animal.php?id='.$animales[$i].'"><img src="img/'.$animales[$i].'.jpg" alt="Foto animal'.$animales[$i].'"/></a>';
+			if(file_exists(RUTA_IMGANI.'/'.$animales[$i].'.jpg')){
+				$html.= '<a href = "perfil_animal.php?id='.$animales[$i].'"><img src="img/ani/'.$animales[$i].'.jpg" alt="Foto animal'.$animales[$i].'"/></a>';
+			}else{
+				$html.= '<a href = "perfil_animal.php?id='.$animales[$i].'"><img src="img/ani/null.jpg" alt="Foto animal'.$animales[$i].'"/></a>';
+			}
 			$html.= '</div>';
 		}
 		$html.= '</div>';
