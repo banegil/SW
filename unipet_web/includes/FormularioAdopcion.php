@@ -1,12 +1,4 @@
 <?php
-/*$tituloPagina="Formulario";
-$contenidoPrincipal=   <<<EOS
-		<h1>Formulario Adopción:</h1>
-			<form id="formAdopción" action="./procesarAdopcion.php" method="POST">
-			
-			</form>
-EOS;
-	require_once __DIR__.'/includes/plantillas/plantilla.php';*/
 	
 	namespace es\ucm\fdi\aw;
 	
