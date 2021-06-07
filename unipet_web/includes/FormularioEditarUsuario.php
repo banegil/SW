@@ -2,7 +2,7 @@
 
 namespace es\ucm\fdi\aw;
 
-require_once "Usuario.php";
+require_once "usuarioUtils.php";
 
 
 class FormularioEditarUsuario extends Form
