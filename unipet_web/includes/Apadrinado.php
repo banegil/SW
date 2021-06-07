@@ -1,5 +1,7 @@
 <?php
 
+namespace es\ucm\fdi\aw;
+
 class Apadrinado
 {	
     public static function buscaPorID_usuario($ID_usuario)
