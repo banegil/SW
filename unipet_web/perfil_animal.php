@@ -14,6 +14,21 @@ else {
     $protectora = es\ucm\fdi\aw\Protectora::buscaProtectoraPorId($animal->getProtectora());
     //echo '<img src="data:imagenes;base64,' . base64_encode($animal->getImagen()) . ' "width=15%";>';
     $contenidoPrincipal .= "<div id='contenedorNombre'>";
+	if(file_exists(RUTA_IMGANI.'/'.$animal->getID().'.jpg')){
+		$contenidoPrincipal .= "<img src=img/ani/".$animal->getID().".jpg alt=Foto animal".$animal->getID()."/>";
+		if(permisosVoluntario()){
+			$contenidoPrincipal .="<p>Cambiar foto:</p>";
+			$form = new es\ucm\fdi\aw\FormularioFotoAni($animal->getID());
+			$contenidoPrincipal .= $form->gestiona();
+		}
+	}else{
+		$contenidoPrincipal .= "<img src=img/ani/null.jpg alt=Foto animal".$animal->getID()."/>";
+		if(permisosVoluntario()){
+			$contenidoPrincipal .="<p>Añadir foto:</p>";
+			$form = new es\ucm\fdi\aw\FormularioFotoAni($animal->getID());
+			$contenidoPrincipal .= $form->gestiona();
+		}
+	}
     $contenidoPrincipal .=  "<p id='nombreAnimal'> NOMBRE: " . $animal->getNombre() . "</p>";
     if ($animal->getUrgente() && $animal->getId_propietario() == null) {
         $contenidoPrincipal .= "<h1>¡URGENTE!</h1>";
