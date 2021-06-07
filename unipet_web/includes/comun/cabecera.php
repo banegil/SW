@@ -1,7 +1,7 @@
 <header>
 	<div class="header">
 	
-		<a href="index.php" id="header"><img src="img/Logo.jpg" alt="Foto Logo"></a>
+		<a href="index.php" id="header"><img class="logoWeb" src="img/Logo.jpg" alt="Foto Logo"></a>
 		<?php
 		require_once ("includes/config.php");
 		require_once ("includes/usuarioUtils.php");
