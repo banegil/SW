@@ -30,6 +30,8 @@ main {
 	min-height: 1000px;
 	width: 1687px;
 	background-color: white;
+	background: #D7DDDE;
+   	background: linear-gradient(180deg, #D7DDDE 10%, rgba(0,174,239,1) 100%);
 }
 
 footer {
@@ -74,4 +76,46 @@ h1.titulo {
   content: "";
   clear: both;
   display: table;
+}
+img.logoWeb{
+	width: 500px;
+	height: auto;
+}
+img.perfilUser{
+	width: 150px;
+}
+img.fotoAnimal{
+	width: 150px;
+}
+
+img.contenedor{
+	width: 100%;
+	display:block;
+}
+
+div.polaroid {
+  width: 80%;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 15px;
+}
+
+div.container {
+  text-align: center;
+  padding: 10px 10px;
+}
+div.overlay {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  background-color: #008CBA;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .5s ease;
+}
+.container:hover .overlay {
+  bottom: 0;
+  height: 100%;
 }
