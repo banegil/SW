@@ -12,17 +12,11 @@
 		$contenidoPrincipal.= '<h3>Telefono: '.$protectora->getTelefono().'</h3>';
 		
 		
-		if( isset($_SESSION['tipo']) && ($_SESSION['tipo'] == "voluntario" || $_SESSION['tipo'] == "administrador")){
-			$_SESSION['idProtectora'] = $id;
-				
-				$contenidoPrincipal.= <<<EOS
-				<form id="modProtectora" action="./procesarAddProtectora.php" method="POST">
-					<form action="modificaProtectora.php">
-						<input type="submit" value="Modificar protectora" />
-					</form>
-					
-				</div>;
-			</form>;
+		if( isset($_SESSION['tipo']) && ($_SESSION['tipo'] == "voluntario" || $_SESSION['tipo'] == "administrador")){				
+			$contenidoPrincipal .= <<<EOS
+			<a class='boton' href=modificaProtectora.php?id={$id}> Editar perfil</a>					
+		</div>;
+		
 EOS;
 		}
 	}
