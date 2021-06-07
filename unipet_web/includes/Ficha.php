@@ -48,6 +48,31 @@ class Ficha
             return false;
         }
 
+
+
+public static function crearFicha($ficha)
+{
+	$result = false;
+
+	$app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+	
+	$query = sprintf("INSERT INTO fichas (ID, vacunas, observaciones) VALUES (%d, '%s', '%s')"
+	  , $conn->real_escape_string($ficha->id)
+	  , $conn->real_escape_string($ficha->vacunas)
+	  , $conn->real_escape_string($ficha->observaciones));
+	  
+	$result = $conn->query($query);
+	
+	if ($result) {
+	  $result = $ficha;
+	} else {
+	  error_log($conn->error); 
+	}
+	
+	return $result;
+}
+
         private $id;
         private $vacunas;
         private $observaciones;
@@ -83,5 +108,11 @@ class Ficha
         public function getId()
         {
                 return $this->id;
+        }
+
+        public function crear(){
+            if (!self::buscaFichaPorId($this->id)) {
+                self::crearFicha($this);
+              }
         }
     }
