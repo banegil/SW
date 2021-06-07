@@ -8,7 +8,11 @@
  </head>
  
  <body>
-
+	 
+	<?php
+		require("includes/comun/cabecera.php");
+	?>
+	 
 	<main>
 		<article>
  
@@ -18,7 +22,7 @@
 	</main>
 	
 	<?php
-		require("pie.php");
+		require("includes/comun/pie.php");
 	?>
 
  </body>
