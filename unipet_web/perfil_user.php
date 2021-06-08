@@ -11,7 +11,7 @@ $usuario = null;
 $esMiPerfil = false;
 if(isset($_GET['id']) && $_GET['id']!=null){
 	$idUsu = $_GET['id'];
-	$usuario = es\ucm\fdi\aw\Usuario::buscaPorID($idUsu);
+	$usuario = es\ucm\fdi\aw\Usuario::buscaPorID_usuario($idUsu);
 }
 else if(estaLogado()){
     $idUser = idUsuarioLogado();
