@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-06-2021 a las 14:54:46
+-- Tiempo de generación: 08-06-2021 a las 16:38:14
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.15
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -57,6 +58,19 @@ CREATE TABLE `apadrinados` (
   `ID` int(9) NOT NULL,
   `cantidad` decimal(3,2) NOT NULL,
   `numero_tarjeta` int(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `colabora`
+--
+
+DROP TABLE IF EXISTS `colabora`;
+CREATE TABLE `colabora` (
+  `ID` int(9) NOT NULL,
+  `ID_usuario` int(9) NOT NULL,
+  `comentario` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -153,7 +167,7 @@ CREATE TABLE `tarjetas` (
 
 DROP TABLE IF EXISTS `transacciones`;
 CREATE TABLE `transacciones` (
-  `ID` int(24) NOT NULL,
+  `ID` int(9) NOT NULL,
   `ID_usuario` int(9) NOT NULL,
   `tarjeta` int(12) NOT NULL,
   `cantidad` decimal(3,2) NOT NULL
@@ -198,6 +212,13 @@ ALTER TABLE `animales`
 ALTER TABLE `apadrinados`
   ADD UNIQUE KEY `ID` (`ID`,`ID_usuario`),
   ADD KEY `ID_2` (`ID`),
+  ADD KEY `ID_usuario` (`ID_usuario`);
+
+--
+-- Indices de la tabla `colabora`
+--
+ALTER TABLE `colabora`
+  ADD PRIMARY KEY (`ID`),
   ADD KEY `ID_usuario` (`ID_usuario`);
 
 --
@@ -269,6 +290,12 @@ ALTER TABLE `animales`
   MODIFY `ID` int(9) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `colabora`
+--
+ALTER TABLE `colabora`
+  MODIFY `ID` int(9) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
@@ -317,6 +344,12 @@ ALTER TABLE `apadrinados`
   ADD CONSTRAINT `apadrinados_ibfk_2` FOREIGN KEY (`ID`) REFERENCES `animales` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `colabora`
+--
+ALTER TABLE `colabora`
+  ADD CONSTRAINT `colabora` FOREIGN KEY (`ID_usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `contrato_adopcion`
 --
 ALTER TABLE `contrato_adopcion`
@@ -353,6 +386,7 @@ ALTER TABLE `tarjetas`
 --
 ALTER TABLE `transacciones`
   ADD CONSTRAINT `transacciones_ibfk_1` FOREIGN KEY (`ID_usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
