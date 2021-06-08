@@ -3,9 +3,8 @@ namespace es\ucm\fdi\aw;
 class Usuario
 {
 	 public static function actualiza($id, $dni, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion){
-        $usuario = new Usuario($id, $dni, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion, NULL, NULL);
-        return $usuario;
-    }
+		return self::editaUsuario(new Usuario($id, $dni, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion, NULL, NULL));
+    	}
 
 	public static function login($dni, $contraseña)
 	{
@@ -120,7 +119,32 @@ class Usuario
 	  error_log("Se han actualizado los datos '$conn->affected_rows' !");
 	}
 	return $result;
-}    
+}
+      public static function editaUsuario($usuario)
+		{
+			$result = false;
+
+			$app = Aplicacion::getSingleton();
+			$conn = $app->conexionBd();
+			$contraseña = password_hash($usuario->contraseña, PASSWORD_DEFAULT);
+			$query = sprintf("UPDATE usuarios SET nombre = '%s', apellido = '%s', telefono = %d, email = '%s', contraseña = '%s', nacimiento = '%s', direccion = '%s' WHERE ID = %d"
+			
+			  , $usuario->nombre
+			  , $usuario->apellido
+			  , $usuario->telefono
+			  , $usuario->email
+			  , $contraseña
+			  , $usuario->nacimiento
+			  , $usuario->direccion
+			  , $usuario->id);
+			$result = $conn->query($query);
+			if (!$result) {
+			  error_log($conn->error);  
+			} else if ($conn->affected_rows != 1) {
+			  error_log("Se han actualizado los datos '$conn->affected_rows' !");
+			}
+			return $result;
+		}	
 
 private $id;
 private $dni;
