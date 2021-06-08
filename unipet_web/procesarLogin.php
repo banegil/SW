@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/includes/usuarios.php';
 require_once __DIR__.'/includes/Usuario.php';
 
 checkLogin();
