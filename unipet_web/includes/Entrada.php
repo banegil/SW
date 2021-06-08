@@ -46,10 +46,10 @@ class Entrada
 		$app = Aplicacion::getSingleton();
 		$conn = $app->conexionBd();
 		$query = sprintf("INSERT into entradas(ID_usuario, hilo, comentario, fecha) VALUES (%d, %d, '%s', '%s')", $entrada->id_usuario, 
-																													$entrada->hilo, 
+																													$entrada->id_hilo, 
 																													$conn->real_escape_string($entrada->comentario),
-																													$entrada->fecha); 
-        if ( $conn->query($query) ) {
+																									$entrada->fecha); 
+		if ( $conn->query($query) ) {
             $entrada->numero = $conn->insert_id;
 		}
 		else {
@@ -73,7 +73,7 @@ class Entrada
 	}
 	public function getID_hilo()
 	{
-		return $this->hilo;
+		return $this->id_hilo;
 	}
 	public function getComentario()
 	{
