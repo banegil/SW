@@ -10,7 +10,7 @@ if(isset($_GET['hilo'])){
 	$hilo = es\ucm\fdi\aw\Hilo::getHilo($id_hilo);
 	if ($hilo != null){
 		
-		$autor=es\ucm\fdi\aw\Usuario::buscaPorID($hilo->getID_usuario());
+		$autor=es\ucm\fdi\aw\Usuario::buscaPorID_usuario($hilo->getID_usuario());
 		$nombreAutor=$autor->getNombre();
 		$apellidoAutor= $autor->getApellido();
 		$idAutor=$hilo->getID_usuario();
@@ -35,7 +35,7 @@ EOS;
 		$i = 0;
 		$respuestas = "";
 		for($i = 0; $i < $cantEntradas; $i++){
-			$usuario=es\ucm\fdi\aw\Usuario::buscaPorID($entradas[$i]->getID_usuario());
+			$usuario=es\ucm\fdi\aw\Usuario::buscaPorID_usuario($entradas[$i]->getID_usuario());
 			$nombreUsuario=$usuario->getNombre();
 			$apellidoUsuario= $usuario->getApellido();
 			$idUsuario=$usuario->getID();
