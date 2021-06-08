@@ -6,7 +6,7 @@ class Contrato
 {
 	public static function crea($id_usuario, $id, $formulario)
 	{
-	   $contract = new Contrato($id_usuario, $id, $formulario,"EnTramite", date('Y-m-d H:i:s'));
+	   $contract = new Contrato($id_usuario, $id, $formulario,"EnTramite", date('Y-m-d'));
 	   return $contract;
 	}
 	  
@@ -108,7 +108,6 @@ return true;
 public static function insertaContrato($contract)
 {
 	$result = false;
-
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	$query = sprintf("INSERT INTO contrato_adopcion (ID_usuario, ID, formulario, estado, fecha) VALUES (%d, %d, '%s', '%s', '%s')"
