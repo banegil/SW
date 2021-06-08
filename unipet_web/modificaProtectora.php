@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/includes/config.php';
 
-$form = new es\ucm\fdi\aw\FormularioEditaProtectora("1");
+$form = new es\ucm\fdi\aw\FormularioEditaProtectora();
 $htmlFormRegistro = $form->gestiona();
 
 $tituloPagina = 'ActualizarProtect';
