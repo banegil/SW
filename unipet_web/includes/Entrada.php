@@ -34,6 +34,30 @@ class Entrada
 		}
 		return false;     
 	}
+	
+	public static function nuevaEntrada($id_usuario,$id_hilo,$comentario,$fecha){
+		$existeHilo = Hilo::getHilo($id_hilo);
+		$existeUsuario = Usuario::buscaPorID_usuario($id_usuario);
+		if (!$existeHilo || !$existeUsuario) return false;
+		return self::inserta(new Entrada($id_usuario,0,$id_hilo,$comentario,$fecha));
+	}
+	
+	public static function inserta($entrada){
+		$app = Aplicacion::getSingleton();
+		$conn = $app->conexionBd();
+		$query = sprintf("INSERT into entradas(ID_usuario, hilo, comentario, fecha) VALUES (%d, %d, '%s', '%s')", $entrada->id_usuario, 
+																													$entrada->hilo, 
+																													$conn->real_escape_string($entrada->comentario),
+																													$entrada->fecha); 
+        if ( $conn->query($query) ) {
+            $entrada->numero = $conn->insert_id;
+		}
+		else {
+            echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+        return $entrada;		
+	}
 		
 	public function getID_usuario()
 	{
