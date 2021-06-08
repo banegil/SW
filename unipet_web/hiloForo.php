@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/FormularioEntrada.php';
-
+require_once ("includes/usuarioUtils.php");
 
 $tituloPagina = 'Hilo';
 $contenidoPrincipal = "";
@@ -55,7 +54,7 @@ EOS;
 EOS;
 		}
 		
-		$formBuscaAnimales = new es\ucm\fdi\aw\FormularioEntrada('1');
+		$formBuscaAnimales = new es\ucm\fdi\aw\FormularioEntrada(idUsuarioLogado(), $id_hilo);
 		$htmlform = $formBuscaAnimales->gestiona();	
 		
 		$contenidoPrincipal=<<<EOS
