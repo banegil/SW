@@ -3,7 +3,7 @@
 	
 	$dni = $_GET['dni'];
 	$id = $_GET['id'];
-	 
+	$tituloPagina = "Solicitud";
 	$contract = es\ucm\fdi\aw\Contrato::buscaPorDNIeID($dni, $id);
 	$animal = es\ucm\fdi\aw\Animal::buscaPorID($id);
 	$usuario = es\ucm\fdi\aw\Usuario::buscaPorID($dni);
@@ -18,8 +18,7 @@
 		$contenidoPrincipal .= '<form id="modEstado" action="./procesarCambio.php" method="POST">';
 			$_SESSION['idContrato'] = $id;
 			$_SESSION['dniContrato'] = $dni;
-			//echo '<input type="hidden" id="dni" name="dni" value='.$dni .'/>';
-			//echo '<input type="hidden" id="id" name="id" value='.$id.'/>';
+			
 			$contenidoPrincipal .= <<<EOS
 					<div><label>Estado: </label>
 					<select name="estado">
