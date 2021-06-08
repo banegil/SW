@@ -25,7 +25,7 @@ if($usuario != null){ // comprobamos si el usuario esta en la base de datos
     // aqui iria el div para foto nombre y apellido
     $contenidoPrincipal .= "<div id='contenedorNombre'>";
     $contenidoPrincipal .= "<div id='contenedorNameApellido'>";
-	if(file_exists(RUTA_IMGUSU.'/'.$usuario->getID().'.jpg')){
+	if(file_exists(FICHERO_IMGUSU.'/'.$usuario->getID().'.jpg')){
 		$contenidoPrincipal .= "<img src=img/usu/".$usuario->getID().".jpg alt=Foto usuario".$usuario->getID()."/>";
 		if($esMiPerfil || permisosVoluntario()){
 			$contenidoPrincipal .="<p>Cambiar foto:</p>";
