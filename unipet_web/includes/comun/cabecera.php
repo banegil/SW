@@ -135,11 +135,11 @@
 
 		<?php
 			if (isset($_SESSION["DNI"])){
-				echo '<a href="perfil_user.php">Perfil | </a>';
+				echo '<a href="perfil_user.php">Perfil</a> | ';
 				echo '<a href="logout.php">Cerrar sesión</a>';
 			}
 			else{
-				echo '<a href="login.php">Iniciar sesión | </a>';
+				echo '<a href="login.php">Iniciar sesión</a> | ';
 				echo '<a href="register.php">Registrarse</a>';
 			}
 		?>
