@@ -57,6 +57,7 @@ EOS;
 					$_SESSION['DNI'] = $DNI;
 					$_SESSION['tipo'] = $usuario->getTipo();
 					$_SESSION['nombre'] = $usuario->getNombre();
+					$_SESSION['apellido'] = $usuario->geApellido();
 					$_SESSION['id'] = $usuario->getID();
 					$errores = 'index.php';
 				}
