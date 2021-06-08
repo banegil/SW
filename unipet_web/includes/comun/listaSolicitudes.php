@@ -7,7 +7,7 @@
 		$cantidad = count($solicitudes);
 		$html = '';
 		 foreach($solicitudes as $i){ 
-			$html .= '<h3><a href = "solicitud.php?id='.$i->getID().'&dni='.$i->getID_usuario().'">'.$i->getNombreAnimal().' - '.$i->getNombreUsuario().' ('.$i -> getEstado().')</a></h3>';
+			$html .= '<h3><a href = "solicitud.php?idAni='.$i->getID().'&idUsu='.$i->getID_usuario().'">'.$i->getNombreAnimal().' - '.$i->getNombreUsuario().' ('.$i -> getEstado().')</a></h3>';
 		  }
 		 return $html;
 	}
