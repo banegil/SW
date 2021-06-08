@@ -6,7 +6,7 @@
 	$tituloPagina = "Solicitud";
 	$contract = es\ucm\fdi\aw\Contrato::buscaPorDNIeID($dni, $id);
 	$animal = es\ucm\fdi\aw\Animal::buscaPorID($id);
-	$usuario = es\ucm\fdi\aw\Usuario::buscaPorID($dni);
+	$usuario = es\ucm\fdi\aw\Usuario::buscaPorID_usuario($dni);
 
 	$contenidoPrincipal = '<h3>Estado de la solicitud: '.$contract->getEstado().'</h3>';
 	$contenidoPrincipal .= '<h3>Nombre del usuario: '.$usuario->getNombre().' '.$usuario->getApellido().'</h3>';
