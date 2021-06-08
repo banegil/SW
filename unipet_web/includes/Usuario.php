@@ -1,46 +1,23 @@
 <?php
 
-namespace es\ucm\fdi\aw;
-
 class Usuario
 {
 	
 	
-	 public static function actualiza($dni, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion){
-        $usuario = new Usuario($dni, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion, NULL, NULL);
+	 public static function actualiza($ID_usuario, $dni, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion){
+        $usuario = new Usuario($ID_usuario, $dni, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion, NULL, NULL);
         return $usuario;
     }
 
-	public static function login($DNI, $contraseña)
+	public static function login($ID_usuario, $contraseña)
 	{
-		$user = self::buscaPorDNI($DNI);
+		$user = self::buscaPorID_usuario($ID_usuario);
 		if ($user && $user->compruebaContraseña($contraseña)) {
 		return $user;
 		}    
 		return false;
 	}
-	
-	public static function getUsuarios()
-	{
-		$app = Aplicacion::getSingleton();
-		$conn = $app->conexionBd();
-		$query = sprintf("SELECT * FROM usuarios ORDER BY ID ASC"); 
-		$rs = $conn->query($query);
-		if($rs && ($rs->num_rows >0)){
-			$resultado = [];
-			while($fila=$rs->fetch_assoc()){
-				$user = new Usuario($fila['ID'], $fila['DNI'], $fila['nombre'], 
-                                $fila['apellido'], $fila['telefono'], $fila['email'],
-                                $fila['contraseña'], $fila['nacimiento'], 
-                                $fila['direccion'], $fila['tipo'], $fila['creacion']);
-				array_push($resultado, $user);              
-			}
-			$rs->free();
-			return $resultado;
-		}
-		return false; 
-	}
-	
+  
     public static function buscaPorDNI($dniUsuario)
     {
 	   $app = Aplicacion::getSingleton();
@@ -50,44 +27,45 @@ class Usuario
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
           
-           $user = new Usuario($fila['ID'], $fila['DNI'], $fila['nombre'], 
+           $user = new Usuario($fila['ID_usuario'], $fila['DNI'], $fila['nombre'], 
                                 $fila['apellido'], $fila['telefono'], $fila['email'],
                                 $fila['contraseña'], $fila['nacimiento'], 
                                 $fila['direccion'], $fila['tipo'], $fila['creacion']);
-			//$user->id = $conn->insert_id;
+			$user->id = $conn->insert_id;
         $rs->free();
         return $user;
        }
        return false;
     }
 	
-	 public static function buscaPorID($idUsuario)
+    public static function buscaPorID_usuario($ID_Usuario)
     {
 	   $app = Aplicacion::getSingleton();
        $conn = $app->conexionBd();
-       $query = sprintf("SELECT * FROM usuarios WHERE ID=%d ", $idUsuario); 
+       $query = sprintf("SELECT * FROM usuarios WHERE ID_usuario='%s' ", $ID_Usuario); 
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
           
-           $user = new Usuario($fila['ID'], $fila['DNI'], $fila['nombre'], 
+           $user = new Usuario($fila['ID_usuario'], $fila['DNI'], $fila['nombre'], 
                                 $fila['apellido'], $fila['telefono'], $fila['email'],
                                 $fila['contraseña'], $fila['nacimiento'], 
                                 $fila['direccion'], $fila['tipo'], $fila['creacion']);
-			//$user->id = $conn->insert_id;
+			$user->id = $conn->insert_id;
         $rs->free();
         return $user;
        }
        return false;
     }
 
-    public static function register($DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion,$creacion)
+    public static function register($ID_usuario, $DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion,$creacion)
     {	
 		$user = self::buscaPorDNI($DNI);
-		if ($user) {
+		$ID = self::buscaPorID_usuario($ID_usuario);
+		if ($user || $ID) {
 			return false;
 		}
-		$user = new Usuario(0,$DNI, $nombre, $apellido, $telefono, $email, self::hashPassword($contraseña), $nacimiento, $direccion, "normal", $creacion);
+		$user = new Usuario($ID_usuario, $DNI, $nombre, $apellido, $telefono, $email, self::hashPassword($contraseña), $nacimiento, $direccion, "normal", $creacion);
 		return self::inserta($user);
   }
 
@@ -100,9 +78,10 @@ class Usuario
     {
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("INSERT INTO usuarios (DNI, nombre, apellido, telefono, email, contraseña, nacimiento, direccion, tipo, creacion)
+        $query=sprintf("INSERT INTO Usuarios (ID_usuario, DNI, nombre, apellido, telefono, email, contraseña, nacimiento, direccion, tipo, creacion)
 			VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"
-            , $conn->real_escape_string($usuario->dni)
+			, $conn->real_escape_string($usuario->ID_usuario)
+            , $conn->real_escape_string($usuario->DNI)
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->apellido)
             , $conn->real_escape_string($usuario->telefono)
@@ -129,17 +108,18 @@ class Usuario
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $contraseña = password_hash($usuario->contraseña, PASSWORD_DEFAULT);
-      $query = sprintf("UPDATE usuarios SET  dni = '%s', nombre = '%s', apellido = '%s', telefono = %d, email = '%s', contraseña = '%s', nacimiento = '%s', direccion = '%s' WHERE id = %d"
+      $query = sprintf("UPDATE Usuarios SET  dni = '%s', nombre = '%s', apellido = '%s', telefono = %d, email = '%s', contraseña = '%s', nacimiento = '%s', direccion = '%s' WHERE dni = %d"
 	
+	  , $usuario->ID_usuario
 	  , $usuario->dni
-    , $usuario->nombre
+      , $usuario->nombre
 	  , $usuario->apellido
 	  , $usuario->telefono
 	  , $usuario->email
 	  , $contraseña
 	  , $usuario->nacimiento
 	  , $usuario->direccion
-	  , $usuario->id);
+	  , $usuario->dni);
 	$result = $conn->query($query);
 	if (!$result) {
 	  error_log($conn->error);  
@@ -149,7 +129,7 @@ class Usuario
 	return $result;
 }    
 
-
+private $ID_usuario;
 private $id;
 private $dni;
 private $nombre;
@@ -162,11 +142,11 @@ private $direccion;
 private $tipo;
 private $creacion;
 
-private function __construct($id,$dni, $nombre, $apellido, $telefono,
+private function __construct($ID_usuario, $dni, $nombre, $apellido, $telefono,
                              $email, $contraseña, $nacimiento, $direccion , $tipo, $creacion)
 {
-	$this->id = $id;
-    $this->dni = $dni;
+    $this->ID_usuario = $ID_usuario;
+	$this->dni = $dni;
     $this->nombre = $nombre;
     $this->apellido = $apellido;
     $this->telefono = $telefono;
@@ -188,16 +168,20 @@ public function cambiacontraseña($nuevocontraseña)
 {
   $this->contraseña = password_hash($nuevocontraseña, PASSWORD_DEFAULT);
 }
+
+/**
+ * Get the value of tipo
+ */ 
+public function getID_usuario()
+{
+return $this->ID_usuario;
+}
 /**
  * Get the value of tipo
  */ 
 public function getTipo()
 {
 return $this->tipo;
-}
-	
-public function getContraseña(){
-  return $this->contraseña;
 }
 /**
  * Get the value of ID
@@ -297,13 +281,6 @@ public function setDireccion($direccion)
 $this->direccion = $direccion;
 
 return $this;
-}
-public function actualizarUser(){
-  $respuesta = false;
-  if (self::buscaPorDNI($this->dni)) {
-  $respuesta = self::actualizaUsuario($this);
-  } 
-  return $respuesta;
 }
 
 
