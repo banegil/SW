@@ -10,7 +10,7 @@ class FormularioRegistro extends Form
     protected function generaCamposFormulario($datos, $errores = array())
     {
 		$ID_usuario = $datos['ID_usuario'] ?? '';
-        $DNI = $datos['DNI'] ?? '';
+        	$DNI = $datos['DNI'] ?? '';
 		$nombre = $datos['nombre'] ?? '';
 		$apellido = $datos['apellido'] ?? '';
 		$telefono = $datos['telefono'] ?? '';
@@ -33,62 +33,50 @@ class FormularioRegistro extends Form
 		*/
         $html = <<<EOF
             <fieldset>
-					<head>
-					  <meta charset="UTF-8" />
-					  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-					  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-					</head>
-
-					<body>
-					  <div class="form">
-						<h2>Registro</h2>
-						<div class="input">
-						  <div class="inputBox">
-							<label>Nombre de usuario</label>
-							<input class"control" type="text" name="ID_usuario" value="$ID_usuario" placeholder="juanperez77">
-						  </div>
-						  <div class="inputBox">
-							<label>DNI</label>
-							<input class"control" type="text" name="DNI" value="$DNI" placeholder="00000000A">
-						  </div>
-						  <div class="inputBox">
-							<label>Nombre</label>
-							<input class"control" type="text" name="nombre" value="$nombre" placeholder="Juan">
-						  </div>
-						  <div class="inputBox">
-							<label>Apellido</label>
-							<input class"control" type="text" name="apellido" value="$apellido" placeholder="Perez">
-						  </div>
-						  <div class="inputBox">
-							<label>Teléfono</label>
-							<input class"control" type="number" name="telefono" value="$telefono" placeholder="614876453">
-						  </div>
-						  <div class="inputBox">
-							<label>E-mail</label>
-							<input class"control" type="email" name="email" value="$email" placeholder="jperez@gmail.com">
-						  </div>
-						  <div class="inputBox">
-							<label>Contraseña</label>
-							<input class"control" type="password" name="contraseña" placeholder="********">
-						  </div>
-						  <div class="inputBox">
-							<label>Vueleve a introducir la contraseña</label>
-							<input class"control" type="password" name="contraseña2" placeholder="********">
-						  </div>
-						  <div class="inputBox">
-							<label>Fecha de nacimiento</label>
-							<input class"control" type="date" name="nacimiento" value="$nacimiento" placeholder="12/01/1999">
-						  </div>
-						  <div class="inputBox">
-							<label>Dirección</label>
-							<input class"control" type="text" name="direccion" value="$direccion" placeholder="Calle Mayor N7">
-						  </div>
-						  <div class="inputBox">
-							<input type="submit" name="" value="Registrarse">
-						  </div>
-						</div>
-					  </div>
-					</body>
+		  <div class="form">
+			<h2>Registro</h2>
+			<div class="input">
+			  <div class="inputBox">
+				<label>DNI</label>
+				<input class"control" type="text" name="DNI" value="$DNI" placeholder="00000000A">
+			  </div>
+			  <div class="inputBox">
+				<label>Nombre</label>
+				<input class"control" type="text" name="nombre" value="$nombre" placeholder="Juan">
+			  </div>
+			  <div class="inputBox">
+				<label>Apellido</label>
+				<input class"control" type="text" name="apellido" value="$apellido" placeholder="Perez">
+			  </div>
+			  <div class="inputBox">
+				<label>Teléfono</label>
+				<input class"control" type="number" name="telefono" value="$telefono" placeholder="614876453">
+			  </div>
+			  <div class="inputBox">
+				<label>E-mail</label>
+				<input class"control" type="email" name="email" value="$email" placeholder="jperez@gmail.com">
+			  </div>
+			  <div class="inputBox">
+				<label>Contraseña</label>
+				<input class"control" type="password" name="contraseña" placeholder="********">
+			  </div>
+			  <div class="inputBox">
+				<label>Vueleve a introducir la contraseña</label>
+				<input class"control" type="password" name="contraseña2" placeholder="********">
+			  </div>
+			  <div class="inputBox">
+				<label>Fecha de nacimiento</label>
+				<input class"control" type="date" name="nacimiento" value="$nacimiento" placeholder="12/01/1999">
+			  </div>
+			  <div class="inputBox">
+				<label>Dirección</label>
+				<input class"control" type="text" name="direccion" value="$direccion" placeholder="Calle Mayor N7">
+			  </div>
+			  <div class="inputBox">
+				<input type="submit" name="" value="Registrarse">
+			  </div>
+			</div>
+		  </div>
             </fieldset>
 EOF;
         return $html;
@@ -102,14 +90,9 @@ EOF;
 		$letra = substr($DNI, -1);
 		$numeros = substr($DNI, 0, -1);
 		
-        $ID_usuario = $datos['ID_usuario'] ?? null;
-        if ( empty($ID_usuario) || mb_strlen($ID_usuario) < 2 ) {
-            $result['ID_usuario'] = "El nombre de usuario tiene que tener una longitud de al menos 2 caracteres.";
-        }
-		
-		if (empty($DNI) || substr("TRWAGMYFPDXBNJZSQVHLCKE", $numeros%23, 1) == $letra || strlen($letra) != 1 || strlen ($numeros) != 8 ){
-			$result['DNI'] = "El DNI tiene que tener 8 números y una letra al final.";
-		}
+	if (empty($DNI) || substr("TRWAGMYFPDXBNJZSQVHLCKE", $numeros%23, 1) == $letra || strlen($letra) != 1 || strlen ($numeros) != 8 ){
+		$result['DNI'] = "El DNI tiene que tener 8 números y una letra al final.";
+	}
         
         $nombre = $datos['nombre'] ?? null;
         if ( empty($nombre) || mb_strlen($nombre) < 2 ) {
@@ -147,7 +130,7 @@ EOF;
         }
         
         if (count($result) === 0) {
-            $user = Usuario::register($ID_usuario, $DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion, date('d-m-y'));
+            $user = Usuario::register($DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion, date('d-m-y'));
             if ( ! $user ) {
                 $result[] = "El usuario ya existe";
             } else {
