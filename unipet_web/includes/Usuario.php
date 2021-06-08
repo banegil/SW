@@ -25,7 +25,7 @@ class Usuario
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
           
-           $user = new Usuario($fila['DNI'], $fila['nombre'], 
+           $user = new Usuario($fila['ID'],$fila['DNI'], $fila['nombre'], 
                                 $fila['apellido'], $fila['telefono'], $fila['email'],
                                 $fila['contraseña'], $fila['nacimiento'], 
                                 $fila['direccion'], $fila['tipo'], $fila['creacion']);
@@ -61,7 +61,7 @@ class Usuario
 		if ($user) {
 			return false;
 		}
-		$user = new Usuario($DNI, $nombre, $apellido, $telefono, $email, self::hashPassword($contraseña), $nacimiento, $direccion, "normal", $creacion);
+		$user = new Usuario(0,$DNI, $nombre, $apellido, $telefono, $email, self::hashPassword($contraseña), $nacimiento, $direccion, "normal", $creacion);
 		return self::inserta($user);
   }
 
@@ -135,7 +135,7 @@ private $direccion;
 private $tipo;
 private $creacion;
 
-private function __construct($dni, $nombre, $apellido, $telefono,
+private function __construct($id,$dni, $nombre, $apellido, $telefono,
                              $email, $contraseña, $nacimiento, $direccion , $tipo, $creacion)
 {
 	$this->id=$id;
