@@ -20,7 +20,7 @@ class Usuario
     {
 	   $app = Aplicacion::getSingleton();
        $conn = $app->conexionBd();
-       $query = sprintf("SELECT * FROM Usuarios WHERE DNI='%s' ", $dniUsuario); 
+       $query = sprintf("SELECT * FROM usuarios WHERE DNI='%s' ", $dniUsuario); 
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
@@ -39,7 +39,7 @@ class Usuario
     {
 	   $app = Aplicacion::getSingleton();
        $conn = $app->conexionBd();
-       $query = sprintf("SELECT * FROM Usuarios WHERE ID=%d ", $ID_Usuario); 
+       $query = sprintf("SELECT * FROM usuarios WHERE ID=%d ", $ID_Usuario); 
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
@@ -73,7 +73,7 @@ class Usuario
     {
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("INSERT INTO Usuarios (DNI, nombre, apellido, telefono, email, contraseña, nacimiento, direccion, tipo, creacion)
+        $query=sprintf("INSERT INTO usuarios (DNI, nombre, apellido, telefono, email, contraseña, nacimiento, direccion, tipo, creacion)
 			VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"
             , $conn->real_escape_string($usuario->dni)
             , $conn->real_escape_string($usuario->nombre)
@@ -102,7 +102,7 @@ class Usuario
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $contraseña = password_hash($usuario->contraseña, PASSWORD_DEFAULT);
-      $query = sprintf("UPDATE Usuarios SET  DNI = '%s', nombre = '%s', apellido = '%s', telefono = %d, email = '%s', contraseña = '%s', nacimiento = '%s', direccion = '%s' WHERE DNI = %d"
+      $query = sprintf("UPDATE usuarios SET  DNI = '%s', nombre = '%s', apellido = '%s', telefono = %d, email = '%s', contraseña = '%s', nacimiento = '%s', direccion = '%s' WHERE DNI = %d"
 	
 	  , $usuario->dni
       , $usuario->nombre
