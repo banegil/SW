@@ -19,6 +19,20 @@ class Hilo
 		$this->comentario = $comentario;
 	}
 	
+	public static function getHilo($id_hilo){
+		$app = Aplicacion::getSingleton();
+		$conn = $app->conexionBd();
+		$query = sprintf("SELECT * FROM hilos WHERE NUMERO=%d",$id_hilo); 
+		$rs = $conn->query($query);
+		if($rs && ($rs->num_rows == 1)){
+			$fila = $rs->fetch_assoc();
+			$hilo = new Hilo($fila['NUMERO'], $fila['titulo'], $fila['fecha'], $fila['ID_usuario'], $fila['comentario']);
+			$rs->free();
+			return $hilo;
+		}
+		return false;     
+	}
+	
 	public static function getHilos(){
 		$app = Aplicacion::getSingleton();
 		$conn = $app->conexionBd();
@@ -58,7 +72,7 @@ class Hilo
 	}
 	public function setTitulo($titulo)
 	{
-		$this->id = $titulo;
+		$this->titulo = $titulo;
 		return true;
 	}
 	public function setComentario($comentario)
