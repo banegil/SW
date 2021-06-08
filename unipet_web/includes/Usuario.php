@@ -135,9 +135,10 @@ private $direccion;
 private $tipo;
 private $creacion;
 
-private function __construct($dni, $nombre, $apellido, $telefono,
+private function __construct($id,$dni, $nombre, $apellido, $telefono,
                              $email, $contraseña, $nacimiento, $direccion , $tipo, $creacion)
 {
+    $this->id=$id;
     $this->dni = $dni;
     $this->nombre = $nombre;
     $this->apellido = $apellido;
@@ -148,7 +149,6 @@ private function __construct($dni, $nombre, $apellido, $telefono,
     $this->direccion = $direccion;
     $this->tipo = $tipo;
     $this->creacion = $creacion;
- 
 }
 
  
