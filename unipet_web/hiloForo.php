@@ -42,7 +42,7 @@ EOS;
 			$comentarioUsuario=$entradas[$i]->getComentario();
 			$fechaUsuario=$entradas[$i]->getFecha();
 			$respuestas.=<<<EOS
-			<br>
+			<hr>
 				<div>
 					<div>
 						<p> <a href = "perfil_user.php?id=$idUsuario">$nombreUsuario $apellidoUsuario</a> ha dicho: </p>
