@@ -1,0 +1,79 @@
+
+body {
+	background-color: #8993be;
+}
+
+
+header {
+	padding: 15px;
+	height: 800px;
+	background: -webkit-linear-gradient(to right, #FFFFFF, #00FFFF );
+	background: linear-gradient(to right, #FFFFFF, #00FFFF );
+	color: black;
+	text-align: center;
+}
+
+header a, header a:visited {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+} 
+
+header a:hover {
+	color: blue;
+	font-weight: bold;
+	text-decoration: underline;
+} 
+
+main {
+	padding: 100px;
+	float: left;
+	min-height: 1000px;
+	width: 1687px;
+	background: -webkit-linear-gradient(to right, #FFFF00, #00FFFF );
+	background: linear-gradient(to right, #FFFFFF, #00FFD0 );
+}
+
+footer {
+	clear: both;
+	padding: 20px;
+	background: -webkit-linear-gradient(to right, #FFFFFF, #00FFFF );
+	background: linear-gradient(to right, #FFFFFF, #00FFFF );
+	text-align: left;
+}
+
+footer a, footer a:visited {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+} 
+
+footer a:hover {
+	color: blue;
+	font-weight: bold;
+	text-decoration: underline;
+} 
+
+div.saludo {
+	width: 100%;
+	text-align: center;
+}
+
+h1.titulo {
+	width: 100%;
+	text-align: center;
+	background-color: #32D6F1;
+	color: white;
+}
+
+.column {
+  float: left;
+  width: 15%;
+  padding: 5px;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
