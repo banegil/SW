@@ -18,7 +18,7 @@
 							<h2>Login</h2>
 							<div class="input">
 							  <div class="inputBox">
-								<label>Nombre de usuario</label>
+								<label>DNI</label>
 								<input class="control" type="text" name="DNI" placeholder="00000000A">
 							  </div>
 							  <div class="inputBox">
