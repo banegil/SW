@@ -1,9 +1,10 @@
 <?php
-
 require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/includes/FormularioEntrada.php';
+
 
 $tituloPagina = 'Hilo';
-$contenidoPrincipal = "HOLA";
+$contenidoPrincipal = "";
 
 if(isset($_GET['hilo'])){
 	$id_hilo = $_GET['hilo'];
@@ -55,7 +56,7 @@ EOS;
 		}
 		
 		$formBuscaAnimales = new es\ucm\fdi\aw\FormularioEntrada('1');
-		$htmlform = $formBuscaAnimales->gestiona();		
+		$htmlform = $formBuscaAnimales->gestiona();	
 		
 		$contenidoPrincipal=<<<EOS
 			$comienzoHilo	
