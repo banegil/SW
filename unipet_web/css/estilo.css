@@ -6,7 +6,7 @@ body {
 
 header {
 	padding: 15px;
-	height: 330px;
+	height: 100%;
 	background-color: #D7DDDE;
 	color: black;
 	text-align: center;
@@ -25,10 +25,10 @@ header a:hover {
 } 
 
 main {
-	padding: 100px;
+	padding:100px;
+	box-sizing: border-box;
 	float: left;
-	min-height: 1000px;
-	width: 1687px;
+	width: 100%;
 	background-color: white;
 	background: #D7DDDE;
    	background: linear-gradient(180deg, #D7DDDE 10%, rgba(0,174,239,1) 100%);
