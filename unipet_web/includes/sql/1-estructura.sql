@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-06-2021 a las 16:38:14
+-- Tiempo de generación: 09-06-2021 a las 00:02:07
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.15
 
@@ -100,7 +100,7 @@ CREATE TABLE `entradas` (
   `numero` int(10) NOT NULL,
   `hilo` int(10) NOT NULL,
   `comentario` text NOT NULL,
-  `fecha` date NOT NULL
+  `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -361,7 +361,7 @@ ALTER TABLE `contrato_adopcion`
 --
 ALTER TABLE `entradas`
   ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`ID_usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`numero`) REFERENCES `hilos` (`NUMERO`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`hilo`) REFERENCES `hilos` (`NUMERO`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `fichas`
