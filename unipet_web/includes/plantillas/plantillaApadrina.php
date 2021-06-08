@@ -18,7 +18,7 @@
 	</main>
 	
 	<?php
-		require("pie.php");
+		require("includes/comun/pie.php");
 	?>
 
  </body>
