@@ -6,7 +6,7 @@ define('BD_USER', 'root');
 define('BD_PASS', '');
 define('RAIZ_APP', __DIR__);
 define('RUTA_APP', '/unipet_web');
-define('FICHERO_IMGANI', dirname(RAIZ_APP).'/img/usu');
+define('FICHERO_IMGUSU', dirname(RAIZ_APP).'/img/usu');
 define('FICHERO_IMGANI', dirname(RAIZ_APP).'/img/ani');
 define('RUTA_IMGUSU', RAIZ_APP.'/img/usu');
 define('RUTA_IMGANI', RUTA_APP.'/img/ani');
