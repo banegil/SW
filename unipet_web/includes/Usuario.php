@@ -20,15 +20,16 @@ class Usuario
     {
 	   $app = Aplicacion::getSingleton();
        $conn = $app->conexionBd();
-       $query = sprintf("SELECT * FROM usuarios WHERE DNI='%s' ", $dniUsuario); 
+       $query = sprintf("SELECT * FROM Usuarios WHERE DNI='%s' ", $dniUsuario); 
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
           
-           $user = new Usuario($fila['ID'], $fila['DNI'], $fila['nombre'], 
+           $user = new Usuario($fila['DNI'], $fila['nombre'], 
                                 $fila['apellido'], $fila['telefono'], $fila['email'],
                                 $fila['contraseña'], $fila['nacimiento'], 
                                 $fila['direccion'], $fila['tipo'], $fila['creacion']);
+			$user->id = $conn->insert_id;
         $rs->free();
         return $user;
        }
@@ -60,7 +61,7 @@ class Usuario
 		if ($user) {
 			return false;
 		}
-		$user = new Usuario(0,$DNI, $nombre, $apellido, $telefono, $email, self::hashPassword($contraseña), $nacimiento, $direccion, "normal", $creacion);
+		$user = new Usuario($DNI, $nombre, $apellido, $telefono, $email, self::hashPassword($contraseña), $nacimiento, $direccion, "normal", $creacion);
 		return self::inserta($user);
   }
 
@@ -74,8 +75,8 @@ class Usuario
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $query=sprintf("INSERT INTO Usuarios (DNI, nombre, apellido, telefono, email, contraseña, nacimiento, direccion, tipo, creacion)
-			VALUES('%s', '%s', '%s', '%s',%d, '%s', '%s', '%s', '%s', '%s')"
-            , $conn->real_escape_string($usuario->DNI)
+			VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"
+            , $conn->real_escape_string($usuario->dni)
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->apellido)
             , $conn->real_escape_string($usuario->telefono)
@@ -102,9 +103,8 @@ class Usuario
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $contraseña = password_hash($usuario->contraseña, PASSWORD_DEFAULT);
-      $query = sprintf("UPDATE Usuarios SET  dni = '%s', nombre = '%s', apellido = '%s', telefono = %d, email = '%s', contraseña = '%s', nacimiento = '%s', direccion = '%s' WHERE dni = %d"
+      $query = sprintf("UPDATE Usuarios SET  DNI = '%s', nombre = '%s', apellido = '%s', telefono = %d, email = '%s', contraseña = '%s', nacimiento = '%s', direccion = '%s' WHERE DNI = %d"
 	
-	  , $usuario->ID_usuario
 	  , $usuario->dni
       , $usuario->nombre
 	  , $usuario->apellido
@@ -122,27 +122,6 @@ class Usuario
 	}
 	return $result;
 }    
-	
-	public static function getUsuarios()
-	{
-		$app = Aplicacion::getSingleton();
-		$conn = $app->conexionBd();
-		$query = sprintf("SELECT * FROM usuarios ORDER BY ID ASC"); 
-		$rs = $conn->query($query);
-		if($rs && ($rs->num_rows >0)){
-			$resultado = [];
-			while($fila=$rs->fetch_assoc()){
-				$user = new Usuario($fila['ID'], $fila['DNI'], $fila['nombre'], 
-                                $fila['apellido'], $fila['telefono'], $fila['email'],
-                                $fila['contraseña'], $fila['nacimiento'], 
-                                $fila['direccion'], $fila['tipo'], $fila['creacion']);
-				array_push($resultado, $user);              
-			}
-			$rs->free();
-			return $resultado;
-		}
-		return false; 
-	}
 
 private $id;
 private $dni;
@@ -156,10 +135,10 @@ private $direccion;
 private $tipo;
 private $creacion;
 
-private function __construct($id,$dni, $nombre, $apellido, $telefono,
+private function __construct($dni, $nombre, $apellido, $telefono,
                              $email, $contraseña, $nacimiento, $direccion , $tipo, $creacion)
 {
-    $this->id=$id;
+	$this->id=$id;
     $this->dni = $dni;
     $this->nombre = $nombre;
     $this->apellido = $apellido;
