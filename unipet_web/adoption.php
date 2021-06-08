@@ -1,7 +1,10 @@
 <?php
 require_once __DIR__.'/includes/config.php';
+require_once ("includes/usuarioUtils.php");
 
-$form = new es\ucm\fdi\aw\FormularioAdopcion("1");
+$idAni = $_GET['id'];
+
+$form = new es\ucm\fdi\aw\FormularioAdopcion($idAni,idUsuarioLogado());
 $htmlFormAdopt = $form->gestiona();
 
 $tituloPagina = 'Adoption';
