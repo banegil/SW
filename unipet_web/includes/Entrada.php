@@ -49,7 +49,6 @@ class Entrada
 																													$entrada->id_hilo, 
 																													$conn->real_escape_string($entrada->comentario),
 																									$entrada->fecha); 
-		echo "$query";
 		if ( $conn->query($query) ) {
             $entrada->numero = $conn->insert_id;
 		}
