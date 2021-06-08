@@ -26,14 +26,14 @@ if($usuario != null){ // comprobamos si el usuario esta en la base de datos
     $contenidoPrincipal .= "<div id='contenedorNombre'>";
     $contenidoPrincipal .= "<div id='contenedorNameApellido'>";
 	if(file_exists(FICHERO_IMGUSU.'/'.$usuario->getID().'.jpg')){
-		$contenidoPrincipal .= "<img src=img/usu/".$usuario->getID().".jpg alt=Foto usuario".$usuario->getID()."/>";
+		$contenidoPrincipal .= "<img class='perfilUser' src=img/usu/".$usuario->getID().".jpg alt=Foto usuario".$usuario->getID()."/>";
 		if($esMiPerfil || permisosVoluntario()){
 			$contenidoPrincipal .="<p>Cambiar foto:</p>";
 			$form = new es\ucm\fdi\aw\FormularioFotoUsu($usuario->getID());
 			$contenidoPrincipal .= $form->gestiona();
 		}
 	}else{
-		$contenidoPrincipal .= "<img src=img/usu/null.jpg alt=Foto usuario".$usuario->getID()."/>";
+		$contenidoPrincipal .= "<img class='perfilUser' src=img/usu/null.jpg alt=Foto usuario".$usuario->getID()."/>";
 		if($esMiPerfil || permisosVoluntario()){
 			$contenidoPrincipal .="<p>Añadir foto:</p>";
 			$form = new es\ucm\fdi\aw\FormularioFotoUsu($usuario->getID());
