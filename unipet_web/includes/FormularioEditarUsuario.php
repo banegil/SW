@@ -20,23 +20,10 @@ class FormularioEditarUsuario extends Form
 		$apellido = $user->getApellido() ?? '';
 		$telefono = $user->getTelefono() ?? '';
 		$email = $user->getEmail() ?? '';
-        $contraseña = $user->getContraseña();
+        //$contraseña = $user->getContraseña();
 		$nacimiento = $user->getNacimiento() ?? '';
 		$direccion = $user->getDireccion() ?? '';
 
-        // Se generan los mensajes de error si existen.
-		/*
-        $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
-        $errorDNI = self::createMensajeError($errores, 'DNI', 'span', array('class' => 'error'));
-        $errorNombre = self::createMensajeError($errores, 'Nombre', 'span', array('class' => 'error'));
-        $errorApellido = self::createMensajeError($errores, 'Apellido', 'span', array('class' => 'error'));
-        $errorTelefono = self::createMensajeError($errores, 'Teléfono', 'span', array('class' => 'error'));
-		$errorEmail = self::createMensajeError($errores, 'E-mail', 'span', array('class' => 'error'));
-		$errorContraseña = self::createMensajeError($errores, 'Contraseña', 'span', array('class' => 'error'));
-		$errorContraseña2 = self::createMensajeError($errores, 'Contraseña2', 'span', array('class' => 'error'));
-		$errorNacimiento = self::createMensajeError($errores, 'Naciemiento', 'span', array('class' => 'error'));
-		$errorDireccion = self::createMensajeError($errores, 'Direccion', 'span', array('class' => 'error'));
-		*/
         $html = <<<EOF
             <fieldset>
                     <label>DNI:</label> <input class="control" type="text" name="DNI" value="$DNI" readonly/>
@@ -46,7 +33,7 @@ class FormularioEditarUsuario extends Form
                     <label>E-mail:</label> <input class="control" type="email" name="e-mail" value="$email"/>
                     <label>Contraseña:</label> <input class="control" type="password" name="contraseña" required/>
                     <label>Vuelve a introducir la contraseña:</label> <input class="control" type="password" name="contraseña2" required/>
-                    <label>Fecha de Naciemiento:</label> <input class="control" type="date" name="nacimiento" value="$nacimiento"/>
+                    <label>Fecha de Nacimiento:</label> <input class="control" type="date" name="nacimiento" value="$nacimiento"/>
                     <label>Dirección:</label> <input class="control" type="text" name="direccion" value="$direccion" required/>
                 <div class="grupo-control"><button type="submit" name="actualizar">Actualizar</button></div>
             </fieldset>
@@ -103,11 +90,11 @@ EOF;
         }
         
         if (count($result) === 0) {
-            $user = Usuario::actualiza($DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion);
+            $user = Usuario::actualiza(idUsuarioLogado(),$DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion);
             if ( ! $user ) {
                 $result[] = "El usuario ya existe";
             } else {
-                $result = 'login.php';
+                $result = 'perfil_user.php';
             }
         }
         return $result;
