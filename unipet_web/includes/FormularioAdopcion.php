@@ -114,7 +114,7 @@ EOS;
 									  , $respuesta6
 									  , $respuesta7);
 
-				$contract = Contrato::buscaPorDNIeID($this->idUsu,$this->idAni);
+				$contract = Contrato::buscaPorIDeID($this->idUsu,$this->idAni);
 				
 				if (!$contract) {
 					$contract = Contrato::crea($this->idUsu, $this->idAni, $textoFormulario);
