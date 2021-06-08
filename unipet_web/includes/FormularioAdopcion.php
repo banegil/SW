@@ -4,8 +4,22 @@
 	
 	class FormularioAdopcion extends Form {
 
+		private $idAni;
+		private $idUsu;
+		
+		public function __construct($idAni, $idUsu)
+		{
+			$this->idAni = $idAni;
+			$this->idUsu = $idUsu;
+			
+			$opciones = array('action' => 'adoption.php?id='. $this->idAni);
+			
+			parent::__construct("1", $opciones);
+		}
+		
 		protected function generaCamposFormulario($datos, $errores = array())
 	    {
+			
 	    	$html = <<<EOS
 					<fieldset>
 				<legend>Rellene las preguntas</legend>
@@ -100,10 +114,10 @@ EOS;
 									  , $respuesta6
 									  , $respuesta7);
 
-				$contract = Contrato::buscaPorDNIeID($_SESSION['id'],$_SESSION['idAnimal']);
+				$contract = Contrato::buscaPorDNIeID($this->idUsu,$this->idAni);
 				
 				if (!$contract) {
-					$contract = Contrato::crea($_SESSION['id'], $_SESSION['idAnimal'], $textoFormulario);
+					$contract = Contrato::crea($this->idUsu, $this->idAni, $textoFormulario);
 					$contract->guarda();
 				} else {
 					if($contract->ComprobarEnProceso()){
