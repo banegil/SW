@@ -60,7 +60,7 @@ class Usuario
 		if ($user) {
 			return false;
 		}
-		$user = new Usuario($DNI, $nombre, $apellido, $telefono, $email, self::hashPassword($contraseña), $nacimiento, $direccion, "normal", $creacion);
+		$user = new Usuario(0,$DNI, $nombre, $apellido, $telefono, $email, self::hashPassword($contraseña), $nacimiento, $direccion, "normal", $creacion);
 		return self::inserta($user);
   }
 
@@ -74,7 +74,7 @@ class Usuario
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $query=sprintf("INSERT INTO Usuarios (DNI, nombre, apellido, telefono, email, contraseña, nacimiento, direccion, tipo, creacion)
-			VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"
+			VALUES('%s', '%s', '%s', '%s',%d, '%s', '%s', '%s', '%s', '%s')"
             , $conn->real_escape_string($usuario->DNI)
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->apellido)
