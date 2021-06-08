@@ -144,7 +144,28 @@ class Usuario
 			  error_log("Se han actualizado los datos '$conn->affected_rows' !");
 			}
 			return $result;
-		}	
+		}
+	
+	public static function getUsuarios()
+	{
+		$app = Aplicacion::getSingleton();
+		$conn = $app->conexionBd();
+		$query = sprintf("SELECT * FROM usuarios ORDER BY ID ASC"); 
+		$rs = $conn->query($query);
+		if($rs && ($rs->num_rows >0)){
+			$resultado = [];
+			while($fila=$rs->fetch_assoc()){
+				$user = new Usuario($fila['ID'], $fila['DNI'], $fila['nombre'], 
+                                $fila['apellido'], $fila['telefono'], $fila['email'],
+                                $fila['contraseña'], $fila['nacimiento'], 
+                                $fila['direccion'], $fila['tipo'], $fila['creacion']);
+				array_push($resultado, $user);              
+			}
+			$rs->free();
+			return $resultado;
+		}
+		return false; 
+	}
 
 private $id;
 private $dni;
