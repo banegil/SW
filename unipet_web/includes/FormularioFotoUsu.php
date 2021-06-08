@@ -52,7 +52,7 @@ EOS;
 		  if ( $ok ) {
 			$tmp_name = $_FILES['archivo']['tmp_name'];
 
-			if ( !move_uploaded_file($tmp_name, RUTA_IMGUSU. "/{$idUsu}.jpg") ) {
+			if ( !move_uploaded_file($tmp_name, FICHERO_IMGUSU. "/{$idUsu}.jpg") ) {
 			  $result[] = 'Error al mover el archivo';
 			}
 			
