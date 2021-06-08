@@ -1,5 +1,6 @@
 main{
-    background: #88bdbc;
+    background: -webkit-linear-gradient(to right, #FFFF00, #00FFFF );
+	background: linear-gradient(to right, #FFFFFF, #00FFD0 );
     font-family: fantasy;
   
 }
@@ -11,12 +12,19 @@ main{
     align-content: space-around;
 }
 
+#perfilanimalcontenedor{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow:1;
+}
+
 #contenedorNombre{
     display: flex;
     flex-direction: row;
     justify-content: stretch;
     gap: 20%;
-    background: #a8d0e6;
+    background: #f2f2f2;
     border-radius:0.5em;
     border: 3px solid white;
 }
@@ -38,6 +46,25 @@ main{
     box-shadow:inset 2px 2px 4px rgba(120, 120, 120, .4), inset -3px -3px 3px rgba(255,255,255,.4);
 }
 
+#contenedorImagen .perfilAnimal{
+    border: 2px solid #4f4a41;
+    padding: 2px;
+    border-radius: 1em;
+    height: 50em;
+    width: 50em;
+    background-color: #254e58;
+    box-shadow:inset 2px 2px 4px rgba(120, 120, 120, .4), inset -3px -3px 3px rgba(255,255,255,.4);
+}
+
+#cabeceraDatos{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    gap:10%;
+    
+}
 #cambiarFotoContenedor{
     max-width: 200px;
     max-height: 200px;
@@ -47,11 +74,24 @@ main{
     display:flex;
     flex-direction: row;
     justify-content: flex-start;
-    color:white;
+    color:#3b945e;
     font-size:xx-large;
     gap:10px;
     padding-left: 2cm;
   
+}
+#contenedorNameAnimal{
+    display:flex;
+    color:#3b945e;
+    font-size:xx-large;
+    padding-left: 2cm;
+  
+}
+#separado{
+    display:flex;
+    color:red;
+    justify-content: flex-start;
+    font-size:xx-large;
 }
 #contenedorDatos{
     display: flex;
@@ -66,12 +106,34 @@ main{
     gap: 30%;
     flex-wrap: wrap;
 }
+#contenedorDatosAnimal{
+    display: flex;
+    border-radius:0.5em;
+    font-size: large;
+    color: white;
+    flex-grow: 1;
+    flex-direction: column;
+    gap: 2%;
+
+    align-items: center;
+    flex-wrap: wrap;
+}
+#perfilAnimalDerecha{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-radius:0.5em;
+    background-color: #254e58;
+    border: 3px solid white;
+    flex-grow: 1;
+}
 #contenedorDatosDerecha{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 
 }
+
 #contenedorDatosIzquierda{
     display:flex;
     padding-left: 3px;;
