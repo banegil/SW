@@ -1,11 +1,11 @@
 <?php
 
-require_once __DIR__.'\includes\config.php';
+require_once __DIR__.'/includes/config.php';
 
-$form = new es\ucm\fdi\aw\FormularioEditaProtectora();
+$form = new es\ucm\fdi\aw\FormularioEditaProtectora("1");
 $htmlFormRegistro = $form->gestiona();
 
-$tituloPagina = 'Actualizar';
+$tituloPagina = 'ActualizarProtect';
 
 $contenidoPrincipal = <<<EOS
 <h1>Actualizar protectora</h1>
