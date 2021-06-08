@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'\includes\config.php';
 
 //Doble seguridad: unset + destroy
 unset($_SESSION['login']);
@@ -13,7 +13,9 @@ session_destroy();
 $tituloPagina = 'Logout';
 
 $contenidoPrincipal = <<<EOS
-<h1>Hasta pronto!</h1>
+    <div class="loader">
+        <h1>ADIÓS!</h1>
+    </div>
 EOS;
 
-require __DIR__.'/includes/plantillas/plantilla.php';
+require __DIR__.'/includes/plantillas/plantillaLogout.php';
