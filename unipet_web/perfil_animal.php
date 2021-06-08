@@ -6,42 +6,59 @@ require_once __DIR__ . '/includes/usuarioUtils.php';
 $tituloPagina = 'Perfil Animal';
 $contenidoPrincipal = '<link rel="stylesheet" type="text/css" href="perfil.css" />';
 $idSes = $_GET['id'];
-$contenidoPrincipal.= "<div id='perfilcontenedor'>";
+$contenidoPrincipal.= "<div id='perfilanimalcontenedor'>";
 $animal = es\ucm\fdi\aw\Animal::buscaPorID($idSes);
 if ($animal == null) $contenidoPrincipal .= "<h2> No se ha encontrado con ningún animal  </h2>";
 else {
     $tituloPagina = $animal->getNombre();
     $protectora = es\ucm\fdi\aw\Protectora::buscaProtectoraPorId($animal->getProtectora());
     //echo '<img src="data:imagenes;base64,' . base64_encode($animal->getImagen()) . ' "width=15%";>';
-    $contenidoPrincipal .= "<div id='contenedorNombre'>";
+   
 	if(file_exists(FICHERO_IMGANI.'/'.$animal->getID().'.jpg')){
-		$contenidoPrincipal .= "<img class='fotoAnimal' src=img/ani/".$animal->getID().".jpg alt=Foto animal".$animal->getID()."/>";
+        $contenidoPrincipal .= "<div id='contenedorImagen'>";
+		$contenidoPrincipal .= "<img class='perfilAnimal' src=img/ani/".$animal->getID().".jpg alt=Foto animal".$animal->getID()."/>";
 		if(permisosVoluntario()){
+            $contenidoPrincipal .= "<div id='cambiarFotoContenedor'>";
 			$contenidoPrincipal .="<p>Cambiar foto:</p>";
 			$form = new es\ucm\fdi\aw\FormularioFotoAni($animal->getID());
 			$contenidoPrincipal .= $form->gestiona();
+            $contenidoPrincipal .= "</div>";
 		}
 	}else{
-		$contenidoPrincipal .= "<img class='fotoAnimal' src=img/ani/null.jpg alt=Foto animal".$animal->getID()."/>";
+		$contenidoPrincipal .= "<img class='perfilAnimal' src=img/ani/null.jpg alt=Foto animal".$animal->getID()."/>";
 		if(permisosVoluntario()){
+            $contenidoPrincipal .= "<div id='cambiarFotoContenedor'>";
 			$contenidoPrincipal .="<p>Añadir foto:</p>";
 			$form = new es\ucm\fdi\aw\FormularioFotoAni($animal->getID());
 			$contenidoPrincipal .= $form->gestiona();
+            $contenidoPrincipal .= "</div>";
 		}
 	}
-    $contenidoPrincipal .=  "<p id='nombreAnimal'> NOMBRE: " . $animal->getNombre() . "</p>";
-    if ($animal->getUrgente() && $animal->getId_propietario() == null) {
-        $contenidoPrincipal .= "<h1>¡URGENTE!</h1>";
-    }
     $contenidoPrincipal .= "</div>";
-    $contenidoPrincipal .= "<div id='contenedorDatos'>";
-    $contenidoPrincipal .=  "<p> TIPO: " . $animal->getTipo() . " </p>";
-    $contenidoPrincipal .=    "<p> RAZA: " . $animal->getRaza() . " </p>";
-    $contenidoPrincipal .=    "<p> SEXO: " . $animal->getSexo() . " </p>";
-    $contenidoPrincipal .=    "<p> FECHA NACIMIENTO: " . $animal->getNacimiento() . " </p>";
-    $contenidoPrincipal .=    "<p> FECHA INGRESO: " . $animal->getFecha_ingreso() . " </p>";
-    if ($protectora == null) $contenidoPrincipal .=    "<p> PROTECTORA: Este animal no se encuentra en ninguna protectora o ha habido un error, contacte con un voluntario para más información </p>";
-    else $contenidoPrincipal .=    '<a href = "protectora.php?id=' . $protectora->getID() . '">' . $protectora->getNombre() . '</a>';
+    $contenidoPrincipal .= "<div id='perfilAnimalDerecha'>";
+        $contenidoPrincipal .= "<div id='cabeceraDatos'>";
+            $contenidoPrincipal .= "<div id='contenedorNameAnimal'>";
+                 $contenidoPrincipal .=  "<p> " . $animal->getNombre() . "</p>";
+            $contenidoPrincipal .= "</div>";
+        if ($animal->getUrgente() && $animal->getId_propietario() == null) {
+            $contenidoPrincipal .= "<div id='separado'>";
+            $contenidoPrincipal .= "<p>¡URGENTE!</p>";
+            $contenidoPrincipal .= "</div>";
+        }
+   
+         $contenidoPrincipal .= "</div>";
+    $contenidoPrincipal .= "<div id='contenedorDatosAnimal'>";
+
+        $contenidoPrincipal .=  "<p> " . $animal->getTipo() . " </p>";
+        $contenidoPrincipal .=    "<p> RAZA: " . $animal->getRaza() . " </p>";
+        $contenidoPrincipal .=    "<p> SEXO: " . $animal->getSexo() . " </p>";
+
+        $contenidoPrincipal .=    "<p> FECHA NACIMIENTO: " . $animal->getNacimiento() . " </p>";
+        $contenidoPrincipal .=    "<p> FECHA INGRESO: " . $animal->getFecha_ingreso() . " </p>";
+        if ($protectora == null) $contenidoPrincipal .=    "<p> PROTECTORA: Este animal no se encuentra en ninguna protectora o ha habido un error, contacte con un voluntario para más información </p>";
+        else $contenidoPrincipal .=    '<a href = "protectora.php?id=' . $protectora->getID() . '">' . $protectora->getNombre() . '</a>';
+    $contenidoPrincipal .="</div>";
+    $contenidoPrincipal .="</div>";
     $contenidoPrincipal .="</div>";
     $contenidoPrincipal .= "<div id='botonesContenedor'>";
     if ($animal->getId_propietario() != null) {
@@ -56,7 +73,6 @@ else {
         if (estaLogado() && $animal->getId_propietario() == null) {
             $contenidoPrincipal .= <<<EOS
         <form action="adoption.php">
-	    <input type="hidden" name="id" value="{$idSes}" />
             <input type="submit" class='boton' value="Adoptar" />
         <button class='boton' type="button">Apadrinar</button>
 EOS;
