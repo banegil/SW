@@ -54,9 +54,13 @@ EOS;
 EOS;
 		}
 		
+		$formBuscaAnimales = new es\ucm\fdi\aw\FormularioEntrada('1');
+		$htmlform = $formBuscaAnimales->gestiona();		
+		
 		$contenidoPrincipal=<<<EOS
 			$comienzoHilo	
 			$respuestas
+			$htmlform
 EOS;
 		
 	}else $contenidoPrincipal = "<h1> ERROR CON EL HILO </h1>";
