@@ -34,3 +34,19 @@ function calculaEdad($birthDate){
   return $age;
 }
 
+function nombreLogado(){
+	$result = null;
+	if (estaLogado()) {
+		$result = $_SESSION['nombre'];
+	}
+  return $result;
+}
+
+function apellidoLogado(){
+	$result = null;
+	if (estaLogado()) {
+		$result = $_SESSION['apellido'];
+	}
+  return $result;
+}
+
