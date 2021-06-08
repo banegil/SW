@@ -54,13 +54,13 @@ class Usuario
        return false;
     }
 
-    public static function register($ID_usuario, $DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion,$creacion)
+    public static function register($DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion,$creacion)
     {	
 		$user = self::buscaPorDNI($DNI);
 		if ($user) {
 			return false;
 		}
-		$user = new Usuario($ID_usuario, $DNI, $nombre, $apellido, $telefono, $email, self::hashPassword($contraseña), $nacimiento, $direccion, "normal", $creacion);
+		$user = new Usuario($DNI, $nombre, $apellido, $telefono, $email, self::hashPassword($contraseña), $nacimiento, $direccion, "normal", $creacion);
 		return self::inserta($user);
   }
 
@@ -135,11 +135,10 @@ private $direccion;
 private $tipo;
 private $creacion;
 
-private function __construct($ID_usuario, $dni, $nombre, $apellido, $telefono,
+private function __construct($dni, $nombre, $apellido, $telefono,
                              $email, $contraseña, $nacimiento, $direccion , $tipo, $creacion)
 {
-    $this->id = $id;
-	$this->dni = $dni;
+    $this->dni = $dni;
     $this->nombre = $nombre;
     $this->apellido = $apellido;
     $this->telefono = $telefono;
