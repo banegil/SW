@@ -1,5 +1,5 @@
 <?php
-require_once "includes\Form.php";
+namespace es\ucm\fdi\aw;
 
 class FormularioRegistro extends Form
 {
