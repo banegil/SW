@@ -21,7 +21,7 @@ class Entrada
 	public static function getEntradasPorHilo($id_hilo){
 		$app = Aplicacion::getSingleton();
 		$conn = $app->conexionBd();
-		$query = sprintf("SELECT * FROM entradas WHERE hilo = %d ORDER BY fecha DESC",$id_hilo); 
+		$query = sprintf("SELECT * FROM entradas WHERE hilo = %d ORDER BY fecha ASC",$id_hilo); 
 		$rs = $conn->query($query);
 		if($rs && ($rs->num_rows >0)){
 			$resultado = array();
@@ -49,6 +49,7 @@ class Entrada
 																													$entrada->id_hilo, 
 																													$conn->real_escape_string($entrada->comentario),
 																									$entrada->fecha); 
+		echo "$query";
 		if ( $conn->query($query) ) {
             $entrada->numero = $conn->insert_id;
 		}
@@ -56,7 +57,7 @@ class Entrada
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
             exit();
         }
-        return $entrada;		
+        return true;		
 	}
 		
 	public function getID_usuario()
