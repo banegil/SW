@@ -54,7 +54,7 @@
                     <img src="img/img1.jpg" alt="">
                 </div>
                 <div class="details">
-                        <span><a href=listaAnimalesAdopcion.php>| Animales en adopción |</a></span>
+                        <span><a href=animalesAdopcion.php>| Animales en adopción |</a></span>
                 </div>
             </div>
             <div class="swiper-slide">
