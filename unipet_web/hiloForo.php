@@ -1,9 +1,6 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/Hilo.php';
-require_once __DIR__.'/includes/Entrada.php';
-require_once __DIR__.'/includes/Usuario.php';
 
 $tituloPagina = 'Hilo';
 $contenidoPrincipal = "HOLA";
