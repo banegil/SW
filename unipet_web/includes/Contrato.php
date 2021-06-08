@@ -10,7 +10,7 @@ class Contrato
 	   return $contract;
 	}
 	  
-    public static function buscaPorDNIeID($idUsuario,$idAnimal)
+    public static function buscaPorIDeID($idUsuario,$idAnimal)
     {
        $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
@@ -179,7 +179,7 @@ public static function borraContratoPorDNIeID($idUsuario,$idAnimal)
  
 public function guarda()
   {
-    if (!self::buscaPorDNIeID($this->id_usuario,$this->id)) {
+    if (!self::buscaPorIDeID($this->id_usuario,$this->id)) {
       self::insertaContrato($this);
     } else {
       self::actualizaContrato($this);
