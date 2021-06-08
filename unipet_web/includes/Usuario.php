@@ -29,7 +29,6 @@ class Usuario
                                 $fila['apellido'], $fila['telefono'], $fila['email'],
                                 $fila['contraseña'], $fila['nacimiento'], 
                                 $fila['direccion'], $fila['tipo'], $fila['creacion']);
-			$user->id = $conn->insert_id;
         $rs->free();
         return $user;
        }
