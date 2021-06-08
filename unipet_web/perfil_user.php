@@ -16,7 +16,7 @@ if(isset($_GET['id']) && $_GET['id']!=null){
 else if(estaLogado()){
     $idUser = idUsuarioLogado();
     if($idUser != false){ // comprobamos si hemos recibido un id de usuario
-        $usuario = es\ucm\fdi\aw\Usuario::buscaPorID($idUser); // funcion estática para buscar en la base de datos al usuario por el dni
+        $usuario = es\ucm\fdi\aw\Usuario::buscaPorID_usuario($idUser); // funcion estática para buscar en la base de datos al usuario por el dni
 	}
 }	
        
