@@ -87,7 +87,24 @@ class Apadrinado
 		  error_log("Se han actualizado los datos '$conn->affected_rows' !");
 		}
 		return $apadrinado;
-	}    
+	}
+
+	public static function getApadrinados(){
+		
+		$app = Aplicacion::getSingleton();
+		$conn = $app->conexionBd();
+		$result = [];
+		$query = sprintf("SELECT * FROM apadrinados");
+		$rs = $conn->query($query);
+		if ($rs) {
+			while($fila = $rs->fetch_assoc()) {
+				$apadrinamiento = new Apadrinado($fila['ID_usuario'], $fila['ID'], $fila['cantidad'], $fila['numero_tarjeta']);
+				array_push($result, $apadrinamiento);              
+			}
+			$rs->free();
+		}
+		return $result;
+	}
 
 
 	private $ID_usuario;
