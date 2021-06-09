@@ -93,33 +93,25 @@ class Usuario
         }
         return $usuario;
     }
-    
-      public static function actualizaUsuario($usuario)
-{
-	$result = false;
-
-	$app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $contraseña = password_hash($usuario->contraseña, PASSWORD_DEFAULT);
-      $query = sprintf("UPDATE usuarios SET  DNI = '%s', nombre = '%s', apellido = '%s', telefono = %d, email = '%s', contraseña = '%s', nacimiento = '%s', direccion = '%s' WHERE DNI = %d"
 	
-	  , $usuario->dni
-      , $usuario->nombre
-	  , $usuario->apellido
-	  , $usuario->telefono
-	  , $usuario->email
-	  , $contraseña
-	  , $usuario->nacimiento
-	  , $usuario->direccion
-	  , $usuario->dni);
-	$result = $conn->query($query);
-	if (!$result) {
-	  error_log($conn->error);  
-	} else if ($conn->affected_rows != 1) {
-	  error_log("Se han actualizado los datos '$conn->affected_rows' !");
+	public static function editaTipo($usuario, $tipo)
+	{
+		$result = false;
+
+		$app = Aplicacion::getSingleton();
+		$conn = $app->conexionBd();
+		$query = sprintf("UPDATE usuarios SET tipo = '%s' WHERE ID = %d"
+		  , $conn->real_escape_string($tipo)
+		  , $conn->real_escape_string($usuario->id));
+		$result = $conn->query($query);
+		if (!$result) {
+		  error_log($conn->error);  
+		} else if ($conn->affected_rows != 1) {
+		  error_log("Se han actualizado los datos '$conn->affected_rows' !");
+		}
+		return $result;
 	}
-	return $result;
-}
+	
       public static function editaUsuario($usuario)
 		{
 			$result = false;
@@ -129,14 +121,14 @@ class Usuario
 			$contraseña = password_hash($usuario->contraseña, PASSWORD_DEFAULT);
 			$query = sprintf("UPDATE usuarios SET nombre = '%s', apellido = '%s', telefono = %d, email = '%s', contraseña = '%s', nacimiento = '%s', direccion = '%s' WHERE ID = %d"
 			
-			  , $usuario->nombre
-			  , $usuario->apellido
-			  , $usuario->telefono
-			  , $usuario->email
-			  , $contraseña
-			  , $usuario->nacimiento
-			  , $usuario->direccion
-			  , $usuario->id);
+			  , $conn->real_escape_string($usuario->nombre)
+			  , $conn->real_escape_string($usuario->apellido)
+			  , $conn->real_escape_string($usuario->telefono)
+			  , $conn->real_escape_string($usuario->email)
+			  , $conn->real_escape_string($contraseña)
+			  , $conn->real_escape_string($usuario->nacimiento)
+			  , $conn->real_escape_string($usuario->direccion)
+			  , $conn->real_escape_string($usuario->id));
 			$result = $conn->query($query);
 			if (!$result) {
 			  error_log($conn->error);  
