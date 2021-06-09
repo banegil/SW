@@ -61,7 +61,7 @@ EOF;
 	
         if (count($result) === 0) {
             $protectora = Protectora::actualizar($id, $nombre, $direccion, $telefono);
-            if ( ! $animal ) {
+            if ( ! $protectora ) {
                 $result[] = "La protectora ya existe";
             } else {
                 $result = "protectora.php?id=".$id;
