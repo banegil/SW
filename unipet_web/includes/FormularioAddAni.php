@@ -1,6 +1,7 @@
 <?php
 
 namespace es\ucm\fdi\aw;
+require_once "categorias.php";
 
 class FormularioAddAni extends Form
 {
