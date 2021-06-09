@@ -26,6 +26,24 @@ class Contrato
        return false;
     }
 	
+	public static function getContratosID($idUsu)
+	{
+		$app = Aplicacion::getSingleton();
+		$conn = $app->conexionBd();
+		$query = sprintf("SELECT * FROM contrato_adopcion WHERE ID_usuario=%d ORDER BY ID ASC", $idUsu); 
+		$rs = $conn->query($query);
+		if($rs && ($rs->num_rows >0)){
+			$resultado = [];
+			while($fila=$rs->fetch_assoc()){
+				$cont = new Contrato($fila['ID_usuario'], $fila['ID'], $fila['formulario'], $fila['estado'], $fila['fecha']);
+				array_push($resultado, $cont);              
+			}
+			$rs->free();
+			return $resultado;
+		}
+		return false; 
+	}
+	
 	public static function rechazaContratos($id_animal){
 		$app = Aplicacion::getSingleton();
 		$conn = $app->conexionBd();
