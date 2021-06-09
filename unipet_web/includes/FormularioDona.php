@@ -91,7 +91,7 @@ EOF;
                 $result[] = "Hubo un error al insertar en la base de datos de Tarjeta, lo sentimos";
             }
 			else{
-				$transaccion = Transaccion::register($this->idUsu, $cantidad, $numero_tarjeta);
+				$transaccion = Transaccion::register($this->idUsu, $cantidad, $numero_tarjeta, NULL);
 				
 				if ( ! $transaccion ) {
 					$result[] = "Hubo un error al insertar en la base de datos de Transaccion, lo sentimos";
