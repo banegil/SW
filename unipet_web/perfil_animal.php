@@ -81,10 +81,10 @@ else {
 	<input type="submit" class='boton' value="Apadrinar" />
 	</form>
 EOS;
-            if ($_SESSION["tipo"] == "voluntario" || $_SESSION["tipo"] == "veterinario") {
+            if (permisosVeterinario()) {
                 $contenidoPrincipal .= " <a class='boton' href=fichaVista.php?id={$idSes}> Ficha Medica</a>";
             }
-            if ($_SESSION["tipo"] == "voluntario") { // modificar
+            if (permisosVeterinario()) { // modificar
                 $contenidoPrincipal .= <<<EOS
                 <a class='boton' href=modificaPerfilAnimal.php?id={$idSes}> Editar perfil</a>
             </div>

@@ -15,12 +15,12 @@ $tablaSolicitudes= <<<EOS
 	<th></th>
   </tr>
 EOS;
-foreach($solicitudes as $i){
+if($solicitudes)foreach($solicitudes as $i){
 $nombreAnimal=$i->getNombreAnimal();
 $nombreUsuario=$i->getNombreUsuario();
 $fecha=$i->getFecha();
 $estado=$i->getEstado();
-$enlace='<a href = "solicitud.php?id='.$i->getID().'&dni='.$i->getID_usuario().'"> Ver </a>';
+$enlace='<a href = "solicitud.php?idAni='.$i->getID().'&idUsu='.$i->getID_usuario().'"> Ver </a>';
 $tablaSolicitudes .= <<<EOS
   <tr>
     <td>$nombreAnimal</td>
@@ -47,7 +47,7 @@ $tablaProtectoras= <<<EOS
 	<th></th>
   </tr>
 EOS;
-foreach($protectoras as $i){
+if($protectoras)foreach($protectoras as $i){
 	$nombreProtectora=$i->getNombre();
 	$id_protectora=$i->getID();
 	$direccion=$i->getDireccion();
@@ -82,7 +82,7 @@ $tablaAnimales= <<<EOS
 	<th>Adoptado</th>
   </tr>
 EOS;
-foreach($animales as $i){
+if($animales)foreach($animales as $i){
 	$id_animal=$i->getID();
 	$nombreAnimal=$i->getNombre();
 	$nacimiento=$i->getNacimiento();
@@ -128,7 +128,7 @@ $tablaUsuarios= <<<EOS
 	<th>Rol</th>
   </tr>
 EOS;
-foreach($usuarios as $i){
+if($usuarios)foreach($usuarios as $i){
 	$id_usuario=$i->getID();
 	$dni=$i->getDNI();
 	$nombre=$i->getNombre();

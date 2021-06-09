@@ -66,14 +66,14 @@ if($usuario != null){ // comprobamos si el usuario esta en la base de datos
     //animales adoptados y apadrinados
 	if ($esMiPerfil){
     $contenidoPrincipal .= "<div id='contenedorDatosDerecha'>";
-    $adoptado = es\ucm\fdi\aw\Animal::getAdoptados($usuario->getDni());
+    $adoptado = es\ucm\fdi\aw\Animal::getAdoptados($usuario->getID());
     $contenidoPrincipal .= "<p> ANIMALES ADOPTADOS:" ."</p>";
     if($adoptado != false){
         foreach($adoptado as $i){ 
         $contenidoPrincipal .= "<p>" .$i->getNombre()."</p>";
         }
     } else $contenidoPrincipal .= "<p> Ninguno </p>";			
-    $apadrinado = es\ucm\fdi\aw\Animal::getApadrinados($usuario->getDni());
+    $apadrinado = es\ucm\fdi\aw\Animal::getApadrinados($usuario->getID());
     $contenidoPrincipal .="<p> ANIMALES APADRINADOS:" ."</p>";
     if($apadrinado != false){
         foreach($apadrinado as $i){ 

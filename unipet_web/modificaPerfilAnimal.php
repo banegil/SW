@@ -2,13 +2,15 @@
 
 require_once __DIR__.'\includes\config.php';
 
-$form = new es\ucm\fdi\aw\FormularioEditarAnimal("1");
+if (isset($_GET['id'])){
+$form = new es\ucm\fdi\aw\FormularioEditarAnimal($_GET['id']);
 $htmlFormRegistro = $form->gestiona();
+}else $htmlFormRegistro = "<h1> No existe este animal </h1>";
 
 $tituloPagina = 'Actualizar Animal';
 
 $contenidoPrincipal = <<<EOS
-<h1>Registro de usuario</h1>
+<h1>Editar Animal</h1>
 $htmlFormRegistro
 EOS;
 
