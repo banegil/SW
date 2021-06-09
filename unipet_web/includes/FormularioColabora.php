@@ -12,7 +12,7 @@ class FormularioColabora extends Form
 					<fieldset>
 					<legend>Si quiere presentarse como voluntario, dejenos a continuacion una solicitud diciendonos sus motivaciones para tal acto</legend>
 					  <div>
-						<label>Motivaciones</label> <input type="text" name="voluntariado" size="200"/>
+						<label>Motivaciones</label> <input class ="control" type="text" name="voluntariado" size="200" required />
 					  </div>
 					  <div>
 						<input type="submit" name="submit" value="Send" />
@@ -35,7 +35,7 @@ EOS;
 		}else{
 			$comentario = Colabora::add(idUsuarioLogado(), $voluntariado);
 			Colabora::inserta($comentario);
-			$result = 'index.php';
+			$result = 'colabora.php';
 		}
 		
 		
