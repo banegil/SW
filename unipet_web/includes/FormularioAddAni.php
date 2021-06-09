@@ -17,6 +17,10 @@ class FormularioAddAni extends Form
 			$protectorasOpt = "";
 			$protectoras = Protectora::getProtectoras();
 			if ($protectoras)foreach($protectoras as $i) $protectorasOpt .= "<option value=".$i->getID().">".$i->getNombre()."</option>";
+	    			$opciones = "";
+			for($i = 0; $i < NANIMALES; $i++){
+				$opciones .= "<option value=".ANIMALES[$i].">".ANIMALES[$i]."</option>";
+			}
 	    	$html = <<<EOS
 					<fieldset>
 						<legend>Rellene los datos del animal</legend>
@@ -31,8 +35,7 @@ class FormularioAddAni extends Form
 						
 						<div><label>Tipo:</label> 
 							<select name="type">
-							  <option value="perro" selected>Perro</option>
-							  <option value="gato">Gato</option>
+								$opciones
 							</select>
 						</div>
 						
@@ -48,7 +51,7 @@ class FormularioAddAni extends Form
 						</div>
 						
 						<div><label>Peso:</label> 
-							<input type="number" name="peso" value="$peso" size="20"/>
+							<input type="number" name="peso" step="0.1" value="$peso" size="20"/>
 						</div>
 						
 						<div><label>Ingreso:</label> 
