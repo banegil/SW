@@ -1,9 +1,9 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/comun/listaSolicitudes.php';
+require_once ("includes/usuarioUtils.php");
 
-//$solicitudes = listaSolicitudes(es\ucm\fdi\aw\Contrato:: getSolicitudes());
+if(estaLogado() && permisosVoluntario()){
 $solicitudes = es\ucm\fdi\aw\Contrato:: getSolicitudes();
 $tablaSolicitudes= <<<EOS
 <table>
@@ -159,6 +159,69 @@ EOS;
 $tablaUsuarios.="</table>";
 
 
+
+
+$transacciones = es\ucm\fdi\aw\Transaccion:: getTransacciones();
+$tablaTransacciones= <<<EOS
+<table>
+  <tr>
+    <th>ID</th>
+    <th>ID_usuario</th> 
+    <th>cantidad</th>
+	<th>tarjeta</th>
+	<th>ID_animal</th>
+  </tr>
+EOS;
+if($transacciones)foreach($transacciones as $i){
+	$ID=$i->getID();
+	$ID_usuario=$i->getID_usuario();
+	$cantidad=$i->getCantidad();
+	$tarjeta=$i->getNumTarjeta();
+	$ID_animal=$i->getID_animal();
+	
+	if(empty($ID_animal)){
+		$ID_animal = "null";
+	}
+	
+	$tablaTransacciones .= <<<EOS
+	  <tr>
+		<td>$ID</td>
+		<td>$ID_usuario</td>
+		<td>$cantidad</td>
+		<td>$tarjeta</td>
+		<td>$ID_animal</td>
+	  </tr>
+EOS;
+}
+$tablaTransacciones.="</table>";
+
+
+
+$comentarios = es\ucm\fdi\aw\Colabora:: getComentarios();
+$tablaComentarios= <<<EOS
+<table>
+  <tr>
+    <th>ID</th>
+    <th>ID_usuario</th> 
+    <th>comentario</th>
+  </tr>
+EOS;
+if($comentarios)foreach($comentarios as $i){
+	$ID=$i->getID_usuario();
+	$ID_usuario=$i->getTipo();
+	$comentario=$i->getID();
+	
+	$tablaComentarios .= <<<EOS
+	  <tr>
+		<td>$ID</td>
+		<td>$ID_usuario</td>
+		<td>$comentario</td>
+	  </tr>
+EOS;
+}
+$tablaComentarios.="</table>";
+
+
 $form = new es\ucm\fdi\aw\FormularioRecaudar("1");
 $htmlFormRecaudar = $form->gestiona();
 
@@ -171,9 +234,6 @@ $contenidoPrincipal = <<<EOS
 	
 	<h1 class="titulo">Protectoras</h1>
 	$tablaProtectoras
-	<form action="protectoras.php">
-		<input type="submit" value="Ver lista" />
-	</form>
 
 	<form action="addProtectora.php">
 		<input type="submit" value="Añadir protectora" />
@@ -181,24 +241,26 @@ $contenidoPrincipal = <<<EOS
 
 	<h1 class="titulo">Animales</h1>
 	$tablaAnimales
-	</article>
-	<form action="animalesAdopcion.php">
-		<input type="submit" value="Ver Lista" />
-	</form>
-
-	</article>
 	<form action="addAnimal.php">
 		<input type="submit" value="Añadir animal" />
 	</form>
 	
 	<h1 class="titulo">Usuarios</h1>
 	$tablaUsuarios
-	<form action="verlistausuarios.php">
-		<input type="submit" value="Ver Lista" />
-	</form>
+	
+	<h1 class="titulo">Transacciones</h1>
+	$tablaTransacciones
+	
+	<h1 class="titulo">Comentarios/Voluntariados</h1>
+	$tablaComentarios
 	
 	<h1 class="titulo">Recaudacion de los apadrinamientos</h1>
 	$htmlFormRecaudar
 EOS;
-
+}
+else{
+$contenidoPrincipal = <<<EOS
+	<h1>No tienes permiso para estar aquí...</h1>
+EOS;
+}
 require __DIR__.'/includes/plantillas/plantilla.php';
