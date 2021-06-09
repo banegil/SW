@@ -35,7 +35,7 @@ class Ficha
         public static function buscaFichaPorId($id){
 			$app = Aplicacion::getSingleton();
 			$conn = $app->conexionBd();
-            $query = sprintf("SELECT * FROM fichas WHERE id='%s' ", $id); 
+            $query = sprintf("SELECT * FROM fichas WHERE ID='%s' ", $id); 
             $rs = $conn->query($query);
             if($rs && $rs->num_rows == 1){
                 $fila = $rs->fetch_assoc();
@@ -58,6 +58,29 @@ public static function crearFicha($ficha)
         $conn = $app->conexionBd();
 	
 	$query = sprintf("INSERT INTO fichas (ID, vacunas, observaciones) VALUES (%d, '%s', '%s')"
+	  , $conn->real_escape_string($ficha->id)
+	  , $conn->real_escape_string($ficha->vacunas)
+	  , $conn->real_escape_string($ficha->observaciones));
+	  
+	$result = $conn->query($query);
+	
+	if ($result) {
+	  $result = $ficha;
+	} else {
+	  error_log($conn->error); 
+	}
+	
+	return $result;
+}
+
+
+public static function actualizaFicha($ficha){
+  $result = false;
+
+	$app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+	
+	$query = sprintf("UPDATE fichas SET ID ='%s', vacunas ='%s', observaciones = '%s' WHERE ID ='%s'"
 	  , $conn->real_escape_string($ficha->id)
 	  , $conn->real_escape_string($ficha->vacunas)
 	  , $conn->real_escape_string($ficha->observaciones));
@@ -114,5 +137,8 @@ public static function crearFicha($ficha)
             if (!self::buscaFichaPorId($this->id)) {
                 self::crearFicha($this);
               }
+            else{
+                self::actualizaFicha($this);
+            }
         }
     }
