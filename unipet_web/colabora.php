@@ -19,9 +19,9 @@ else{
 	$htmlFormDona = $formDona->gestiona();
 	
 	$contenidoPrincipal = <<<EOS
-	<h1>Voluntariado</h1>
+	<h1 class="titulo">Voluntariado</h1>
 	$htmlFormColabora
-	<h1>Donacion</h1>
+	<h1 class="titulo">Donacion</h1>
 	$htmlFormDona
 	
 EOS;
