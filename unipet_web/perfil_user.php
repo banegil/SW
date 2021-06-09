@@ -10,8 +10,8 @@ $contenidoPrincipal.= "<div id='perfilcontenedor'>";
 $usuario = null;
 $esMiPerfil = false;
 if(isset($_GET['id']) && $_GET['id']!=null){
-	$idUsu = $_GET['id'];
-	$usuario = es\ucm\fdi\aw\Usuario::buscaPorID_usuario($idUsu);
+	$idUser = $_GET['id'];
+	$usuario = es\ucm\fdi\aw\Usuario::buscaPorID_usuario($idUser);
 }
 else if(estaLogado()){
     $idUser = idUsuarioLogado();
@@ -62,6 +62,13 @@ if($usuario != null){ // comprobamos si el usuario esta en la base de datos
     $contenidoPrincipal .= "<p> FECHA NACIMIENTO : ".$usuario->getNacimiento(). "</p>";
     if ($esMiPerfil)$contenidoPrincipal .= "<p> DIRECCION: ".$usuario->getDireccion(). "</p>";
     $contenidoPrincipal .= "<p> TIPO: ".$usuario->getTipo(). "</p>";
+	if(permisosAdministrador()){
+		
+		$form = new es\ucm\fdi\aw\FormularioAscension($idUser);
+		$htmlFormAscension = $form->gestiona();
+		
+		$contenidoPrincipal .= "$htmlFormAscension";
+	}
     $contenidoPrincipal .= "</div>";
     //animales adoptados y apadrinados
 	if ($esMiPerfil){
