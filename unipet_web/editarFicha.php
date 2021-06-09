@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'\includes\config.php';
 
 $form = new es\ucm\fdi\aw\FormularioFicha("1");
 $htmlFormRegistro = $form->gestiona();
@@ -8,7 +8,7 @@ $htmlFormRegistro = $form->gestiona();
 $tituloPagina = 'Editar Ficha';
 
 $contenidoPrincipal = <<<EOS
-<h1>Editar Ficha</h1>
+<h1 class="titulo">Editar Ficha</h1>
 $htmlFormRegistro
 EOS;
 
