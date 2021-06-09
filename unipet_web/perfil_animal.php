@@ -48,13 +48,25 @@ else {
    
          $contenidoPrincipal .= "</div>";
     $contenidoPrincipal .= "<div id='contenedorDatosAnimal'>";
-
-        $contenidoPrincipal .=  "<p> " . $animal->getTipo() . " </p>";
-        $contenidoPrincipal .=    "<p> RAZA: " . $animal->getRaza() . " </p>";
-        $contenidoPrincipal .=    "<p> SEXO: " . $animal->getSexo() . " </p>";
-
-        $contenidoPrincipal .=    "<p> FECHA NACIMIENTO: " . $animal->getNacimiento() . " </p>";
-        $contenidoPrincipal .=    "<p> FECHA INGRESO: " . $animal->getFecha_ingreso() . " </p>";
+        if($animal->getTipo() != null){
+            $contenidoPrincipal .=  "<p> " . $animal->getTipo() . " </p>";
+        }
+        if($animal->getRaza()  != null){
+            $contenidoPrincipal .=    "<p> RAZA: " . $animal->getRaza() . " </p>";
+        }
+        if($animal->getSexo()!= null){
+            $contenidoPrincipal .=    "<p> SEXO: " . $animal->getSexo() . " </p>";
+        }
+        if($animal->getPeso() != null){
+            $contenidoPrincipal .=    "<p> PESO: " . $animal->getPeso() . " kg </p>";
+        }
+        if( $animal->getNacimiento() != null){
+            $contenidoPrincipal .=    "<p> FECHA NACIMIENTO: " . $animal->getNacimiento() . " </p>";
+        }
+        if($animal->getFecha_ingreso() != null){
+            $contenidoPrincipal .=    "<p> FECHA INGRESO: " . $animal->getFecha_ingreso() . " </p>";
+        }
+       
         if ($protectora == null) $contenidoPrincipal .=    "<p> PROTECTORA: Este animal no se encuentra en ninguna protectora o ha habido un error, contacte con un voluntario para más información </p>";
         else $contenidoPrincipal .=    '<a href = "protectora.php?id=' . $protectora->getID() . '">' . $protectora->getNombre() . '</a>';
         if ($animal->getId_propietario() != null) {
