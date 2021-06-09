@@ -69,8 +69,15 @@ if($usuario != null){ // comprobamos si el usuario esta en la base de datos
 	}
     $contenidoPrincipal .= "</div>";
     //animales adoptados y apadrinados
-	if ($esMiPerfil){
+	if ($esMiPerfil || permisosVoluntario()){
     $contenidoPrincipal .= "<div id='contenedorDatosDerecha'>";
+	$contenidoPrincipal .= "<p> ANIMALES EN PROCESO:" ."</p>";
+	$contratos = es\ucm\fdi\aw\Contrato::getContratosID($idUser);
+	foreach($contratos as $i){
+		$animal = es\ucm\fdi\aw\Animal::buscaPorID($i->getId());
+		$idAnimal = $animal->getId();
+		$contenidoPrincipal .=  "<a class='boton' href=solicitud.php?idAni={$idAnimal}&idUsu={$idUser}>".$animal->getNombre().' - '.$i->getEstado(). "</a>";
+	}
     $adoptado = es\ucm\fdi\aw\Animal::getAdoptados($usuario->getID());
     $contenidoPrincipal .= "<p> ANIMALES ADOPTADOS:" ."</p>";
     if($adoptado != false){
