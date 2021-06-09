@@ -1,4 +1,3 @@
-
 <?php
 
 require_once __DIR__.'/includes/config.php';
@@ -160,6 +159,9 @@ EOS;
 $tablaUsuarios.="</table>";
 
 
+$form = new es\ucm\fdi\aw\FormularioRecaudar("1");
+$htmlFormRecaudar = $form->gestiona();
+
 
 $tituloPagina = 'Panel de control';
 
@@ -195,6 +197,9 @@ $contenidoPrincipal = <<<EOS
 	<form action="verlistausuarios.php">
 		<input type="submit" value="Ver Lista" />
 	</form>
+	
+	<h1>Recaudacion de los apadrinamientos</h1>
+	$htmlFormRecaudar
 EOS;
 
 require __DIR__.'/includes/plantillas/plantilla.php';
