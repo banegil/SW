@@ -249,7 +249,29 @@ public static function actualizaAnimal($animal)
 	  error_log("Se han actualizado los datos '$conn->affected_rows' !");
 	}
 	return $result;
-} 
+}
+	
+public static function getAnimales()
+{
+	$app = Aplicacion::getSingleton();
+	$conn = $app->conexionBd();
+	$query = sprintf("SELECT * FROM animales ORDER BY nombre ASC"); 
+	$rs = $conn->query($query);
+	if($rs && ($rs->num_rows >0)){
+		$resultado = [];
+		while($fila=$rs->fetch_assoc()){
+			$animal = new Animal($fila['ID'], $fila['nombre'], 
+			$fila['nacimiento'], $fila['tipo'], $fila['raza']
+			, $fila['sexo'], $fila['peso'], $fila['ingreso']
+			, $fila['protectora'], $fila['historia'], $fila['ID_usuario']
+			, $fila['urgente']);
+			array_push($resultado, $animal);              
+		}
+		$rs->free();
+		return $resultado;
+	}
+	return false; 
+}
 
 private $id;
 private $nombre;
