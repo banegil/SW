@@ -1,7 +1,7 @@
 <?php
 
 namespace es\ucm\fdi\aw;
-
+require_once "categorias.php";
 
 class FormularioEditarAnimal extends Form
 {
@@ -32,13 +32,17 @@ class FormularioEditarAnimal extends Form
         $urgente =  $animal->getUrgente() ?? '';
 		$fechaIngreso = $animal->getFecha_ingreso() ?? '';
 
-      
+      	$opciones = "";
+	for($i = 0; $i < NANIMALES; $i++){
+		if ($animal->getTipo()==ANIMALES[$i]) $opciones .= "<option value=".ANIMALES[$i]." selected>".ANIMALES[$i]."</option>";
+		else $opciones .= "<option value=".ANIMALES[$i].">".ANIMALES[$i]."</option>";
+	}
         $html = <<<EOF
             <fieldset>
                     <label>id:</label> <input class="control" type="number" name="id" value="$id" readonly/>
                     <label>Nombre:</label> <input class="control" type="text" name="nombre" value="$nombre"required/>
                     <label>Nacimiento:</label> <input class="control" type="date" name="nacimiento" value="$nacimiento" required/>
-                    <label>tipo:</label> <input class="control" type="text" name="tipo" value="$tipo"required/>
+                    <label>tipo:</label> <select name="tipo">$opciones</select>
                     <label>raza:</label> <input class="control" type="text" name="raza" value="$raza" required/>
                     <label>sexo:</label> <input class="control" type="text" name="sexo" value="$sexo" required />
                     <label>peso:</label> <input class="control" type="number" name="peso" value="$peso" required/>
