@@ -3,6 +3,7 @@
 namespace es\ucm\fdi\aw;
 
 require_once 'comun/listaAnimales.php';
+require_once "categorias.php";
 
 class FormularioBusquedaAnimales extends Form
 {
@@ -10,6 +11,10 @@ class FormularioBusquedaAnimales extends Form
 
   protected function generaCamposFormulario ($datos, $errores = array())
   {
+ $opciones = "";
+	for($i = 0; $i < NANIMALES; $i++){
+		$opciones .= "<input type='radio' name='tipoAnimal' value=".ANIMALES[$i]." >".ANIMALES[$i]."s";
+	}
       $camposFormulario=<<<EOF
       <fieldset>
         <legend>Busca Animales en Adopción</legend>
@@ -19,9 +24,7 @@ class FormularioBusquedaAnimales extends Form
 			            <div>
 			                <label>Buscar por tipo: </label> 
 								<input type="radio" name="tipoAnimal" value="Todos" checked /> Todos
-								<input type="radio" name="tipoAnimal" value="perro" /> Perros
-								<input type="radio" name="tipoAnimal" value="gato" /> Gatos
-								<input type="radio" name="tipoAnimal" value="otro" /> Otros
+								$opciones
 			            </div>
 			            <div ><button type="submit" name="buscar">BUSCAR</button></div>
       </fieldset>
