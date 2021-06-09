@@ -57,7 +57,7 @@ CREATE TABLE `apadrinados` (
   `ID_usuario` int(9) NOT NULL,
   `ID` int(9) NOT NULL,
   `cantidad` decimal(3,2) NOT NULL,
-  `numero_tarjeta` int(12) NOT NULL
+  `numero_tarjeta` bigint(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -154,8 +154,8 @@ CREATE TABLE `protectoras` (
 DROP TABLE IF EXISTS `tarjetas`;
 CREATE TABLE `tarjetas` (
   `ID_usuario` int(9) NOT NULL,
-  `numero_tarjeta` int(11) NOT NULL,
-  `caducidad` int(11) NOT NULL,
+  `numero_tarjeta` bigint(16) NOT NULL,
+  `caducidad` varchar(5) NOT NULL,
   `cvv` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -169,8 +169,8 @@ DROP TABLE IF EXISTS `transacciones`;
 CREATE TABLE `transacciones` (
   `ID` int(9) NOT NULL,
   `ID_usuario` int(9) NOT NULL,
-  `tarjeta` int(12) NOT NULL,
-  `cantidad` decimal(3,2) NOT NULL
+  `tarjeta` bigint(16) NOT NULL,
+  `cantidad` decimal(6,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
