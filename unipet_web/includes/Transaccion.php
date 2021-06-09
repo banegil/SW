@@ -37,10 +37,10 @@ class Transaccion
     public static function register($usuario, $cantidad, $numero_tarjeta)
     {	
 		//Guardamos $protectora como la fecha-h-m-s-microsegundo(6 decimales)
-		$date = DateTime::createFromFormat('U.u', microtime(TRUE));
-		$protectora = $date->format('YmdHisu');
+		//$date = DateTime::createFromFormat('U.u', microtime(TRUE));
+		//$protectora = $date->format('YmdHisu');
 
-		$user = new Transaccion($protectora, $usuario, $numero_tarjeta, $cantidad);
+		$user = new Transaccion(0, $usuario, $numero_tarjeta, $cantidad);
 		return self::inserta($user);
     }
     
@@ -52,10 +52,10 @@ class Transaccion
 			VALUES('%s', '%s', '%s', '%s')"
             , $conn->real_escape_string($transaccion->ID)
             , $conn->real_escape_string($transaccion->ID_usuario)
-            , $conn->real_escape_string($transaccion->tarjeta)
+            , $conn->real_escape_string($transaccion->numero_tarjeta)
             , $conn->real_escape_string($transaccion->cantidad));
         if ( $conn->query($query) ) {
-            $transaccion->ID = $conn->insert_ID;
+            $transaccion->ID = $conn->insert_id;
 		}
 		else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
@@ -79,7 +79,7 @@ class Transaccion
 		  , $transaccion->ID
 		  , $transaccion->ID_usuario
 		  , $transaccion->numero_tarjeta
-		  , $transaccion->cantidad;
+		  , $transaccion->cantidad);
 		$result = $conn->query($query);
 		if (!$result) {
 		  error_log($conn->error);  
