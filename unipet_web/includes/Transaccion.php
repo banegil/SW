@@ -23,7 +23,7 @@ class Transaccion
     {
 	   $app = Aplicacion::getSingleton();
        $conn = $app->conexionBd();
-       $query = sprintf("SELECT * FROM transacciones ORDER BY ID"); 
+       $query = sprintf("SELECT * FROM transacciones ORDER BY ID ASC"); 
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
@@ -33,6 +33,24 @@ class Transaccion
        }
        return false;
     }
+	
+	public static function getTransacciones()
+	{
+		$app = Aplicacion::getSingleton();
+		$conn = $app->conexionBd();
+		$query = sprintf("SELECT * FROM transacciones ORDER BY ID ASC"); 
+		$rs = $conn->query($query);
+		if($rs && ($rs->num_rows >0)){
+			$resultado = [];
+			while($fila=$rs->fetch_assoc()){
+				$trans = new Transaccion($fila['ID'], $fila['ID_usuario'], $fila['cantidad'], $fila['tarjeta'], $fila['ID_animal']);
+				array_push($resultado, $trans);              
+			}
+			$rs->free();
+			return $resultado;
+		}
+		return false; 
+	}
 
     public static function register($usuario, $cantidad, $numero_tarjeta, $animal)
     {	
@@ -131,5 +149,10 @@ class Transaccion
 	public function getNumTarjeta()
 	{
 	return $this->numero_tarjeta;
+	}
+	
+	public function getID_animal()
+	{
+	return $this->ID_animal;
 	}
 }
