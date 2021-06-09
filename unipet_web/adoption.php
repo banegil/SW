@@ -10,7 +10,7 @@ $htmlFormAdopt = $form->gestiona();
 $tituloPagina = 'Adoption';
 
 $contenidoPrincipal = <<<EOS
-<h1>Inicio proceso adopcion</h1>
+<h1 class="titulo">Inicio proceso adopcion</h1>
 $htmlFormAdopt
 EOS;
 
