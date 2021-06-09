@@ -281,7 +281,14 @@ public function getDireccion()
 {
 return $this->direccion;
 }
-
+	
+/**
+ * Get the value of creacion
+ */ 
+public function getCreacion()
+{
+return $this->creacion;
+}
 
 /**
  * Set the value of telefono
