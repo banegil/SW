@@ -2,17 +2,12 @@
 
 <html>
  <head>
-	<link rel="stylesheet" type="text/css" href="css/estilo.css" />
-	<link rel="stylesheet" type="text/css" href="css/cabecera.css" />
+	<link rel="stylesheet" type="text/css" href="css/stylus.css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title><?= $tituloPagina ?></title>
  </head>
  
  <body>
-	
-	<?php
-		require("includes/comun/cabecera.php");
-	?>
 	
 	<main>
 		<article>
