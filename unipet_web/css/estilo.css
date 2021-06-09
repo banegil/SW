@@ -177,3 +177,19 @@ hr.barraForo {
   border: 2px solid #32D6F1;
   border-radius: 5px;
 }
+
+a.boton{
+	text-decoration: none;
+	background-color: rgba(70, 63, 63, 0.507);
+	color: white;
+	font-size: 1.25rem;
+	padding: 1rem 1.25rem;
+	border-radius: 3px;
+	margin-right: 0.75em;
+	flex-shrink: 0;
+	transition: 0.3s ease-in;
+}
+a.boton:hover{
+	box-shadow: 7px 7px #232323;
+    transform: scale(1.1);
+}
