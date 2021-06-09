@@ -96,12 +96,48 @@ header {
 	text-align: center;
 }
 
-footer {
+.bordePie {
+	padding: 40px;
+	background: -webkit-linear-gradient(to right, #FFFFFF, #00FFFF );
+	background: linear-gradient(to right, #FFFFFF, #00FFFF );
+}
+
+.interioPie {
 	clear: both;
-	padding: 20px;
-	background: -webkit-linear-gradient(to left, #00FFFF, #FFFFFF );
-	background: linear-gradient(to left, #00FFFF, #FFFFFF );
+	padding: 40px;
+	background: #DFECEC;
+	color: #00FFFF;
 	text-align: left;
+}
+
+.formColabora{
+	text-align:right;
+	color: black;
+}
+
+.ultColumn{
+	float: right;
+	text-align:right;
+	width: 25%;
+	font-size: 12px;
+	color: black;
+}
+
+.logoPie{
+    height: 9em;
+    width: 15em;
+}
+
+.column {
+  float: left;
+  width: 15%;
+  padding: 5px;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
 footer a, footer a:visited {
