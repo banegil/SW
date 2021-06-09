@@ -1,6 +1,7 @@
 
 body {
 	background-color: #8993be;
+	width: 100%;
 }
 
 
@@ -11,6 +12,7 @@ header {
 	background: linear-gradient(to right, #FFFFFF, #00FFFF );
 	color: black;
 	text-align: center;
+	width: 100%
 }
 
 header a, header a:visited {
@@ -29,7 +31,7 @@ main {
 	padding: 100px;
 	float: left;
 	min-height: 1000px;
-	width: 1687px;
+	width: 100%;
 	background: -webkit-linear-gradient(to right, #FFFF00, #00FFFF );
 	background: linear-gradient(to right, #FFFFFF, #00FFD0 );
 }
@@ -37,6 +39,7 @@ main {
 footer {
 	clear: both;
 	padding: 20px;
+	width: 100%;
 	background: -webkit-linear-gradient(to right, #FFFFFF, #00FFFF );
 	background: linear-gradient(to right, #FFFFFF, #00FFFF );
 	text-align: left;
