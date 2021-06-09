@@ -27,17 +27,19 @@
 			$idUsuario = idUsuarioLogado();
 			$nombreUsuario = nombreLogado();
 			$apellidoUsuario = apellidoLogado();
+			$srcIMG=srcUsuarioIMG($this->idUsu);
 	    	$html = <<<EOS
 			<fieldset>
 				<div>
-					<div>
-						<p> <a href = "perfil_user.php?id=$idUsuario">$nombreUsuario $apellidoUsuario</a> ha dicho: </p>
-					</div>
-					<div>
-						<input type="text" name="comentario" />
-					</div>
+				<div class="row">
+					<div class="cabeceraHiloIMG"> <a href = "perfil_user.php?id=$idUsuario"> <img class='perfilForo' src=$srcIMG /> </a> </div>
+					<div class="cabeceraHilo" ><p><a href = "perfil_user.php?id=$idUsuario"> $nombreUsuario $apellidoUsuario </a> dice:  </p> </div>
+				</div>
+				<div class="comentario">
+					<textarea class="comentarioHilo" type="text" name="comentario" required> </textarea>
 				</div>	
-				<div><button type="submit">Comentar</button></div>
+				<button type="submit">Comentar</button>
+				</div>
 			</fieldset>
 EOS;
 	    	return $html;

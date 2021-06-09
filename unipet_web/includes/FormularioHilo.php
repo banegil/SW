@@ -22,7 +22,7 @@
 			<fieldset>
 				<label> Iniciar nuevo tema en el foro </label>
 				<div><label> Titulo </label> <input type="text" maxlength="255" name="titulo" required /></div> 
-				<div><label> Comentario </label> <input type="text" name="comentario" required /></div>
+				<div><label> Comentario </label> <textarea class="comentarioHilo" type="text" name="comentario" required> </textarea></div>
 				<div><button type="submit">Publicar</button></div>
 			</fieldset>
 EOS;
