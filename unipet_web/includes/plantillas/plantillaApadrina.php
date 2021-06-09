@@ -16,6 +16,10 @@
 		
 		</article>
 	</main>
+	 
+	 <?php
+		require("includes/comun/pie.php");
+	?>
 
  </body>
  
