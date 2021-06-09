@@ -5,6 +5,12 @@ require_once ("includes/usuarioUtils.php");
 
 class FormularioInforma extends Form
 {
+	public function __construct($tipoForm) {
+		
+		$opciones = array('action' => 'index.php');
+		
+		parent::__construct($tipoForm, $opciones);
+	}
     
     protected function generaCamposFormulario($datos, $errores = array())
     {
@@ -32,7 +38,7 @@ EOS;
 		
 		$comentario = Colabora::add(idUsuarioLogado(), $informacion);
 		Colabora::inserta($comentario);
-		$result = 'index.php';
+		$result [] = 'Gracias por el comentario';
 		
 		return $result;
 	}
