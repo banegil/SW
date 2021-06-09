@@ -125,11 +125,11 @@ public static function insertaContrato($contract)
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	$query = sprintf("INSERT INTO contrato_adopcion (ID_usuario, ID, formulario, estado, fecha) VALUES (%d, %d, '%s', '%s', '%s')"
-	  , $contract->id_usuario
-	  , $contract->id
-	  , $contract->formulario
-	  , $contract->estado
-	  , $contract->fecha);
+	  , $conn->real_escape_string($contract->id_usuario)
+	  , $conn->real_escape_string($contract->id)
+	  , $conn->real_escape_string($contract->formulario)
+	  , $conn->real_escape_string($contract->estado)
+	  , $conn->real_escape_string($contract->fecha));
 	$result = $conn->query($query);
 	if ($result) {
 	  $result = $contract;
@@ -151,11 +151,11 @@ public static function actualizaContrato($contract)
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	$query = sprintf("UPDATE contrato_adopcion SET formulario = '%s', estado = '%s', fecha = '%s' WHERE ID_usuario = %d AND ID = %d"
-	  , $contract->formulario
-	  , $contract->estado
-	  , $contract->fecha
-	  , $contract->id_usuario
-	  , $contract->id);
+	  , $conn->real_escape_string($contract->formulario)
+	  , $conn->real_escape_string($contract->estado)
+	  , $conn->real_escape_string($contract->fecha)
+	  , $conn->real_escape_string($contract->id_usuario)
+	  , $conn->real_escape_string($contract->id));
 	$result = $conn->query($query);
 	if (!$result) {
 	  error_log($conn->error);  
