@@ -8,7 +8,7 @@ class Tarjeta
     {
 	   $app = Aplicacion::getSingleton();
        $conn = $app->conexionBd();
-       $query = sprintf("SELECT * FROM tarjetas WHERE ID_usuario='%s' ", $ID_Usuario); 
+       $query = sprintf("SELECT * FROM tarjetas WHERE ID_usuario='%s' ", $ID_usuario); 
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
@@ -23,7 +23,7 @@ class Tarjeta
     {	
 		$user = self::buscaPorID_usuario($usuario);
 		if ($user) {
-			$user = actualiza($usuario, $numero_tarjeta, $caducidad, $cvv);
+			$user = self::actualiza($usuario, $numero_tarjeta, $caducidad, $cvv);
 			return self::actualizaTarjeta($user);
 		}
 		$user = new Tarjeta($usuario, $numero_tarjeta, $caducidad, $cvv);
@@ -35,19 +35,18 @@ class Tarjeta
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $query=sprintf("INSERT INTO tarjetas (ID_usuario, numero_tarjeta, caducidad, cvv)
-			VALUES('%s', '%s', '%s', '%s')"
+			VALUES(%d, %d, '%s', %d)"
             , $conn->real_escape_string($tarjeta->ID_usuario)
             , $conn->real_escape_string($tarjeta->numero_tarjeta)
             , $conn->real_escape_string($tarjeta->caducidad)
             , $conn->real_escape_string($tarjeta->cvv));
         if ( $conn->query($query) ) {
-            $tarjeta->ID_usuario = $conn->insert_ID_usuario;
+            return $tarjeta;
 		}
 		else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
             exit();
         }
-        return $tarjeta;
     }
     
 	public static function actualiza($usuario, $numero_tarjeta, $caducidad, $cvv){
@@ -61,18 +60,18 @@ class Tarjeta
 
 		$app = Aplicacion::getSingleton();
 			$conn = $app->conexionBd();
-		  $query = sprintf("UPDATE tarjetas SET  ID_usuario = '%s',numero_tarjeta = '%s', caducidad = '%s', cvv = %d"
-		  , $tarjeta->ID_usuario
-		  , $tarjeta->numero_tarjeta
-		  , $tarjeta->caducidad
-		  , $tarjeta->cvv;
+		  $query = sprintf("UPDATE tarjetas SET  ID_usuario = %d,numero_tarjeta = %d, caducidad = '%s', cvv = %d"
+		  , $conn->real_escape_string($tarjeta->ID_usuario)
+		  , $conn->real_escape_string($tarjeta->numero_tarjeta)
+		  , $conn->real_escape_string($tarjeta->caducidad)
+		  , $conn->real_escape_string($tarjeta->cvv));
 		$result = $conn->query($query);
 		if (!$result) {
 		  error_log($conn->error);  
 		} else if ($conn->affected_rows != 1) {
 		  error_log("Se han actualizado los datos '$conn->affected_rows' !");
 		}
-		return $result;
+		return $tarjeta;
 	}    
 
 
@@ -81,12 +80,12 @@ class Tarjeta
 	private $caducidad;
 	private $cvv;
 
-	private function __construct($usuario, $numero_tarjeta, $caducidad, $cvv)
+	public function __construct($usuario, $numero_tarjeta, $caducidad, $cvv)
 	{
-		$this->ID_usuario = $ID_usuario;
-		$this->ID = $numero_tarjeta;
-		$this->cantidad = $caducidad;
-		$this->numero_tarjeta = $cvv;
+		$this->ID_usuario = $usuario;
+		$this->numero_tarjeta = $numero_tarjeta;
+		$this->caducidad = $caducidad;
+		$this->cvv = $cvv;
 	}
 
 	/**
