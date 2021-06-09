@@ -125,3 +125,55 @@ div.container {
   text-align: center;
   padding: 10px 10px;
 }
+textarea.comentarioHilo{
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+p.hilo {
+  text-indent: 50px;
+  text-align: left;
+}
+div.hilo {
+  border: 1px solid gray;
+  padding: 8px;
+}
+img.perfilForo{
+	width: 50px;
+	border-radius: 50%;
+}
+div.cabeceraHiloIMG{
+	float: left;
+    width: 50px; 
+    padding: 5px;
+}
+div.cabeceraHilo{
+	float: left;
+    width: 15%; 
+    padding: 5px;
+}
+div.comentario {
+    float: left;                 
+    width: 100%;                         
+    text-align:justify;                         
+}
+div.columnEntrada{
+    float: left;
+    padding: 5px;
+}
+h1.titulo{
+	text-align:center;
+}
+h2.tituloHilo{
+	text-align:center;
+}
+hr.barraForo {
+  border: 2px solid #32D6F1;
+  border-radius: 5px;
+}
