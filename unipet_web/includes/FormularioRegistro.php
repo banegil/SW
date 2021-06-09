@@ -124,7 +124,7 @@ EOF;
         }
         
         if (count($result) === 0) {
-            $user = Usuario::register($DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion, date('d-m-y'));
+            $user = Usuario::register($DNI, $nombre, $apellido, $telefono, $email, $contraseña, $nacimiento, $direccion, date('Y-m-d'));
             if ( ! $user ) {
                 $result[] = "El usuario ya existe";
             } else {
