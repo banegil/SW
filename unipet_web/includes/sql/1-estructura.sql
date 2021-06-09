@@ -171,7 +171,8 @@ CREATE TABLE `transacciones` (
   `ID_usuario` int(9) NOT NULL,
   `tarjeta` bigint(16) NOT NULL,
   `cantidad` decimal(6,2) NOT NULL,
-  `ID_animal` int(9) DEFAULT NULL
+  `ID_animal` int(9) DEFAULT NULL,
+  `fecha` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
