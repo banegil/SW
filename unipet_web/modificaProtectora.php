@@ -8,7 +8,7 @@ $htmlFormRegistro = $form->gestiona();
 $tituloPagina = 'ActualizarProtect';
 
 $contenidoPrincipal = <<<EOS
-<h1>Actualizar protectora</h1>
+<h1 class="titulo">Actualizar protectora</h1>
 $htmlFormRegistro
 EOS;
 
