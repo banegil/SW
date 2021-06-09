@@ -49,4 +49,9 @@ function apellidoLogado(){
 	}
   return $result;
 }
-
+function srcUsuarioIMG($id_usuario){
+	$src = "";
+	if(file_exists(FICHERO_IMGUSU.'/'.$id_usuario.'.jpg')) $src="img/usu/".$id_usuario.".jpg";
+	else $src = "img/usu/null.jpg";
+	return $src;
+}
