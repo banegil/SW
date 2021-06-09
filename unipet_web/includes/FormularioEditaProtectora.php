@@ -5,14 +5,16 @@ namespace es\ucm\fdi\aw;
 
 class FormularioEditaProtectora extends Form
 {
-    public function __construct() {
-        parent::__construct('formEditProtectora');
+    private $id;
+    public function __construct($id) {
+		$this->id=$id;
+       	$opciones = array('action' => 'modificaProtectora.php?id='. $this->id);
+        parent::__construct("1", $opciones);
     }
     
     protected function generaCamposFormulario($datos, $errores = array())
     {
-        $idProtectora = $_GET['id'];
-        $protectora = Protectora::buscaProtectoraPorId($idProtectora);
+        $protectora = Protectora::buscaProtectoraPorId($this->id);
 
         $id =  $protectora->getID() ?? '';
 		$nombre =  $protectora->getNombre() ?? '';
