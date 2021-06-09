@@ -1,7 +1,7 @@
 
 <?php
-require_once __DIR__.'/includes/config.php';
-require_once __DIR__."/includes/usuarioUtils.php";
+require_once __DIR__ .'/includes/config.php';
+require_once __DIR__ ."/includes/usuarioUtils.php";
 
 $tituloPagina = 'PerfilUsuario';
 $contenidoPrincipal = '<link rel="stylesheet" type="text/css" href="perfil.css" />';
