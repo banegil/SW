@@ -5,7 +5,7 @@ namespace es\ucm\fdi\aw;
 class FormularioApadrina extends Form
 {
     private $idUsu;
-	private $idAni;
+    private $idAni;
 	
     public function __construct($idUsu,$idAni) {
 		
@@ -35,25 +35,50 @@ class FormularioApadrina extends Form
 		
         $html = <<<EOF
 			</fieldset>
-				<legend>El animal le agradecerá eternamente esta ayuda, gracias de corazón</legend>
-				<input class="control" type="text" maxlength="16" placeholder="1234 1234 1234 1234" name="numero_tarjeta" value="$numero_tarjeta">
-				<div class="valid text">
-				FECHA EXPIRACION
-				</div>
-				<div class="valid_date text">
-				<input class="control" type="text" maxlength="5" size=4 placeholder="7/10" name="fecha_exp" value="$fecha_exp">
-				</div>
-				<div class="cvv text">
-				CVV
-				</div>
-				<div class="cvv_numero text">
-				<input class="control" type="text" maxlength="3" size=4 placeholder="000" name="cvv" value="$cvv">
-				</div>
-				<div class="cantidad text">
-				CANTIDAD MENSUAL:
-				<input class="control" type="text" maxlength="3" size=4 placeholder="30€" name="cantidad" value="$cantidad">
-				</div>
-				<div class="boton button"><button type="submit" name="registro">Apadrinar</button></div>
+				<head>
+					<meta charset="UTF-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<title>Ghost Text Animation</title>
+					<link rel="shortcut icon" href="../../favicon.ico">
+					<link rel="stylesheet" type="text/css" href="style.css" />
+					<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+					<title> Unipet </title>
+				</head>
+			
+				<body class="active">
+					<div class="floating">
+					<div class="thickness"></div>
+					<div class="thickness"></div>
+					<div class="thickness"></div> 
+					<div class="card_body">
+					<div class="paypal_center svg"></div>
+					<div class="logo svg"></div>
+					<div class="paywave svg"></div>
+					<div class="chips svg"></div>
+					<div class="card_no text">
+					<input class="control" type="tel" maxlength="16" placeholder="1234 1234 1234 1234" name="numero_tarjeta" value="$numero_tarjeta">
+					</div>
+					<div class="valid text">
+					FECHA <br> EXP
+					</div>
+					<div class="valid_date text">
+					<input class="control" type="text" maxlength="5" size=4 placeholder="7/10" name="fecha_exp" value="$fecha_exp">
+					</div>
+					<div class="cvv text">
+					CVV
+					</div>
+					<div class="cvv_numero text">
+					<input class="control" type="text" maxlength="3" size=4 placeholder="000" name="cvv" value="$cvv">
+					</div>
+					<div class="cantidad text">
+					CANTIDAD MENSUAL:
+					<input class="control" type="text" maxlength="3" size=4 placeholder="30€" name="cantidad" value="$cantidad">
+					</div>
+					<div class="mastercard_icon svg"></div>
+					</div>
+					</div>
+					<div class="boton button"><button type="submit" name="registro">Apadrinar</button></div>
+				</body>
 			</fieldset>
 EOF;
         return $html;
@@ -102,7 +127,7 @@ EOF;
 					$result[] = "No se ha podido registrar su apadrinamiento.";
 				}
 				else{
-					$result[] = "Animal apadrinado!!!";
+					 $result = 'success.php';
 				}
 				
 			}
