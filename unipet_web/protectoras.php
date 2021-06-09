@@ -7,7 +7,7 @@ $tituloPagina = 'Protectoras';
 $protectors = listaProtectoras(es\ucm\fdi\aw\Protectora::getProtectoras());
 
 $contenidoPrincipal = <<<EOS
-<h1>Protectoras:</h1>
+<h1 class="titulo">Protectoras:</h1>
 $protectors
 EOS;
 
