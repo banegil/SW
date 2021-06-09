@@ -267,6 +267,20 @@ public static function getAnimales()
 	}
 	return false; 
 }
+	
+	public static function adoptarAnimal($id_animal,$id_usuario){
+		$app = Aplicacion::getSingleton();
+		$conn = $app->conexionBd();
+		$query = sprintf("UPDATE animales SET ID_usuario=%d WHERE ID=%d",$id_usuario,$id_animal); 
+		$result = $conn->query($query);
+		
+		if (!$result) {
+		  error_log($conn->error);
+		} else if ($conn->affected_rows != 1) {
+		  error_log("Se han actualizado los datos '$conn->affected_rows' !");
+		}
+		return $result;
+	}
 
 private $id;
 private $nombre;
