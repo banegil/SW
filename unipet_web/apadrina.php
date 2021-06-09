@@ -14,8 +14,28 @@ $htmlFormApadrina = $form->gestiona();
 $tituloPagina = 'Apadrina';
 
 $contenidoPrincipal = <<<EOS
-   <h1>Apadrinando a {$nombre}. Gracias por su colaboracion :D</h1>
+        <h2>
+	<span>&nbsp&nbsp</span>
+	<span>&nbsp&nbsp</span>
+	<span>&nbsp&nbsp</span>
+	<span>&nbsp&nbsp</span>
+	<span>&nbsp&nbsp</span>
+	<span>&nbsp&nbsp</span>
+            <span>A</span>
+            <span>P</span>
+            <span>A</span>
+            <span>D</span>
+            <span>R</span>
+            <span>I</span>
+            <span>N</span>
+            <span>A</span>
+	<span>&nbsp&nbsp</span>
+            <span>A</span>
+            <span>&nbsp&nbsp</span
+            <span>$nombre</span>
+        </h2>
 	$htmlFormApadrina
 EOS;
 
 require __DIR__.'/includes/plantillas/plantillaApadrina.php';
+
