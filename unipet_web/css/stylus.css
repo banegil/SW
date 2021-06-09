@@ -1,8 +1,135 @@
+
+body {
+	background-color: #8993be;
+}
+
+.bordePie {
+	padding: 40px;
+	background: -webkit-linear-gradient(to right, #FFFFFF, #00FFFF );
+	background: linear-gradient(to right, #FFFFFF, #00FFFF );
+}
+
+.interioPie {
+	clear: both;
+	padding: 40px;
+	background: #DFECEC;
+	color: #00FFFF;
+	text-align: left;
+}
+
+.formColabora{
+	text-align:right;
+	color: black;
+}
+
+.ultColumn{
+	float: right;
+	text-align:right;
+	width: 25%;
+	font-size: 12px;
+	color: black;
+}
+
+.logoPie{
+    height: 9em;
+    width: 15em;
+}
+
+footer a, footer a:visited {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+} 
+
+footer a:hover {
+	color: blue;
+	font-weight: bold;
+	text-decoration: underline;
+} 
+
+div.saludo {
+	top: 90%;
+	width: 100%;
+	text-align: center;
+}
+
+p{
+  position: relative;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 1em;
+  letter-spacing: 4px;
+    top: 100px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #000, #fff, #000);
+  background-repeat: no-repeat;
+  background-size: 70%;
+  animation: animate 3s linear infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.1);
+}
+
+h1{
+  position: relative;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-size: 1em;
+  letter-spacing: 4px;
+  top: 200px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #000, #fff, #000);
+  background-repeat: no-repeat;
+  background-size: 70%;
+  animation: animate 3s linear infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.1);
+}
+
+
+.column {
+  float: left;
+  width: 15%;
+  padding: 5px;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+img.perfilUser{
+	width: 150px;
+}
+img.fotoAnimal{
+	width: 150px;
+}
+
+img.contenedor{
+	width: 100%;
+	display:block;
+}
+
+div.polaroid {
+  width: 80%;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 15px;
+}
+
+div.container {
+  text-align: center;
+  padding: 10px 10px;
+}
+
+
 * {
   background-repeat: no-repeat;
 }
 
-p {
+p2 {
   position: relative;
   font-family: sans-serif;
   text-transform: uppercase;
@@ -355,4 +482,5 @@ input[type="text"] {
 .thickness:nth-child(3) {
   transform: translateZ(-11px);
 }
+
 
