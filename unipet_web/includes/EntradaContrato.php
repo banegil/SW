@@ -6,14 +6,16 @@ class EntradaContrato
 	private $id;
 	private $id_usuario;
 	private $id_animal;
+	private $id_autor;
 	private $comentario;
 	private $fecha;
 	
-	private function __construct($id,$id_usuario, $id_animal, $comentario, $fecha)
+	private function __construct($id,$id_usuario, $id_animal, $id_autor,$comentario, $fecha)
 	{
 		$this->id = $id;
 		$this->id_usuario = $id_usuario;
 		$this->id_animal = $id_animal;
+		$this->id_autor = $id_autor;
 		$this->comentario = $comentario;
 		$this->fecha = $fecha;
 	}
@@ -26,7 +28,7 @@ class EntradaContrato
 		if($rs && ($rs->num_rows >0)){
 			$resultado = array();
 			while($fila=$rs->fetch_assoc()){
-				$hilo = new EntradaContrato($fila['ID'],$fila['ID_usuario'], $fila['ID_animal'], $fila['comentario'], $fila['fecha']);
+				$hilo = new EntradaContrato($fila['ID'],$fila['ID_usuario'], $fila['ID_animal'],$fila['ID_autor'], $fila['comentario'], $fila['fecha']);
 				array_push($resultado, $hilo);
 			}   
 			$rs->free();
@@ -35,21 +37,21 @@ class EntradaContrato
 		return false;     
 	}
 	
-	public static function nuevaEntradaContrato($id_usuario,$id_animal,$comentario,$fecha){
+	public static function nuevaEntradaContrato($id_usuario,$id_animal,$idAutor,$comentario,$fecha){
 		$existeContrato = Contrato::buscaPorIDeID($id_usuario, $id_animal);
-		$existeUsuario = Usuario::buscaPorID_usuario($id_usuario);
+		$existeUsuario = Usuario::buscaPorID_usuario($idAutor);
 		//if (!$existeContrato || !$existeUsuario) return false;
-		return self::inserta(new EntradaContrato(0,$id_usuario,$id_animal,$comentario,$fecha));
+		return self::inserta(new EntradaContrato(0,$id_usuario,$id_animal,$idAutor,$comentario,$fecha));
 	}
 	
 	public static function inserta($entrada){
 		$app = Aplicacion::getSingleton();
 		$conn = $app->conexionBd();
-		$query = sprintf("INSERT into entradascontrato(ID_usuario, ID_animal, comentario, fecha) VALUES (%d, %d, '%s', '%s')", $entrada->id_usuario, 
+		$query = sprintf("INSERT into entradascontrato(ID_usuario, ID_animal,ID_autor, comentario, fecha) VALUES (%d, %d,%d, '%s', '%s')", $entrada->id_usuario, 
 																													$entrada->id_animal, 
+																													$entrada->id_autor,
 																													$conn->real_escape_string($entrada->comentario),
 																									$entrada->fecha); 
-																									echo "$query";
 		if ( $conn->query($query) ) {
             $entrada->id = $conn->insert_id;
 		}
@@ -73,6 +75,11 @@ class EntradaContrato
 	public function getID_animal()
 	{
 		return $this->id_animal;
+	}
+	
+	public function getID_autor()
+	{
+		return $this->id_autor;
 	}
 	
 	public function getComentario()

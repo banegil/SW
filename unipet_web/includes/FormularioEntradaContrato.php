@@ -6,11 +6,13 @@
 		
 		private $idAni;
 		private $idUsu;
+		private $idAutor;
 		
-		public function __construct($idAni,$idUsu) {
+		public function __construct($idAni,$idUsu,$idAutor) {
 			
 			$this->idAni = $idAni;
 			$this->idUsu = $idUsu;
+			$this->idAutor = $idAutor;
 			
 			$opciones = array('action' => 'solicitud.php?idAni='. $this->idAni .'&idUsu='. $this->idUsu);
 			
@@ -52,7 +54,7 @@ EOS;
 			if (empty($comentario)) $errores[] = "¡Debes de comentar algo!";
 			
 			if(count($errores)===0){
-				$entrada = EntradaContrato::nuevaEntradaContrato($this->idUsu,$this->idAni,$comentario,date("Y-m-d H:i:s"));
+				$entrada = EntradaContrato::nuevaEntradaContrato($this->idUsu,$this->idAni,$this->idAutor,$comentario,date("Y-m-d H:i:s"));
 				if(!$entrada) $errores[]="ERROR AL INSERTAR COMENTARIO";
 				else $errores = 'solicitud.php?idAni='. $this->idAni .'&idUsu='. $this->idUsu;
 			}

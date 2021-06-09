@@ -56,7 +56,7 @@ EOS;
 			}
 			else{
 				$contract->setEstado($datos['estado']);
-				//$contract->guarda();
+				$contract->guarda();
 				if($contract->getEstado()==ESTADOS[5] && Animal::adoptarAnimal($this->idAni,$this->idUsu)) {
 					Contrato::rechazaContratos($this->idAni); // Ya rechaza los otros contratos que tenga el animal pendiente
 					$contract->guarda();
