@@ -73,9 +73,13 @@ else {
         if (estaLogado() && $animal->getId_propietario() == null) {
             $contenidoPrincipal .= <<<EOS
         <form action="adoption.php">
-	    <input type="hidden" name="id" value="{$idSes}" />
-            <input type="submit" class='boton' value="Adoptar" />
-        <button class='boton' type="button">Apadrinar</button>
+    	<input type="hidden" name="id" value="{$idSes}" />
+	<input type="submit" class='boton' value="Adoptar" />
+	</form>
+	<form action="apadrina.php">
+	<input type="hidden" name="id" value="{$idSes}" />
+	<input type="submit" class='boton' value="Apadrinar" />
+	</form>
 EOS;
             if ($_SESSION["tipo"] == "voluntario" || $_SESSION["tipo"] == "veterinario") {
                 $contenidoPrincipal .= " <a class='boton' href=fichaVista.php?id={$idSes}> Ficha Medica</a>";
