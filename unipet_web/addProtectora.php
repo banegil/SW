@@ -7,9 +7,8 @@ $htmlFormAddProt = $form->gestiona();
 
 $tituloPagina = 'Add prot';
 
-$contenidoPrincipal = "<h1>Añadir protectora</h1>";
-
-$contenidoPrincipal .= <<<EOS
+$contenidoPrincipal = <<<EOS
+<h1 class="titulo">Añadir protectora</h1>
 $htmlFormAddProt
 EOS;
 
