@@ -35,7 +35,7 @@ CREATE TABLE `animales` (
   `ID` int(9) NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `nacimiento` date DEFAULT NULL,
-  `tipo` enum('perro','gato') NOT NULL,
+  `tipo` enum('perro','gato','otro') NOT NULL,
   `raza` varchar(20) DEFAULT NULL,
   `sexo` enum('macho','hembra') NOT NULL,
   `peso` decimal(3,1) DEFAULT NULL,
@@ -175,6 +175,21 @@ CREATE TABLE `transacciones` (
   `fecha` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Estructura de tabla para la tabla `entradascontrato`
+--
+
+DROP TABLE IF EXISTS `entradascontrato`;
+CREATE TABLE `entradascontrato` (
+  `ID` int(9) NOT NULL,
+  `ID_usuario` int(9) NOT NULL,
+  `ID_animal` int(9) NOT NULL,
+  `comentario` text NOT NULL,
+  `fecha` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
 -- --------------------------------------------------------
 
 --
@@ -238,6 +253,14 @@ ALTER TABLE `entradas`
   ADD PRIMARY KEY (`numero`),
   ADD KEY `hilo` (`hilo`),
   ADD KEY `ID_usuario` (`ID_usuario`) USING BTREE;
+ 
+ --
+-- Indices de la tabla `entradascontrato`
+--
+ALTER TABLE `entradascontrato`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `ID_usuario` (`ID_usuario`),
+  ADD KEY `ID_solicitud` (`ID_animal`);
 
 --
 -- Indices de la tabla `fichas`
@@ -303,6 +326,12 @@ ALTER TABLE `colabora`
 --
 ALTER TABLE `entradas`
   MODIFY `numero` int(10) NOT NULL AUTO_INCREMENT;
+  
+--
+-- AUTO_INCREMENT de la tabla `entradascontrato`
+--
+ALTER TABLE `entradascontrato`
+  MODIFY `ID` int(9) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `hilos`
@@ -365,6 +394,13 @@ ALTER TABLE `contrato_adopcion`
 ALTER TABLE `entradas`
   ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`ID_usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`hilo`) REFERENCES `hilos` (`NUMERO`) ON DELETE CASCADE ON UPDATE CASCADE;
+ 
+--
+-- Filtros para la tabla `entradascontrato`
+--
+ALTER TABLE `entradascontrato`
+  ADD CONSTRAINT `entrada_contrato1` FOREIGN KEY (`ID_animal`) REFERENCES `animales` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `entrada_contrato2` FOREIGN KEY (`ID_usuario`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `fichas`
