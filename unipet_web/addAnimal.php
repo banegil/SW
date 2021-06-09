@@ -7,9 +7,8 @@ $htmlFormAddAni = $form->gestiona();
 
 $tituloPagina = 'Add ani';
 
-$contenidoPrincipal = "<h1>Añadir animal</h1>";
-
-$contenidoPrincipal .= <<<EOS
+$contenidoPrincipal = <<<EOS
+<h1 class="titulo">Añadir animal</h1>
 $htmlFormAddAni
 EOS;
 
