@@ -77,14 +77,16 @@ if($usuario != null){ // comprobamos si el usuario esta en la base de datos
     $contenidoPrincipal .= "<p> ANIMALES ADOPTADOS:" ."</p>";
     if($adoptado != false){
         foreach($adoptado as $i){ 
-        $contenidoPrincipal .= "<p>" .$i->getNombre()."</p>";
+        $animal = $i->getID();
+			$contenidoPrincipal .=   "<a class='boton' href=perfil_animal.php?id={$animal}>".$i->getNombre(). "</a>";
         }
     } else $contenidoPrincipal .= "<p> Ninguno </p>";			
     $apadrinado = es\ucm\fdi\aw\Animal::getApadrinados($usuario->getID());
     $contenidoPrincipal .="<p> ANIMALES APADRINADOS:" ."</p>";
     if($apadrinado != false){
         foreach($apadrinado as $i){ 
-			$contenidoPrincipal .= "<p>" .$i->getNombre()."</p>";
+			 $animal = $i->getID();
+			$contenidoPrincipal .=   "<a class='boton' href=perfil_animal.php?id={$animal}>".$i->getNombre(). "</a>";
         }
     } else $contenidoPrincipal .= "<p> Ninguno </p>";
     $contenidoPrincipal .= "</div>";
