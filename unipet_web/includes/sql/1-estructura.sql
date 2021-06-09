@@ -56,7 +56,7 @@ DROP TABLE IF EXISTS `apadrinados`;
 CREATE TABLE `apadrinados` (
   `ID_usuario` int(9) NOT NULL,
   `ID` int(9) NOT NULL,
-  `cantidad` decimal(3,2) NOT NULL,
+  `cantidad` decimal(6,2) NOT NULL,
   `numero_tarjeta` bigint(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -170,7 +170,8 @@ CREATE TABLE `transacciones` (
   `ID` int(9) NOT NULL,
   `ID_usuario` int(9) NOT NULL,
   `tarjeta` bigint(16) NOT NULL,
-  `cantidad` decimal(6,2) NOT NULL
+  `cantidad` decimal(6,2) NOT NULL,
+  `ID_animal` int(9) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -269,7 +270,8 @@ ALTER TABLE `tarjetas`
 --
 ALTER TABLE `transacciones`
   ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_usuario` (`ID_usuario`);
+  ADD KEY `ID_usuario` (`ID_usuario`),
+  ADD KEY `ID_animal` (`ID_animal`);
 
 --
 -- Indices de la tabla `usuarios`
