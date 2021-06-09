@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'\includes\config.php';
+require_once __DIR__.'/includes/config.php';
 
 $form = new es\ucm\fdi\aw\FormularioFicha("1");
 $htmlFormRegistro = $form->gestiona();
