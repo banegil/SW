@@ -1,14 +1,8 @@
-
 <?php
 require_once __DIR__ .'/includes/config.php';
-require_once __DIR__ ."/includes/usuarioUtils.php";
+require_once __DIR__ .'/includes/usuarioUtils.php';
 
-$tituloPagina = 'PerfilUsuario';
-$contenidoPrincipal = '<link rel="stylesheet" type="text/css" href="perfil.css" />';
-
-$contenidoPrincipal.= "<div id='perfilcontenedor'>";
 $usuario = null;
-$esMiPerfil = false;
 if(isset($_GET['id']) && $_GET['id']!=null){
 	$idUser = $_GET['id'];
 	$usuario = es\ucm\fdi\aw\Usuario::buscaPorID_usuario($idUser);
@@ -19,10 +13,14 @@ else if(estaLogado()){
         $usuario = es\ucm\fdi\aw\Usuario::buscaPorID_usuario($idUser); // funcion estática para buscar en la base de datos al usuario por el dni
 	}
 }	
-       
+$esMiPerfil = false;
+$tituloPagina = 'PerfilUsuario';
+$contenidoPrincipal = '<link rel="stylesheet" type="text/css" href="perfil.css" />';
+
 if($usuario != null){ // comprobamos si el usuario esta en la base de datos
 	if ($usuario->getID() == idUsuarioLogado() || permisosVoluntario()) $esMiPerfil = true;
     // aqui iria el div para foto nombre y apellido
+    $contenidoPrincipal.= "<div id='perfilcontenedor'>";
     $contenidoPrincipal .= "<div id='contenedorNombre'>";
     $contenidoPrincipal .= "<div id='contenedorImagen'>";
     if(file_exists(FICHERO_IMGUSU.'/'.$usuario->getID().'.jpg')){
@@ -77,7 +75,7 @@ if($usuario != null){ // comprobamos si el usuario esta en la base de datos
     $contenidoPrincipal .= "<p> ANIMALES ADOPTADOS:" ."</p>";
     if($adoptado != false){
         foreach($adoptado as $i){ 
-        $animal = $i->getID();
+            $animal = $i->getID();
 			$contenidoPrincipal .=   "<a class='boton' href=perfil_animal.php?id={$animal}>".$i->getNombre(). "</a>";
         }
     } else $contenidoPrincipal .= "<p> Ninguno </p>";			
@@ -85,7 +83,7 @@ if($usuario != null){ // comprobamos si el usuario esta en la base de datos
     $contenidoPrincipal .="<p> ANIMALES APADRINADOS:" ."</p>";
     if($apadrinado != false){
         foreach($apadrinado as $i){ 
-			 $animal = $i->getID();
+            $animal = $i->getID();
 			$contenidoPrincipal .=   "<a class='boton' href=perfil_animal.php?id={$animal}>".$i->getNombre(). "</a>";
         }
     } else $contenidoPrincipal .= "<p> Ninguno </p>";
@@ -101,7 +99,7 @@ EOS;
     }
 }
 else{
-    $contenidoPrincipal .= "<h2>El usuario no existe</h2>";
+    $contenidoPrincipal .= "<h2>No hay ningun usuario</h2>";
 }
 
 $contenidoPrincipal .= "</div>";
