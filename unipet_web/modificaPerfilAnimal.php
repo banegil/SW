@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'\includes\config.php';
+require_once __DIR__.'/includes/config.php';
 
 if (isset($_GET['id'])){
 $form = new es\ucm\fdi\aw\FormularioEditarAnimal($_GET['id']);
