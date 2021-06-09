@@ -57,21 +57,29 @@ else {
         $contenidoPrincipal .=    "<p> FECHA INGRESO: " . $animal->getFecha_ingreso() . " </p>";
         if ($protectora == null) $contenidoPrincipal .=    "<p> PROTECTORA: Este animal no se encuentra en ninguna protectora o ha habido un error, contacte con un voluntario para más información </p>";
         else $contenidoPrincipal .=    '<a href = "protectora.php?id=' . $protectora->getID() . '">' . $protectora->getNombre() . '</a>';
+        if ($animal->getId_propietario() != null) {
+            $usuario = es\ucm\fdi\aw\Usuario::buscaPorID_usuario($animal->getId_propietario());
+            $contenidoPrincipal .= "<p> Historia feliz: " . $animal->getHistoria_feliz() . "</p>";
+            $contenidoPrincipal .= "<p> Adoptado por  " . $usuario->getNombre() . "</p>";
+  
+        }
     $contenidoPrincipal .="</div>";
     $contenidoPrincipal .="</div>";
     $contenidoPrincipal .="</div>";
     $contenidoPrincipal .= "<div id='botonesContenedor'>";
     if ($animal->getId_propietario() != null) {
-        $usuario = es\ucm\fdi\aw\Usuario::buscaPorID_usuario($animal->getId_propietario());
-        $contenidoPrincipal .= "<p> Historia feliz: " . $animal->getHistoria_feliz() . "</p>";
-        $contenidoPrincipal .= "<p> Adoptado por  " . $usuario->getNombre() . "</p>";
-        $contenidoPrincipal .= "<button type='button' class='boton' disabled>Adoptar</button>";
-        $contenidoPrincipal .= "<button type='button'  class='boton'botondisabled>Apadrinar</button>";
+      
+               
+       
+            $contenidoPrincipal .= "<button type='button' class='boton' disabled>Adoptar</button>";
+            $contenidoPrincipal .= "<button type='button'  class='boton'botondisabled>Apadrinar</button>";
 
         $contenidoPrincipal .= "<p> El animal está adoptado</p>";
     } else {
         if (estaLogado() && $animal->getId_propietario() == null) {
+
             $contenidoPrincipal .= <<<EOS
+           
         <form action="adoption.php">
     	<input type="hidden" name="id" value="{$idSes}" />
 	<input type="submit" class='boton' value="Adoptar" />
@@ -80,6 +88,7 @@ else {
 	<input type="hidden" name="id" value="{$idSes}" />
 	<input type="submit" class='boton' value="Apadrinar" />
 	</form>
+   
 EOS;
             if (permisosVeterinario()) {
                 $contenidoPrincipal .= " <a class='boton' href=fichaVista.php?id={$idSes}> Ficha Medica</a>";
@@ -88,6 +97,7 @@ EOS;
                 $contenidoPrincipal .= <<<EOS
                 <a class='boton' href=modificaPerfilAnimal.php?id={$idSes}> Editar perfil</a>
             </div>
+
         </div>
 EOS;
             }
