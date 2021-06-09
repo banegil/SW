@@ -10,7 +10,7 @@ $htmlFormRegistro = $form->gestiona();
 $tituloPagina = 'Actualizar Animal';
 
 $contenidoPrincipal = <<<EOS
-<h1>Editar Animal</h1>
+<h1 class="titulo">Editar Animal</h1>
 $htmlFormRegistro
 EOS;
 
