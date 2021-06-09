@@ -19,20 +19,6 @@ class Transaccion
        return false;
     }
 	
-    public static function ordenaPorFecha()
-    {
-	   $app = Aplicacion::getSingleton();
-       $conn = $app->conexionBd();
-       $query = sprintf("SELECT * FROM transacciones ORDER BY ID ASC"); 
-       $rs = $conn->query($query);
-       if($rs && $rs->num_rows == 1){
-           $fila = $rs->fetch_assoc();
-           $user = new Transaccion($fila['ID'], $fila['ID_usuario'], $fila['cantidad'], $fila['tarjeta'], $fila['ID_animal']);
-        $rs->free();
-        return $user;
-       }
-       return false;
-    }
 	
 	public static function getTransacciones()
 	{
@@ -72,12 +58,13 @@ class Transaccion
     {
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("INSERT INTO transacciones (ID_usuario, tarjeta, cantidad, ID_animal)
-			VALUES('%s', '%s', '%s', '%s')"
+        $query=sprintf("INSERT INTO transacciones (ID_usuario, tarjeta, cantidad, ID_animal, fecha)
+			VALUES('%s', '%s', '%s', '%s', '%s')"
             , $conn->real_escape_string($transaccion->ID_usuario)
             , $conn->real_escape_string($transaccion->numero_tarjeta)
             , $conn->real_escape_string($transaccion->cantidad)
-			, $conn->real_escape_string($transaccion->ID_animal));
+			, $conn->real_escape_string($transaccion->ID_animal)
+			, $conn->real_escape_string(date('Y-m-d')));
         if ( $conn->query($query) ) {
             $transaccion->ID = $conn->insert_id;
 		}
@@ -92,11 +79,12 @@ class Transaccion
     {
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("INSERT INTO transacciones (ID_usuario, tarjeta, cantidad)
-			VALUES('%s', '%s', '%s')"
+        $query=sprintf("INSERT INTO transacciones (ID_usuario, tarjeta, cantidad, fecha)
+			VALUES('%s', '%s', '%s', '%s')"
             , $conn->real_escape_string($transaccion->ID_usuario)
             , $conn->real_escape_string($transaccion->numero_tarjeta)
-            , $conn->real_escape_string($transaccion->cantidad));
+            , $conn->real_escape_string($transaccion->cantidad)
+			, $conn->real_escape_string(date('Y-m-d')));
         if ( $conn->query($query) ) {
             $transaccion->ID = $conn->insert_id;
 		}
