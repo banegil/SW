@@ -8,7 +8,7 @@ class Apadrinado
     {
 	   $app = Aplicacion::getSingleton();
        $conn = $app->conexionBd();
-       $query = sprintf("SELECT * FROM apradinados WHERE ID_usuario='%s' ", $ID_Usuario); 
+       $query = sprintf("SELECT * FROM apadrinados WHERE ID_usuario='%s' ", $ID_usuario); 
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
@@ -23,7 +23,7 @@ class Apadrinado
     {
 	   $app = Aplicacion::getSingleton();
        $conn = $app->conexionBd();
-       $query = sprintf("SELECT * FROM apradinados WHERE ID_usuario='%s' AND ID='%s' ", $usuario, $animal); 
+       $query = sprintf("SELECT * FROM apadrinados WHERE ID_usuario='%s' AND ID='%s' ", $usuario, $animal); 
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
@@ -38,7 +38,7 @@ class Apadrinado
     {	
 		$userAnimal = self::buscaPorUsuarioAnimal($usuario, $animal);
 		if ($userAnimal) {
-			$userAnimal = actualiza($usuario, $animal, $cantidad, $numero_tarjeta);
+			$userAnimal = self::actualiza($usuario, $animal, $cantidad, $numero_tarjeta);
 			return self::actualizaApadrinado($userAnimal);
 		}
 		$user = new Apadrinado($usuario, $animal, $cantidad, $numero_tarjeta);
@@ -50,19 +50,18 @@ class Apadrinado
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $query=sprintf("INSERT INTO apadrinados (ID_usuario, ID, cantidad, numero_tarjeta)
-			VALUES('%s', '%s', '%s', '%s')"
+			VALUES(%d, %d, %f, %d)"
             , $conn->real_escape_string($apadrinado->ID_usuario)
             , $conn->real_escape_string($apadrinado->ID)
             , $conn->real_escape_string($apadrinado->cantidad)
             , $conn->real_escape_string($apadrinado->numero_tarjeta));
         if ( $conn->query($query) ) {
-            $apadrinado->ID_usuario = $conn->insert_ID_usuario;
+			return $apadrinado;
 		}
 		else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
             exit();
         }
-        return $apadrinado;
     }
     
 	public static function actualiza($usuario, $animal, $cantidad, $numero_tarjeta){
@@ -76,18 +75,18 @@ class Apadrinado
 
 		$app = Aplicacion::getSingleton();
 			$conn = $app->conexionBd();
-		  $query = sprintf("UPDATE apadrinados SET  ID_usuario = '%s', ID = '%s', cantidad = '%s', numero_tarjeta = %d"
-		  , $apadrinado->ID_usuario
-		  , $apadrinado->ID
-		  , $apadrinado->cantidad
-		  , $apadrinado->numero_tarjeta;
+		  $query = sprintf("UPDATE apadrinados SET cantidad = '%s', numero_tarjeta = '%s' WHERE ID_usuario='%s' AND ID='%s'"
+		  , $conn->real_escape_string($apadrinado->cantidad)
+		  , $conn->real_escape_string($apadrinado->numero_tarjeta)
+		  , $conn->real_escape_string($apadrinado->ID_usuario)
+		  , $conn->real_escape_string($apadrinado->ID));
 		$result = $conn->query($query);
 		if (!$result) {
 		  error_log($conn->error);  
 		} else if ($conn->affected_rows != 1) {
 		  error_log("Se han actualizado los datos '$conn->affected_rows' !");
 		}
-		return $result;
+		return $apadrinado;
 	}    
 
 
@@ -98,8 +97,8 @@ class Apadrinado
 
 	private function __construct($usuario, $animal, $cantidad, $numero_tarjeta)
 	{
-		$this->ID_usuario = $ID_usuario;
-		$this->ID = $ID;
+		$this->ID_usuario = $usuario;
+		$this->ID = $animal;
 		$this->cantidad = $cantidad;
 		$this->numero_tarjeta = $numero_tarjeta;
 	}
