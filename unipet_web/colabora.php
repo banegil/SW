@@ -15,9 +15,15 @@ else{
 	$form = new es\ucm\fdi\aw\FormularioColabora("1");
 	$htmlFormColabora = $form->gestiona();
 	
+	$formDona = new es\ucm\fdi\aw\FormularioDona(idUsuarioLogado());
+	$htmlFormDona = $formDona->gestiona();
+	
 	$contenidoPrincipal = <<<EOS
 	<h1>Voluntariado</h1>
 	$htmlFormColabora
+	<h1>Donacion</h1>
+	$htmlFormDona
+	
 EOS;
 }
 
