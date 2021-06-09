@@ -193,7 +193,6 @@ $contenidoPrincipal = <<<EOS
 	
 	<h1 class="titulo">Usuarios</h1>
 	$tablaUsuarios
-	</article>
 	<form action="verlistausuarios.php">
 		<input type="submit" value="Ver Lista" />
 	</form>
