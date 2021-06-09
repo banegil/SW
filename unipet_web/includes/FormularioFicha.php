@@ -42,7 +42,7 @@ EOF;
             if ( ! $animal ) {
                 $result[] = "La ficha ya existe";
             } else {
-                $result = "FichaVista.php?id=".$id;
+                $result = "fichaVista.php?id=".$id;
             }
         }
         return $result;
