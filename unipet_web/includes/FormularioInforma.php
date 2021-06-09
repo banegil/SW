@@ -36,8 +36,11 @@ EOS;
 		
         $informacion = $datos['informacion'] ?? null;
 		
-		$comentario = Colabora::add(idUsuarioLogado(), $informacion);
-		Colabora::inserta($comentario);
+		if(mb_strlen($informacion) > 15){
+			$comentario = Colabora::add(idUsuarioLogado(), $informacion);
+			Colabora::inserta($comentario);
+		}
+		
 		$result [] = 'Gracias por el comentario';
 		
 		return $result;
