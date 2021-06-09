@@ -48,7 +48,7 @@ EOS;
 		{
 			$errores = array();
 			$comentario =  $datos['comentario'] ?? null;
-			
+			if (!strlen(trim($_POST['comentario'])))$errores[] = "¡Debes de comentar algo!";
 			if (empty($comentario)) $errores[] = "¡Debes de comentar algo!";
 			
 			if(count($errores)===0){
