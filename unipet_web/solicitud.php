@@ -26,7 +26,7 @@
 		else $cantEntradas=0;
 		$respuestas = "";
 		for($i = 0; $i < $cantEntradas; $i++){
-			$usuario=Usuario::buscaPorID_usuario($entradas[$i]->getID_usuario());
+			$usuario=Usuario::buscaPorID_usuario($entradas[$i]->getID_autor());
 			$nombreUsuario=$usuario->getNombre();
 			$apellidoUsuario= $usuario->getApellido();
 			$idUsuario=$usuario->getID();
@@ -47,7 +47,7 @@
 EOS;
 		}
 		
-		$formNuevaEntrada = new FormularioEntradaContrato($idAni, idUsuarioLogado());
+		$formNuevaEntrada = new FormularioEntradaContrato($idAni, $idUsu,idUsuarioLogado());
 		$htmlform = $formNuevaEntrada->gestiona();	
 		
 		if(permisosVoluntario()){
@@ -61,6 +61,12 @@ EOS;
 			$htmlform
 EOS;
 
+		}
+		else {
+			$contenidoPrincipal .=<<<EOS
+			$respuestas
+			$htmlform
+EOS;	
 		}
 	}
 	require __DIR__.'/includes/plantillas/plantilla.php';
