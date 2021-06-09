@@ -13,6 +13,7 @@ $formNuevoForo=$form->gestiona();
 }
 
 $contenidoPrincipal = <<<EOS
+<h1 class="titulo"> HILOS </h1>
 $hilos
 $formNuevoForo
 EOS;
