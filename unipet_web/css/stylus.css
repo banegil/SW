@@ -222,15 +222,6 @@ h2 span:nth-child(10n + 10) {
 }
 
 
-footer {
-	clear: both;
-	padding: 15px;
-	height: 3px;
-	background: -webkit-linear-gradient(to right, #00FFFF, #FFFFFF );
-	background: linear-gradient(to right, #00FFFF, #FFFFFF );
-	color: #32D6F1;
-	text-align: left;
-}
 
 body {
   background: #ff5f6d;
