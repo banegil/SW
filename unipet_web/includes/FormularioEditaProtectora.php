@@ -27,8 +27,8 @@ class FormularioEditaProtectora extends Form
             <fieldset>
                     <label>id:</label> <input class="control" type="text" name="id" value="$id" readonly/>
                     <label>Nombre:</label> <input class="control" type="text" name="nombre" value="$nombre"required/>
-                    <label>Dirección:</label> <input class="control" type="text" name="nacimiento" value="$direccion" required/>
-                    <label>Telefono:</label> <input class="control" type="number" name="tipo" value="$telefono"required/>
+                    <label>Dirección:</label> <input class="control" type="text" name="direccion" value="$direccion" required/>
+                    <label>Telefono:</label> <input class="control" type="number" name="telefono" value="$telefono"required/>
                     
                 <div class="grupo-control"><button type="submit" name="actualizar">Actualizar</button></div>
             </fieldset>
