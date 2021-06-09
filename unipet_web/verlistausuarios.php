@@ -8,7 +8,7 @@ $usuarios = listaUsuarios(es\ucm\fdi\aw\Usuario:: getUsuarios());
 $tituloPagina = 'Lista de usuarios';
 
 $contenidoPrincipal = <<<EOS
-	<h1>Usuarios</h1>
+	<h1 class="titulo">Usuarios</h1>
 	$usuarios
 	
 EOS;
