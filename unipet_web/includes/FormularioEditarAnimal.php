@@ -45,7 +45,7 @@ class FormularioEditarAnimal extends Form
                     <label>tipo:</label> <select name="tipo">$opciones</select>
                     <label>raza:</label> <input class="control" type="text" name="raza" value="$raza" required/>
                     <label>sexo:</label> <input class="control" type="text" name="sexo" value="$sexo" required />
-                    <label>peso:</label> <input class="control" type="number" name="peso" value="$peso" required/>
+                    <label>peso:</label> <input class="control" type="number" step="0.1" name="peso" value="$peso" required/>
 					<label>Ingreso:</label>	<input type="date" name="fechaIngreso" value="$fechaIngreso" required/>
                     <label>protectora:</label> <input class="control" type="number" name="protectora" value='$protectora' required/>
                     <label>historia:</label> <input class="control" type="text" name="historia" value="$historia"/>
