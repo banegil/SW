@@ -91,7 +91,7 @@ if($animales)foreach($animales as $i){
 	$sexo=$i->getSexo();
 	$peso=$i->getPeso();
 	$ingreso=$i->getFecha_ingreso();
-	$urgente=$i->getUrgente()==0 ? "SI":"NO";
+	$urgente=$i->getUrgente()!=0 ? "SI":"NO";
 	$adoptado=$i->getID_propietario()!=null ? "NO": "SI";
 	$enlace="<a href='perfil_animal.php?id=$id_animal'> Ver </a>";
 	$tablaAnimales .= <<<EOS
