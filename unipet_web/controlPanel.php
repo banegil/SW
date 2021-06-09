@@ -166,10 +166,10 @@ $htmlFormRecaudar = $form->gestiona();
 $tituloPagina = 'Panel de control';
 
 $contenidoPrincipal = <<<EOS
-	<h1>Solicitudes</h1>
+	<h1 class="titulo">Solicitudes</h1>
 	$tablaSolicitudes
 	
-	<h1>Protectoras</h1>
+	<h1 class="titulo">Protectoras</h1>
 	$tablaProtectoras
 	<form action="protectoras.php">
 		<input type="submit" value="Ver lista" />
@@ -179,7 +179,7 @@ $contenidoPrincipal = <<<EOS
 		<input type="submit" value="Añadir protectora" />
 	</form>
 
-	<h1>Animales</h1>
+	<h1 class="titulo">Animales</h1>
 	$tablaAnimales
 	</article>
 	<form action="animalesAdopcion.php">
@@ -191,14 +191,14 @@ $contenidoPrincipal = <<<EOS
 		<input type="submit" value="Añadir animal" />
 	</form>
 	
-	<h1>Usuarios</h1>
+	<h1 class="titulo">Usuarios</h1>
 	$tablaUsuarios
 	</article>
 	<form action="verlistausuarios.php">
 		<input type="submit" value="Ver Lista" />
 	</form>
 	
-	<h1>Recaudacion de los apadrinamientos</h1>
+	<h1 class="titulo">Recaudacion de los apadrinamientos</h1>
 	$htmlFormRecaudar
 EOS;
 
