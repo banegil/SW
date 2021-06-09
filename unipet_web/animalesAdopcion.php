@@ -8,7 +8,7 @@ $formBuscaAnimales = new es\ucm\fdi\aw\FormularioBusquedaAnimales('1');
 $form = $formBuscaAnimales->gestiona();
 
 $contenidoPrincipal = <<<EOS
-<h1>Animales en adopción</h1>
+<h1 class="titulo">Animales en adopción</h1>
 $form
 EOS;
 
