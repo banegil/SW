@@ -12,7 +12,7 @@ class Transaccion
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
-           $user = new Transaccion($fila['ID'], $fila['ID_usuario'], $fila['cantidad'], $fila['tarjeta'], $fila['ID_animal']);
+           $user = new Transaccion($fila['ID'], $fila['ID_usuario'], $fila['cantidad'], $fila['tarjeta'], $fila['ID_animal'], $fila['fecha']);
         $rs->free();
         return $user;
        }
@@ -29,7 +29,7 @@ class Transaccion
 		if($rs && ($rs->num_rows >0)){
 			$resultado = [];
 			while($fila=$rs->fetch_assoc()){
-				$trans = new Transaccion($fila['ID'], $fila['ID_usuario'], $fila['cantidad'], $fila['tarjeta'], $fila['ID_animal']);
+				$trans = new Transaccion($fila['ID'], $fila['ID_usuario'], $fila['cantidad'], $fila['tarjeta'], $fila['ID_animal'], $fila['fecha']);
 				array_push($resultado, $trans);              
 			}
 			$rs->free();
@@ -44,7 +44,7 @@ class Transaccion
 		//$date = DateTime::createFromFormat('U.u', microtime(TRUE));
 		//$protectora = $date->format('YmdHisu');
 
-		$user = new Transaccion(0, $usuario, $cantidad, $numero_tarjeta, $animal);
+		$user = new Transaccion(0, $usuario, $cantidad, $numero_tarjeta, $animal, 0);
 		
 		if($animal == NULL){
 			return self::insertaConNull($user);
@@ -100,14 +100,16 @@ class Transaccion
 	private $cantidad;
 	private $numero_tarjeta;
 	private $ID_animal;
+	private $fecha;
 
-	private function __construct($id, $usuario, $cantidad, $tarjeta, $animal)
+	private function __construct($id, $usuario, $cantidad, $tarjeta, $animal, $fecha)
 	{
 		$this->ID = $id;
 		$this->ID_usuario = $usuario;
 		$this->cantidad = $cantidad;
 		$this->numero_tarjeta = $tarjeta;
 		$this->ID_animal = $animal;
+		$this->fecha = $fecha;
 	}
 
 	/**
@@ -142,5 +144,10 @@ class Transaccion
 	public function getID_animal()
 	{
 	return $this->ID_animal;
+	}
+	
+	public function getFecha()
+	{
+	return $this->fecha;
 	}
 }
