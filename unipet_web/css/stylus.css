@@ -99,15 +99,16 @@ footer {
 	clear: both;
 	padding: 15px;
 	height: 3px;
-	background-color: #ff5f6d;
+	background: -webkit-linear-gradient(to right, #00FFFF, #FFFFFF );
+	background: linear-gradient(to right, #00FFFF, #FFFFFF );
 	color: #32D6F1;
 	text-align: left;
 }
 
 body {
   background: #ff5f6d;
-  background: -webkit-linear-gradient(to right, #ff5f6d, #ffc371);
-  background: linear-gradient(to right, #ff5f6d, #ffc371);
+	background: -webkit-linear-gradient(to right, #FFFFFF, #00FFFF );
+	background: linear-gradient(to right, #FFFFFF, #00FFFF );
   min-height: 100vh;
 }
 
@@ -354,3 +355,4 @@ input[type="text"] {
 .thickness:nth-child(3) {
   transform: translateZ(-11px);
 }
+
