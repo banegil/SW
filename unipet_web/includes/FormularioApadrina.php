@@ -127,7 +127,7 @@ EOF;
 					$result[] = "No se ha podido registrar su apadrinamiento.";
 				}
 				else{
-					 $result = 'success.php';
+					 $result = 'index.php';
 				}
 				
 			}
