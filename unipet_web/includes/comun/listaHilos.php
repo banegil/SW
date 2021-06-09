@@ -30,11 +30,12 @@
 			
 			$cantidad = count($hilos);
 			
-			$html.= '<hr />';
 			for($i = 0; $i < $cantidad; $i++){ 
-				$html.= '<h3>- <a href = "hiloForo.php?hilo='.$hilos[$i]->getID().'">'.$hilos[$i]->getTitulo().'</a></h3>';
-				$html.= '<p>'.$hilos[$i]->getComentario().'</p>';
-				$html.= '<hr />';
+				$html .= '<div class="hilo">';
+				$html.= '<h2 class="tituloHilo "> <a href = "hiloForo.php?hilo='.$hilos[$i]->getID().'">'.$hilos[$i]->getTitulo().'</a></h2>';
+				$html.= '<p class="hilo">'.$hilos[$i]->getComentario().'</p>';
+				$html .= '</div>';
+				$html.= '<hr class="barraForo"/>';
 			}
 		}
 		return $html;
