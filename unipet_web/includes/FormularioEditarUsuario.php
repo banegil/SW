@@ -14,7 +14,7 @@ class FormularioEditarUsuario extends Form
     protected function generaCamposFormulario($datos, $errores = array())
     {
         
-        $user = Usuario::buscaPorID( idUsuarioLogado());
+        $user = Usuario::buscaPorID_usuario( idUsuarioLogado());
         $DNI = $user->getDni() ?? '';
 		$nombre = $user->getnombre() ?? '';
 		$apellido = $user->getApellido() ?? '';

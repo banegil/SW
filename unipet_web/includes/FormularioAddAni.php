@@ -7,20 +7,26 @@ class FormularioAddAni extends Form
     
     protected function generaCamposFormulario($datos, $errores = array())
     {
+			$nameAnimal = $datos['nameAnimal'] ?? '';
+			$fechaNacimiento = $datos['fechaNacimiento'] ?? '';
+			$raza = $datos['raza'] ?? '';
+			$sexo = $datos['sexo'] ?? '';
+			$peso = $datos['peso'] ?? '';
+			$fechaIngreso = $datos['fechaIngreso'] ?? '';
+			$protectora = $datos['protectora'] ?? '';
+			$protectorasOpt = "";
+			$protectoras = Protectora::getProtectoras();
+			if ($protectoras)foreach($protectoras as $i) $protectorasOpt .= "<option value=".$i->getID().">".$i->getNombre()."</option>";
 	    	$html = <<<EOS
 					<fieldset>
 						<legend>Rellene los datos del animal</legend>
-						
-						<div><label>Número de indentificación:</label> 
-							<input type="number" name="idAnimal" value="" size="25"/>
-						</div>	
-						
+												
 						<div><label>Nombre:</label> 
-							<input type="text" name="nameAnimal" value="" size="25"/>
+							<input type="text" name="nameAnimal" value="$nameAnimal" size="25"/>
 						</div>
 						
 						<div><label>Nacimiento:</label> 
-							<input type="date" name="fechaNacimiento" value="" size="25"/>
+							<input type="date" name="fechaNacimiento" value="$fechaNacimiento" size="25"/>
 						</div>
 						
 						<div><label>Tipo:</label> 
@@ -31,7 +37,7 @@ class FormularioAddAni extends Form
 						</div>
 						
 						<div><label>Raza:</label> 
-							<input type="text" name="raza" value="" size="25"/>
+							<input type="text" name="raza" value="$raza" size="25"/>
 						</div>
 						
 						<div><label>Sexo:</label> 
@@ -42,15 +48,17 @@ class FormularioAddAni extends Form
 						</div>
 						
 						<div><label>Peso:</label> 
-							<input type="number" name="peso" value="0" size="20"/>
+							<input type="number" name="peso" value="$peso" size="20"/>
 						</div>
 						
 						<div><label>Ingreso:</label> 
-							<input type="date" name="fechaIngreso" value="" size="25"/>
+							<input type="date" name="fechaIngreso" value="$fechaIngreso" size="25"/>
 						</div>
 						
 						<div><label>Protectora:</label> 
-							<input type="text" name="protectora" value="" size="25"/>
+							<select name="protectora">
+							$protectorasOpt
+							</select>
 						</div>
 						
 						<div><button type="submit">Añadir</button> <button type="reset">Borrar todo</button></div>
@@ -63,7 +71,6 @@ EOS;
     protected function procesaFormulario($datos) {
 		
 		$result = array();
-        $idAnimal = $datos['idAnimal'] ?? null;
 		$nameAnimal = $datos['nameAnimal'] ?? null;
 		$fechaNacimiento = $datos['fechaNacimiento'] ?? null;
 		$type = $datos['type'] ?? null;
@@ -73,19 +80,15 @@ EOS;
 		$fechaIngreso = $datos['fechaIngreso'] ?? null;
 		$protectora = $datos['protectora'] ?? null;
 		
-		if (empty($idAnimal) || empty($nameAnimal) || empty($fechaNacimiento) || empty($type) || empty($raza) || empty($sexo) || empty($peso) || empty($fechaIngreso) || empty($protectora)){
+		if (empty($nameAnimal) || empty($fechaNacimiento) || empty($type) || empty($raza) || empty($sexo) || empty($peso) || empty($fechaIngreso) || empty($protectora)){
 			$result[] = 'No puede quedar un campo sin rellenar';
 		}
 		
 		if (count($result) === 0) {
-            $ani = Animal::buscaPorID($idAnimal);
-            if ($ani) {
-                $result[] = 'El id del animal ya está en uso, prueba con uno que no lo esté';
-            } else {
-				$ani = Animal::add($idAnimal, $nameAnimal, $fechaNacimiento, $type, $raza, $sexo, $peso, $fechaIngreso, $protectora);
-				Animal::insertaAnimal($ani);
-                $result = 'controlPanel.php';
-            }
+			$ani = Animal::nuevoAnimal($nameAnimal, $fechaNacimiento, $type, $raza, $sexo, $peso, $fechaIngreso, $protectora);
+			if ($ani) $result = 'controlPanel.php';
+			else $result[]="Algo ha fallado en la BD";
+            
         }
 		
 		return $result;

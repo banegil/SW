@@ -4,10 +4,10 @@ namespace es\ucm\fdi\aw;
 
 class Protectora
     {
-		public static function add($id, $nombre, $direccion, $telefono)
+		public static function nuevaProtectora($nombre, $direccion, $telefono)
 		{	
-		   $protectora = new Protectora($id, $nombre, $direccion, $telefono);   
-		   return $protectora;
+		   $protectora = new Protectora(0, $nombre, $direccion, $telefono);   
+		   return self::insertaProtectora($protectora);
 		}
 
 		public static function actualizar($id, $nombre, $direccion, $telefono)
@@ -75,27 +75,22 @@ class Protectora
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	
-	$query = sprintf("INSERT INTO protectoras (ID, nombre, direccion, telefono) VALUES (%d, '%s', '%s', %d)"
-
-		  , $conn->real_escape_string($protectora->id)
+	$query = sprintf("INSERT INTO protectoras (nombre, direccion, telefono) VALUES ('%s', '%s', %d)"
 		  , $conn->real_escape_string($protectora->nombre)
 		  , $conn->real_escape_string($protectora->direccion)
 		  , $conn->real_escape_string($protectora->telefono));
-	
-	
-	/*$query = "INSERT INTO protectoras (ID, nombre, direccion, telefono)
-		VALUES ($protectora->id, '$protectora->nombre', $protectora->direccion, '$protectora->telefono')";*/
 		
 	$result = $conn->query($query);
 		
 	if ($result) {
 	  $result = $protectora;
+	  $protectora->id=$conn->insert_id;
 	} else {
-
 	  error_log($conn->error); 
+	  return false;
 	}
 	
-	return $result;
+	return true;
 }
 
 /**

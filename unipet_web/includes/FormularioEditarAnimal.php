@@ -5,16 +5,21 @@ namespace es\ucm\fdi\aw;
 
 class FormularioEditarAnimal extends Form
 {
-    public function __construct() {
-        parent::__construct('formEditAnimal');
+	private $idAni;
+    public function __construct($idAni) {
+		$this->idAni=$idAni;
+       	$opciones = array('action' => 'modificaPerfilAnimal.php?id='. $this->idAni);
+        parent::__construct("1", $opciones);
     }
     
     protected function generaCamposFormulario($datos, $errores = array())
     {
         
-        $idAnimal = $_GET['id'];
-        $animal = Animal::buscaPorID($idAnimal);
-
+        $animal = Animal::buscaPorID($this->idAni);
+		if (!$animal) {
+			$html = "<h1> NO EXISTE EL ANIMAL CON ID = ".$this->idAni."</h1>";
+			return $html;
+		}
         $id =  $animal->getId() ?? '';
 		$nombre =  $animal->getNombre() ?? '';
 		$nacimiento =  $animal->getNacimiento() ?? '';
@@ -25,20 +30,22 @@ class FormularioEditarAnimal extends Form
         $protectora =$animal->getProtectora() ?? '';
         $historia = $animal->getHistoria_feliz() ?? '';
         $urgente =  $animal->getUrgente() ?? '';
+		$fechaIngreso = $animal->getFecha_ingreso() ?? '';
 
       
         $html = <<<EOF
             <fieldset>
-                    <label>id:</label> <input class="control" type="text" name="id" value="$id" readonly/>
+                    <label>id:</label> <input class="control" type="number" name="id" value="$id" readonly/>
                     <label>Nombre:</label> <input class="control" type="text" name="nombre" value="$nombre"required/>
                     <label>Nacimiento:</label> <input class="control" type="date" name="nacimiento" value="$nacimiento" required/>
                     <label>tipo:</label> <input class="control" type="text" name="tipo" value="$tipo"required/>
                     <label>raza:</label> <input class="control" type="text" name="raza" value="$raza" required/>
                     <label>sexo:</label> <input class="control" type="text" name="sexo" value="$sexo" required />
                     <label>peso:</label> <input class="control" type="number" name="peso" value="$peso" required/>
+					<label>Ingreso:</label>	<input type="date" name="fechaIngreso" value="$fechaIngreso" required/>
                     <label>protectora:</label> <input class="control" type="number" name="protectora" value='$protectora' required/>
-                    <label>historia:</label> <input class="control" type="text" name="historia feliz" value="$historia"/>
-                    <label>urgente:</label> <input class="control" type="number" name="urgente 1/0" value="$urgente" required/>
+                    <label>historia:</label> <input class="control" type="text" name="historia" value="$historia"/>
+                    <label>urgente:</label> <select name="urgente"> <option value="0">NO</option> <option value="1">SI</option></select>
                 <div class="grupo-control"><button type="submit" name="actualizar">Actualizar</button></div>
             </fieldset>
 EOF;
@@ -65,9 +72,7 @@ EOF;
         $tipo = $datos['tipo'] ?? null;
         $historia = $datos['historia'] ?? null;
 
-        if ( empty($sexo) || mb_strlen($sexo) < 2 ) {
-            $result['sexo'] = "El sexo tiene que tener una longitud de al menos 2 caracteres.";
-        }
+		$fechaIngreso = $datos['fechaIngreso'] ?? null;
 		$protectora = $datos['protectora'] ?? null;
         $urgente = $datos['urgente'] ?? null;
 		
@@ -77,9 +82,9 @@ EOF;
 		
 	
         if (count($result) === 0) {
-            $animal = Animal::actualizar($id, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $protectora, $historia, $urgente);
+            $animal = Animal::actualizar($id, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso,$fechaIngreso ,$protectora, $historia, $urgente);
             if ( ! $animal ) {
-                $result[] = "El animal ya existe";
+                $result[] = "El animal no existe";
             } else {
                 $result = "perfil_animal.php?id=".$id;
             }

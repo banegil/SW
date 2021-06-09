@@ -5,24 +5,23 @@ namespace es\ucm\fdi\aw;
 class Animal
 {
 	
-	public static function add($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $ingreso, $protectora)
+	public static function nuevoAnimal($nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $ingreso, $protectora)
 	{	
-	   $animal = new Animal($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $ingreso, $protectora, NULL, NULL,NULL);   
-	   return $animal;
+	   $animal = new Animal(0,$nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $ingreso, $protectora, NULL, NULL,0);   
+	   return self::insertaAnimal($animal);
 	}
 	
-	public static function actualizar($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $protectora,$historia_feliz, $urgente)
+	public static function actualizar($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $ingreso ,$protectora,$historia_feliz, $urgente)
 	{	
-	   $animal = new Animal($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, NULL, $protectora, $historia_feliz, NULL, $urgente); 
+	   $animal = new Animal($idAnimal, $nombre, $nacimiento, $tipo, $raza, $sexo, $peso, $ingreso, $protectora, $historia_feliz, NULL, $urgente); 
 	   return self::actualizaAnimal($animal);  
-	   return $animal;
 	}
 	
     public static function buscaPorID($idAnimal)
     {
        $app = Aplicacion::getSingleton();
        $conn = $app->conexionBd();
-       $query = sprintf("SELECT * FROM animales WHERE ID='%s' ", $idAnimal); 
+       $query = sprintf("SELECT * FROM animales WHERE ID=%d ", $idAnimal); 
        $rs = $conn->query($query);
        if($rs && $rs->num_rows == 1){
            $fila = $rs->fetch_assoc();
@@ -40,7 +39,7 @@ class Animal
    public static function getAdoptados($idUsuario){
       $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-         $query = sprintf("SELECT * FROM animales WHERE ID_usuario='%s' ",$idUsuario); 
+         $query = sprintf("SELECT * FROM animales WHERE ID_usuario=%d ",$idUsuario); 
          $rs = $conn->query($query);
          if($rs && ($rs->num_rows >0)){
             $resultado = [];
@@ -64,7 +63,7 @@ class Animal
    $app = Aplicacion::getSingleton();
    $conn = $app->conexionBd();
    $query = sprintf("SELECT anim.ID, anim.nombre, anim.nacimiento, anim.tipo,anim.raza, anim.sexo, anim.peso, anim.ingreso, anim.protectora,anim.historia, anim.ID_usuario, anim.urgente
-    FROM animales anim JOIN apadrinados apa ON anim.ID = apa.ID JOIN usuarios usu ON apa.ID_usuario = usu.ID   WHERE usu.ID='%s' ",$idUsuario); 
+    FROM animales anim JOIN apadrinados apa ON anim.ID = apa.ID JOIN usuarios usu ON apa.ID_usuario = usu.ID   WHERE usu.ID=%d ",$idUsuario); 
    $rs = $conn->query($query);
    if($rs && ($rs->num_rows >0)){
       $resultado = [];
@@ -190,8 +189,7 @@ public static function insertaAnimal($animal)
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 	
-	$query = sprintf("INSERT INTO animales (ID, nombre, nacimiento, tipo, raza, sexo, peso, ingreso, protectora, urgente) VALUES (%d, '%s', '%s', '%s', '%s', '%s', %f, '%s', %d, 0)"
-	  , $conn->real_escape_string($animal->id)
+	$query = sprintf("INSERT INTO animales (nombre, nacimiento, tipo, raza, sexo, peso, ingreso, protectora, urgente) VALUES ('%s', '%s', '%s', '%s', '%s', %f, '%s', %d, 0)"
 	  , $conn->real_escape_string($animal->nombre)
 	  , $conn->real_escape_string($animal->nacimiento)
 	  , $conn->real_escape_string($animal->tipo)
@@ -200,20 +198,18 @@ public static function insertaAnimal($animal)
 	  , $conn->real_escape_string($animal->peso)
 	  , $conn->real_escape_string($animal->fecha_ingreso)
 	  , $conn->real_escape_string($animal->protectora));
-	  
-	  
-	/*$query = "INSERT INTO animales (ID, nombre, nacimiento, tipo, raza, sexo, peso,ingreso, protectora, historia, ID_usuario, urgente)
-	VALUES ($animal->id, '$animal->nombre', $animal->nacimiento, '$animal->tipo', '$animal->raza', '$animal->sexo', $animal->peso, $animal->fecha_ingreso, $animal->protectora, '$animal->historia_feliz', $animal->id_propietario, $animal->urgente)";*/
-	
+	  	
 	$result = $conn->query($query);
-	
+
 	if ($result) {
 	  $result = $animal;
+	  $animal->id = $conn->insert_id;
 	} else {
-	  error_log($conn->error); 
+	  error_log($conn->error);
+		return false;	  
 	}
 	
-	return $result;
+	return true;
 }
 
 /**
@@ -227,7 +223,7 @@ public static function actualizaAnimal($animal)
 	$app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 		
-	$query = sprintf("UPDATE animales SET nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = '%s', protectora = '%s', historia = '%s', ID_usuario = '%s', urgente= '%s' WHERE ID = '%s'"
+	$query = sprintf("UPDATE animales SET nombre = '%s', nacimiento = '%s', tipo = '%s', raza = '%s', sexo = '%s', peso = '%s', protectora = %d, historia = '%s', urgente= '%s' WHERE ID = %d"
 	
 	  , $conn->real_escape_string($animal->nombre)
 	  , $conn->real_escape_string($animal->nacimiento)
@@ -237,7 +233,6 @@ public static function actualizaAnimal($animal)
 	  , $conn->real_escape_string($animal->peso)
 	  , $conn->real_escape_string($animal->protectora)
 	  , $conn->real_escape_string($animal->historia_feliz)
-	  , $conn->real_escape_string($animal->id_propietario)
 	  , $conn->real_escape_string($animal->urgente)
 	  , $conn->real_escape_string($animal->id));
 	  
