@@ -53,7 +53,7 @@ EOS;
 			if(count($errores)===0){
 				$entrada = Entrada::nuevaEntrada($this->idUsu,$this->id_hilo,$comentario,date("Y-m-d H:i:s"));
 				if(!$entrada) $errores[]="ERROR AL INSERTAR COMENTARIO";
-				else $errores = "foro.php";
+				else $errores = 'hiloForo.php?hilo='. $this->id_hilo;
 			}
 			
 			return $errores;
