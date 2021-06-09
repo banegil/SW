@@ -7,7 +7,7 @@ $tituloPagina = 'Historias';
 $adoptados = listaAnimales(es\ucm\fdi\aw\Animal::getAnimalesAdoptados());
 
 $contenidoPrincipal = <<<EOS
-<h1>Nuestros animales adoptados</h1>
+<h1 class="titulo">Nuestros animales adoptados</h1>
 $adoptados
 EOS;
 
