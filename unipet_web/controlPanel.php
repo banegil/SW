@@ -170,6 +170,7 @@ $tablaTransacciones= <<<EOS
     <th>cantidad</th>
 	<th>tarjeta</th>
 	<th>ID_animal</th>
+	<th>fecha</th>
   </tr>
 EOS;
 if($transacciones)foreach($transacciones as $i){
@@ -178,6 +179,7 @@ if($transacciones)foreach($transacciones as $i){
 	$cantidad=$i->getCantidad();
 	$tarjeta=$i->getNumTarjeta();
 	$ID_animal=$i->getID_animal();
+	$fecha=$i->getFecha();
 	
 	if(empty($ID_animal)){
 		$ID_animal = "null";
@@ -190,6 +192,7 @@ if($transacciones)foreach($transacciones as $i){
 		<td>$cantidad</td>
 		<td>$tarjeta</td>
 		<td>$ID_animal</td>
+		<th>$fecha</th>
 	  </tr>
 EOS;
 }
