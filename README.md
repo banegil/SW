@@ -13,8 +13,6 @@ En su lugar meter el archivo en la rama correspondiente para una mayor organizac
 
 3º No hay mas pasos, fasilito.
 
-Y algo muy importante por favor... No borreis las ramas porque se va todo a la mierda y no se puede deshacer (Atento Albertillo haznos el favor).
-
 Para hacer cambios de un archivo aqui en el github os vais al archivo de la rama correspondiente y al meteros os sale como un lapiz arriba a la derecha,
 cambiais lo que necesiteis o si lo que quereis es resubir todo porque habeis hecho muchos cambios en un editor aparte entonces seleccionais todo lo vuestro, lo copiais,
 os vais al archivo del github, dais al lapiz y pegais todo (sobreescribiendo todo lo que habia antes en el archivo, para evitar confusiones).
